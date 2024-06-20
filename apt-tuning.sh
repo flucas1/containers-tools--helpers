@@ -71,10 +71,6 @@ cat > /etc/apt/preferences << DELIMITER_END_RAW_TEXT
 
 
 Package: *
-Pin: origin debian.randomizer.space
-Pin-Priority: 999
-
-Package: *
 Pin: origin deb.frrouting.org
 Pin-Priority: 995
 
@@ -134,6 +130,20 @@ Pin-Priority: 50
 
 DELIMITER_END_RAW_TEXT
 
-rm -f /etc/apt/sources.list.d/debian.sources
-printf "deb [trusted=yes] https://debian.randomizer.space/repository/ randomizer main" > /etc/apt/sources.list.d/randomizer.list
-${HELPERSPATH}/apt-update.sh
+CUSTOMREPOSITORYIDENTIFIER="randomizer"
+CUSTOMREPOSITORYSERVER="debian.randomizer.space"
+CUSTOMREPOSITORYPATH="/repository/"
+if [ "${CUSTOMREPOSITORYIDENTIFIER}" != "" ] ; then
+  cat > /etc/apt/preferences << DELIMITER_END_RAW_TEXT
+
+
+
+Package: *
+Pin: origin ${CUSTOMREPOSITORYSERVER}
+Pin-Priority: 999
+
+DELIMITER_END_RAW_TEXT
+  rm -f /etc/apt/sources.list.d/debian.sources
+  printf "deb [trusted=yes] https://${CUSTOMREPOSITORYSERVER}${CUSTOMREPOSITORYPATH} ${CUSTOMREPOSITORYIDENTIFIER} main" > /etc/apt/sources.list.d/${CUSTOMREPOSITORYIDENTIFIER}.list
+  ${HELPERSPATH}/apt-update.sh
+fi
