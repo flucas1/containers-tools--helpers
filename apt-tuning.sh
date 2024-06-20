@@ -132,16 +132,16 @@ Pin-Priority: 50
 DELIMITER_END_RAW_TEXT
 
 
-if [ "${CUSTOMREPOSITORYIDENTIFIER}" != "" ] ; then
+if [ "${CUSTOMREPOSITORY_IDENTIFIER}" != "" ] ; then
   cat > /etc/apt/preferences << DELIMITER_END_RAW_TEXT
 
 
 
 Package: *
-Pin: origin ${CUSTOMREPOSITORYSERVER}
+Pin: origin ${CUSTOMREPOSITORY_SERVER}
 Pin-Priority: 999
 
 DELIMITER_END_RAW_TEXT
-  printf "deb [trusted=yes] https://${CUSTOMREPOSITORYSERVER}${CUSTOMREPOSITORYPATH} ${CUSTOMREPOSITORYIDENTIFIER} main" > /etc/apt/sources.list.d/${CUSTOMREPOSITORYIDENTIFIER}.list
+  printf "deb [trusted=yes] https://${CUSTOMREPOSITORY_SERVER}${CUSTOMREPOSITORY_PATH} ${CUSTOMREPOSITORY_IDENTIFIER} main" > /etc/apt/sources.list.d/${CUSTOMREPOSITORY_IDENTIFIER}.list
   ${HELPERSPATH}/apt-update.sh
 fi
