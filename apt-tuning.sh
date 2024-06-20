@@ -131,9 +131,7 @@ Pin-Priority: 50
 
 DELIMITER_END_RAW_TEXT
 
-CUSTOMREPOSITORYIDENTIFIER="randomizer"
-CUSTOMREPOSITORYSERVER="debian.randomizer.space"
-CUSTOMREPOSITORYPATH="/repository/"
+
 if [ "${CUSTOMREPOSITORYIDENTIFIER}" != "" ] ; then
   cat > /etc/apt/preferences << DELIMITER_END_RAW_TEXT
 
