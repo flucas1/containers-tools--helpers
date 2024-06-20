@@ -41,6 +41,7 @@ ${HELPERSPATH}/apt-retry-install.sh apt-transport-https
 ${HELPERSPATH}/apt-retry-install.sh ca-certificates
 ${HELPERSPATH}/apt-retry-install.sh lsb-release
 
+rm -f /etc/apt/sources.list.d/debian.sources
 cat /dev/null > /etc/apt/sources.list
 cat /dev/null > /etc/apt/sources.list.d/debian.list
 printf "deb http://deb.debian.org/debian $(lsb_release -c -s) main contrib non-free non-free-firmware\n" >> /etc/apt/sources.list.d/debian.list
@@ -143,7 +144,6 @@ Pin: origin ${CUSTOMREPOSITORYSERVER}
 Pin-Priority: 999
 
 DELIMITER_END_RAW_TEXT
-  rm -f /etc/apt/sources.list.d/debian.sources
   printf "deb [trusted=yes] https://${CUSTOMREPOSITORYSERVER}${CUSTOMREPOSITORYPATH} ${CUSTOMREPOSITORYIDENTIFIER} main" > /etc/apt/sources.list.d/${CUSTOMREPOSITORYIDENTIFIER}.list
   ${HELPERSPATH}/apt-update.sh
 fi
