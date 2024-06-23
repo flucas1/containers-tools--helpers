@@ -6,7 +6,7 @@ set -x
 APTARGUMENTS="-q=1 -y"
 if [ -f /usr/bin/aptitude ] ; then
   APTBINARY="/usr/bin/aptitude"
-  APTARGUMENTS="--without-recommends ${APTARGUMENTS}"
+  APTARGUMENTS="--without-recommends --allow-new-upgrades --allow-new-installs ${APTARGUMENTS}"
 else
   APTBINARY="/usr/bin/apt-get"
   APTARGUMENTS="--no-install-recommends ${APTARGUMENTS}"
