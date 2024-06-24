@@ -8,6 +8,7 @@ HELPERSPATH="/helpers"
 ${HELPERSPATH}/apt-retry-install.sh imagemagick
 sed -i 's#^  <policy domain="coder" rights="none" pattern="PDF" />#  <!-- <policy domain="coder" rights="none" pattern="PDF" /> -->#g' /etc/ImageMagick-*/policy.xml
 
+${HELPERSPATH}/apt-retry-install.sh libencode-perl
 ${HELPERSPATH}/apt-retry-install.sh xterm
 ${HELPERSPATH}/apt-retry-install.sh ruby
 ${HELPERSPATH}/apt-retry-install.sh fontconfig
