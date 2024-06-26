@@ -14,13 +14,13 @@ def infomsg(msg):
 
 #-------------------------------------------------------------------------------
 
-def execute_cmdline(cmdline):
+def execute_cmdline(cmdline,dotnetenv):
     #dotnetenv = {}
     #dotnetenv["DOTNET_CLI_UI_LANGUAGE"] = "en-us"
     myencoding = None
     
     infomsg("executing cmdline -> "+" ".join(cmdline))
-    completed = subprocess.run(cmdline, capture_output=True, encoding=myencoding, check=True)
+    completed = subprocess.run(cmdline, capture_output=True, encoding=myencoding, env=dotnetenv, check=True)
     infomsg(completed.stdout.decode().strip())
     infomsg(completed.stderr.decode().strip())
 
@@ -38,13 +38,20 @@ def main():
         infomsg("Changing path into "+tempdir)
         os.chdir(tempdir)
         
+        dotnetenv = os.environ.copy()
+        dotnetenv["NO_COLOR"]="true"
+        dotnetenv["DOTNET_NOLOGO"]="true"
+        dotnetenv["DOTNET_CLI_TELEMETRY_OPTOUT"]="1"
+        dotnetenv["DOTNET_CLI_FORCE_UTF8_ENCODING"]="true"
+        dotnetenv["DOTNET_SYSTEM_NET_DISABLEIPV6"]="true"
+        
         infomsg("Creating skeleton console application")
         cmdline = ["dotnet","new","console","--use-program-main"]
-        execute_cmdline(cmdline)
+        execute_cmdline(cmdline,dotnetenv)
         
         infomsg("Running the application")
         cmdline = ["dotnet","run"]
-        execute_cmdline(cmdline)
+        execute_cmdline(cmdline,dotnetenv)
     except Exception as e:
         errors = errors+1
         infomsg(e)
