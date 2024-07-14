@@ -25,11 +25,20 @@ ${HELPERSPATH}/apt-update.sh
 
 ${HELPERSPATH}/apt-retry-install.sh wget
 ${HELPERSPATH}/apt-retry-install.sh winbind
+${HELPERSPATH}/apt-retry-install.sh libavahi-client3
+${HELPERSPATH}/apt-retry-install.sh libjbig0
+${HELPERSPATH}/apt-retry-install.sh libmount1
 ${HELPERSPATH}/apt-retry-install.sh libsane1
 if [ "${ARCHITECTURE}" = "amd64" ] ; then
+  ${HELPERSPATH}/apt-retry-install.sh libavahi-client3:i386
+  ${HELPERSPATH}/apt-retry-install.sh libjbig0:i386
+  ${HELPERSPATH}/apt-retry-install.sh libmount1:i386
   ${HELPERSPATH}/apt-retry-install.sh libsane1:i386
 fi
 if [ "${ARCHITECTURE}" = "arm64" ] ; then
+  ${HELPERSPATH}/apt-retry-install.sh libavahi-client3:armhf
+  ${HELPERSPATH}/apt-retry-install.sh libjbig0:armhf
+  ${HELPERSPATH}/apt-retry-install.sh libmount1:armhf
   ${HELPERSPATH}/apt-retry-install.sh libsane1:armhf
 fi
 
