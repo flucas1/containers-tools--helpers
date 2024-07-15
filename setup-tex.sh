@@ -30,6 +30,7 @@ ${HELPERSPATH}/apt-retry-install.sh lcdf-typetools
 ${HELPERSPATH}/apt-retry-install.sh texlive-binaries
 ${HELPERSPATH}/apt-retry-install.sh texlive-fonts-recommended
 ${HELPERSPATH}/apt-retry-install.sh texlive-fonts-extra
+${HELPERSPATH}/apt-retry-install.sh texlive-fonts-extra-links
 ${HELPERSPATH}/apt-retry-install.sh texlive-latex-recommended
 ${HELPERSPATH}/apt-retry-install.sh texlive-latex-extra
 ${HELPERSPATH}/apt-retry-install.sh texlive-xetex
@@ -69,6 +70,17 @@ ${HELPERSPATH}/apt-retry-install.sh texlive-lang-arabic
 ${HELPERSPATH}/apt-retry-install.sh texlive-lang-cjk
 ${HELPERSPATH}/apt-retry-install.sh texlive-lang-european
 ${HELPERSPATH}/apt-retry-install.sh texlive-lang-cyrillic
+${HELPERSPATH}/apt-retry-install.sh texlive-lang-chinese
+${HELPERSPATH}/apt-retry-install.sh texlive-lang-czechslovak
+${HELPERSPATH}/apt-retry-install.sh texlive-lang-english
+${HELPERSPATH}/apt-retry-install.sh texlive-lang-french
+${HELPERSPATH}/apt-retry-install.sh texlive-lang-german
+${HELPERSPATH}/apt-retry-install.sh texlive-lang-italian
+${HELPERSPATH}/apt-retry-install.sh texlive-lang-japanese
+${HELPERSPATH}/apt-retry-install.sh texlive-lang-korean
+${HELPERSPATH}/apt-retry-install.sh texlive-lang-polish
+${HELPERSPATH}/apt-retry-install.sh texlive-lang-portuguese
+${HELPERSPATH}/apt-retry-install.sh texlive-lang-spanish
 ${HELPERSPATH}/apt-retry-install.sh texlive-bibtex-extra
 ${HELPERSPATH}/apt-retry-install.sh texlive-formats-extra
 ${HELPERSPATH}/apt-retry-install.sh texlive-fonts-extra-doc
