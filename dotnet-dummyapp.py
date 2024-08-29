@@ -18,7 +18,7 @@ def execute_cmdline(cmdline,dotnetenv):
     #dotnetenv = {}
     #dotnetenv["DOTNET_CLI_UI_LANGUAGE"] = "en-us"
     myencoding = None
-    
+
     infomsg("executing cmdline -> "+" ".join(cmdline))
     completed = subprocess.run(cmdline, capture_output=True, encoding=myencoding, env=dotnetenv, check=True)
     infomsg(completed.stdout.decode().strip())
@@ -31,7 +31,7 @@ def main():
     
     tempdir = None
     olddir = os.getcwd()
-    
+
     try:
         infomsg("Creating temp folder")
         tempdir = tempfile.mkdtemp()
@@ -61,12 +61,12 @@ def main():
     if os.path.isdir(tempdir):
         infomsg("Deleting "+tempdir)
         shutil.rmtree(tempdir)
-    
+
     exitcode = 0
     if errors>0:
         exitcode = 1
     infomsg("The exitcode is "+str(exitcode))
-    sys.exit(exitcode)    
+    sys.exit(exitcode)
 
 #-------------------------------------------------------------------------------
 
