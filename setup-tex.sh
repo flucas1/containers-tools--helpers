@@ -104,7 +104,8 @@ ${HELPERSPATH}/apt-retry-install.sh exiftool
 ${HELPERSPATH}/apt-retry-install.sh diffpdf
 ${HELPERSPATH}/apt-retry-install.sh libreoffice
 ${HELPERSPATH}/apt-retry-install.sh fontforge
-${HELPERSPATH}/apt-retry-install.sh python3-fitz
+#${HELPERSPATH}/apt-retry-install.sh python3-fitz # 1.24.2+ds1-3 gives segmentation fault # maybe create logic to check version and if that version use direct install
+pip install --break-system-packages --upgrade pymupdf
 ${HELPERSPATH}/apt-retry-install.sh python3-pil
 ${HELPERSPATH}/apt-retry-install.sh python3-opencv
 ${HELPERSPATH}/apt-retry-install.sh python3-numpy
