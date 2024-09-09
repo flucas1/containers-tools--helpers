@@ -35,6 +35,8 @@ ${HELPERSPATH}/apt-retry-install.sh wget
 ${HELPERSPATH}/apt-retry-install.sh gpg
 ${HELPERSPATH}/apt-retry-install.sh gnupg
 
+${HELPERSPATH}/apt-retry-install.sh rclone
+
 ${HELPERSPATH}/apt-retry-install.sh coreutils
 ${HELPERSPATH}/apt-retry-install.sh moreutils
 
