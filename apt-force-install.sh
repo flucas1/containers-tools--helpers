@@ -3,6 +3,8 @@
 set -e
 set -x
 
+dpkg --configure -a
+
 APTARGUMENTS="-q=1 -y"
 if [ -f /usr/bin/aptitude ] ; then
   APTBINARY="/usr/bin/aptitude"
