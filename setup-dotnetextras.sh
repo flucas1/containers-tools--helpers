@@ -3,10 +3,38 @@
 set -e
 set -x
 
-HELPERSPATH="/helpers"
-HELPERSCACHE="/helperscache"
+MAXRETRIES=30 ; COUNTER=0 ; SUCCESS=0
+while [ $SUCCESS -eq 0 ] && [ $COUNTER -lt $MAXRETRIES ] ; do
+  echo "Retry #$COUNTER"
+  if timeout 900s /opt/dotnet/dotnet workload install wasm-experimental $1 ; then
+    SUCCESS=1
+  else
+    COUNTER=$(( $COUNTER + 1 ))
+    sleep 5s
+  fi
+done
+[ $SUCCESS -eq 1 ]
 
-/opt/dotnet/dotnet workload install wasm-experimental
-/opt/dotnet/dotnet workload install wasm-tools
+MAXRETRIES=30 ; COUNTER=0 ; SUCCESS=0
+while [ $SUCCESS -eq 0 ] && [ $COUNTER -lt $MAXRETRIES ] ; do
+  echo "Retry #$COUNTER"
+  if timeout 900s /opt/dotnet/dotnet workload install wasm-tools $1 ; then
+    SUCCESS=1
+  else
+    COUNTER=$(( $COUNTER + 1 ))
+    sleep 5s
+  fi
+done
+[ $SUCCESS -eq 1 ]
 
-/opt/dotnet/dotnet new install avalonia.templates
+MAXRETRIES=30 ; COUNTER=0 ; SUCCESS=0
+while [ $SUCCESS -eq 0 ] && [ $COUNTER -lt $MAXRETRIES ] ; do
+  echo "Retry #$COUNTER"
+  if timeout 900s /opt/dotnet/dotnet new install avalonia.templates $1 ; then
+    SUCCESS=1
+  else
+    COUNTER=$(( $COUNTER + 1 ))
+    sleep 5s
+  fi
+done
+[ $SUCCESS -eq 1 ]
