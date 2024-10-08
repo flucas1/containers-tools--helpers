@@ -63,7 +63,7 @@ else
   
   mkdir -p /etc/apt/sources.list.d
   echo "deb [signed-by=/etc/apt/keyrings/winehq.asc] https://dl.winehq.org/wine-builds/debian $(lsb_release -c -s) main" > /etc/apt/sources.list.d/winehq.list
-  wget --quiet --retry-connrefused --waitretry=1 --tries=10 https://dl.winehq.org/wine-builds/winehq.key -O /etc/apt/keyrings/winehq.asc
+  timeout 900s wget --quiet --retry-connrefused --waitretry=1 --tries=10 https://dl.winehq.org/wine-builds/winehq.key -O /etc/apt/keyrings/winehq.asc
   ${HELPERSPATH}/apt-update.sh
 
   ${HELPERSPATH}/apt-retry-install.sh winehq-${WINEGRAPE}${DEBIANSUFFIX}
@@ -95,33 +95,33 @@ else
 fi
 [ "${WINECLEAN}" != "" ]
 
-#MONOVERSION="$(wget --quiet --retry-connrefused --waitretry=1 --tries=10 -O - https://dl.winehq.org/wine/wine-mono/ | xmlstarlet fo -R 2>/dev/null | xmlstarlet sel -t -v "//_:td[@class='indexcolname']/_:a" 2>/dev/null | tr -d "/" | grep -v - | tail -n +2 | sort -n | tail -n 1)"
-MONOVERSION="$(wget --quiet --retry-connrefused --waitretry=1 --tries=10 -O - "https://gitlab.winehq.org/wine/wine/-/raw/wine-${WINECLEAN}/dlls/appwiz.cpl/addons.c" | grep "#define MONO_VERSION" | awk '{print $3}' | tr -d '"')"
+#MONOVERSION="$(timeout 900s wget --quiet --retry-connrefused --waitretry=1 --tries=10 -O - https://dl.winehq.org/wine/wine-mono/ | xmlstarlet fo -R 2>/dev/null | xmlstarlet sel -t -v "//_:td[@class='indexcolname']/_:a" 2>/dev/null | tr -d "/" | grep -v - | tail -n +2 | sort -n | tail -n 1)"
+MONOVERSION="$(timeout 900s wget --quiet --retry-connrefused --waitretry=1 --tries=10 -O - "https://gitlab.winehq.org/wine/wine/-/raw/wine-${WINECLEAN}/dlls/appwiz.cpl/addons.c" | grep "#define MONO_VERSION" | awk '{print $3}' | tr -d '"')"
 [ "${MONOVERSION}" != "" ]
 mkdir -p /usr/share/wine/mono/
 if [ "${ARCHITECTURE}" = "amd64" ] ; then
   LOCALFILENAME="/usr/share/wine/mono/wine-mono-${MONOVERSION}-x86.msi"
   if [ ! -f "${LOCALFILENAME}" ] ; then
-    wget --quiet --retry-connrefused --waitretry=1 --tries=10 -O ${LOCALFILENAME} https://dl.winehq.org/wine/wine-mono/${MONOVERSION}/wine-mono-${MONOVERSION}-x86.msi
+    timeout 900s wget --quiet --retry-connrefused --waitretry=1 --tries=10 -O ${LOCALFILENAME} https://dl.winehq.org/wine/wine-mono/${MONOVERSION}/wine-mono-${MONOVERSION}-x86.msi
   fi
 fi
 if [ "${ARCHITECTURE}" = "arm64" ] ; then
   echo "dummy mono ${MONOVERSION}"
 fi
 
-#GECKOVERSION="$(wget --quiet --retry-connrefused --waitretry=1 --tries=10 -O - https://dl.winehq.org/wine/wine-gecko/ | xmlstarlet fo -R 2>/dev/null | xmlstarlet sel -t -v "//_:td[@class='indexcolname']/_:a" 2>/dev/null | tr -d "/" | grep -v - | tail -n +2 | sort -n | tail -n 1)"
-GECKOVERSION="$(wget --quiet --retry-connrefused --waitretry=1 --tries=10 -O - "https://gitlab.winehq.org/wine/wine/-/raw/wine-${WINECLEAN}/dlls/appwiz.cpl/addons.c" | grep "#define GECKO_VERSION" | awk '{print $3}' | tr -d '"')"
+#GECKOVERSION="$(timeout 900s wget --quiet --retry-connrefused --waitretry=1 --tries=10 -O - https://dl.winehq.org/wine/wine-gecko/ | xmlstarlet fo -R 2>/dev/null | xmlstarlet sel -t -v "//_:td[@class='indexcolname']/_:a" 2>/dev/null | tr -d "/" | grep -v - | tail -n +2 | sort -n | tail -n 1)"
+GECKOVERSION="$(timeout 900s wget --quiet --retry-connrefused --waitretry=1 --tries=10 -O - "https://gitlab.winehq.org/wine/wine/-/raw/wine-${WINECLEAN}/dlls/appwiz.cpl/addons.c" | grep "#define GECKO_VERSION" | awk '{print $3}' | tr -d '"')"
 [ "${GECKOVERSION}" != "" ]
 mkdir -p /usr/share/wine/gecko/
 if [ "${ARCHITECTURE}" = "amd64" ] ; then
   LOCALFILENAME="/usr/share/wine/gecko/wine-gecko-${GECKOVERSION}-x86.msi"
   if [ ! -f "${LOCALFILENAME}" ] ; then
-    wget --quiet --retry-connrefused --waitretry=1 --tries=10 -O ${LOCALFILENAME} https://dl.winehq.org/wine/wine-gecko/${GECKOVERSION}/wine-gecko-${GECKOVERSION}-x86.msi
+    timeout 900s wget --quiet --retry-connrefused --waitretry=1 --tries=10 -O ${LOCALFILENAME} https://dl.winehq.org/wine/wine-gecko/${GECKOVERSION}/wine-gecko-${GECKOVERSION}-x86.msi
   fi
   
   LOCALFILENAME="/usr/share/wine/gecko/wine-gecko-${GECKOVERSION}-x86_64.msi"
   if [ ! -f "${LOCALFILENAME}" ] ; then
-    wget --quiet --retry-connrefused --waitretry=1 --tries=10 -O ${LOCALFILENAME} https://dl.winehq.org/wine/wine-gecko/${GECKOVERSION}/wine-gecko-${GECKOVERSION}-x86_64.msi
+    timeout 900s wget --quiet --retry-connrefused --waitretry=1 --tries=10 -O ${LOCALFILENAME} https://dl.winehq.org/wine/wine-gecko/${GECKOVERSION}/wine-gecko-${GECKOVERSION}-x86_64.msi
   fi
 fi
 if [ "${ARCHITECTURE}" = "arm64" ] ; then

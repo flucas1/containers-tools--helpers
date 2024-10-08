@@ -67,7 +67,7 @@ crx_download_url="${crx_download_url}&prodversion=${product_version}"
 crx_download_url="${crx_download_url}&acceptformat=${acceptformat}"
 crx_download_url="${crx_download_url}&x=id%3D${chrome_extension_id}%26uc"
 
-wget --no-iri --retry-connrefused --waitretry=3 --tries=20 \
+timeout 900s wget --no-iri --retry-connrefused --waitretry=3 --tries=20 \
   --referer="https://chrome.google.com/webstore/detail/${chrome_extension_id}?hl=en" \
   --user-agent="Mozilla/5.0 Chrome/${product_version}" \
   -O "${output_filepath}.crx" "$crx_download_url"

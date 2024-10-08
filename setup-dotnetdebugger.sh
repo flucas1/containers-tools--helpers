@@ -3,7 +3,7 @@
 set -e
 set -x
 
-wget --quiet --no-verbose --retry-connrefused --waitretry=3 --tries=20 https://aka.ms/getvsdbgsh -O - | /bin/sh /dev/stdin -v latest -l /opt/vsdbg
+timeout 900s wget --quiet --no-verbose --retry-connrefused --waitretry=3 --tries=20 https://aka.ms/getvsdbgsh -O - | /bin/sh /dev/stdin -v latest -l /opt/vsdbg
 
 #__VsDbgVersion="17.11.10506.2"
 #__RuntimeID="linux-x64"
@@ -11,4 +11,4 @@ wget --quiet --no-verbose --retry-connrefused --waitretry=3 --tries=20 https://a
 #vsdbgFileExtension=".zip"
 #vsdbgCompressedFile="vsdbg-${__RuntimeID}${vsdbgFileExtension}"
 #target="$(echo "${__VsDbgVersion}" | tr '.' '-')"
-#wget https://vsdebugger.azureedge.net/vsdbg-${target}/${vsdbgCompressedFile}
+#timeout 900s wget https://vsdebugger.azureedge.net/vsdbg-${target}/${vsdbgCompressedFile}
