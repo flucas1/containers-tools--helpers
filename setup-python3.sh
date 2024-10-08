@@ -19,5 +19,6 @@ ${HELPERSPATH}/apt-retry-install.sh python3-dnspython
 ${HELPERSPATH}/apt-retry-install.sh python3-dateutil
 ${HELPERSPATH}/apt-retry-install.sh python3-mechanize
 ${HELPERSPATH}/apt-retry-install.sh python3-bs4
+${HELPERSPATH}/apt-retry-install.sh python3-lxml
 ${HELPERSPATH}/apt-retry-install.sh python3-packaging
 ${HELPERSPATH}/apt-retry-install.sh python3-setuptools
