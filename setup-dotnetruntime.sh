@@ -63,7 +63,11 @@ getversion_dotnetruntime()
   while [ $SUCCESS -eq 0 ] && [ $COUNTER -lt $MAXRETRIES ] ; do
     #echo "Retry #$COUNTER"
     DOTNETRUNTIMEVERSION="$(timeout 900s wget --quiet --no-verbose --retry-connrefused --waitretry=3 --tries=20 https://dotnetcli.blob.core.windows.net/dotnet/release-metadata/releases-index.json -O - | jq -r '.["releases-index"][] | select(."support-phase"=="active") | ."latest-runtime"' | sort --version-sort --reverse | awk \"NR==$LINENUMBER\")"
-    if [ "${DOTNETRUNTIMEVERSION}" != "" ] ; then SUCCESS=1 ; else COUNTER=$(( $COUNTER + 1 )) ; sleep 5s ; fi
+    if [ "${DOTNETRUNTIMEVERSION}" != "" ] ; then
+      SUCCESS=1
+    else
+      COUNTER=$(( $COUNTER + 1 )) ; sleep 5s
+    fi
   done
   [ $SUCCESS -eq 1 ]
 
