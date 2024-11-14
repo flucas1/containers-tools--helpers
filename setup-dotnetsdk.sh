@@ -60,5 +60,7 @@ ARCHITECTURE="$(dpkg --print-architecture)" ; if [ "${ARCHITECTURE}" = "amd64" ]
 [ "${PARTARCH}" != "" ]
 
 DOTNETRUNTIMEVERSION="getversion_dotnetsdk ${PARTARCH} 1"
+install_dotnetsdk "${PARTARCH}" "${DOTNETSDKVERSION}"
 
+DOTNETRUNTIMEVERSION="getversion_dotnetsdk ${PARTARCH} 2"
 install_dotnetsdk "${PARTARCH}" "${DOTNETSDKVERSION}"
