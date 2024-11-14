@@ -30,7 +30,9 @@ install_dotnetruntime()
   [ -f "${TARGETPATH}/dotnet" ]
   [ -d "${TARGETPATH}/shared/Microsoft.NETCore.App/${DOTNETRUNTIMEVERSION}" ]
 
-  PATH="${TARGETPATH}:${PATH}"
+  if echo ":$PATH:" | grep -v -q ":$TARGETPATH:" ; then
+    PATH="${TARGETPATH}:${PATH}"
+  fi
   dotnet --info 
 }
 

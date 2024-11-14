@@ -30,7 +30,9 @@ install_dotnetsdk()
   [ -f "${TARGETPATH}/dotnet" ]
   [ -d "${TARGETPATH}/sdk/${DOTNETSDKVERSION}" ]
 
-  PATH="${TARGETPATH}:${PATH}"
+  if echo ":$PATH:" | grep -v -q ":$TARGETPATH:" ; then
+    PATH="${TARGETPATH}:${PATH}"
+  fi
   dotnet --info
 
   LISTSDK="$(dotnet --list-sdks)"
