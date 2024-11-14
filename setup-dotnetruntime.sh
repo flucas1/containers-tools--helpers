@@ -82,8 +82,8 @@ getversion_dotnetruntime()
 ARCHITECTURE="$(dpkg --print-architecture)" ; if [ "${ARCHITECTURE}" = "amd64" ] ; then PARTARCH="x64" ; else if [ "${ARCHITECTURE}" = "arm64" ] ; then PARTARCH="arm64" ; fi ; fi
 [ "${PARTARCH}" != "" ]
 
-DOTNETRUNTIMEVERSION="getversion_dotnetruntime ${PARTARCH} 1"
+DOTNETRUNTIMEVERSION="$(getversion_dotnetruntime ${PARTARCH} 1)"
 install_dotnetruntime "${PARTARCH}" "${DOTNETRUNTIMEVERSION}"
 
-DOTNETRUNTIMEVERSION="getversion_dotnetruntime ${PARTARCH} 2"
+DOTNETRUNTIMEVERSION="$(getversion_dotnetruntime ${PARTARCH} 2)"
 install_dotnetruntime "${PARTARCH}" "${DOTNETRUNTIMEVERSION}"
