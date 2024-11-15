@@ -9,6 +9,9 @@ DIRECTINSTALL="$1"
 
 install_dotnetsdk()
 {
+  PARTARCH="$1"
+  DOTNETSDKVERSION="$2"
+  
   # follow "channel-version" and "releases.json" from previous json into https://dotnetcli.blob.core.windows.net/dotnet/release-metadata/8.0/releases.json and select right link
   FILENAME="dotnet-sdk-${DOTNETSDKVERSION}-win-${PARTARCH}.exe"
   DOWNLOADURL="https://dotnetcli.blob.core.windows.net/dotnet/Sdk/${DOTNETSDKVERSION}/${FILENAME}"

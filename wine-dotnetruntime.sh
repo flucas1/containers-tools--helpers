@@ -9,6 +9,9 @@ DIRECTINSTALL="$1"
 
 install_dotnetruntime()
 {
+  PARTARCH="$1"
+  DOTNETRUNTIMEVERSION="$2"
+  
   # follow "channel-version" and "releases.json" from previous json into https://dotnetcli.blob.core.windows.net/dotnet/release-metadata/8.0/releases.json and select right link
   FILENAME="dotnet-runtime-${DOTNETRUNTIMEVERSION}-win-${PARTARCH}.exe"
   DOWNLOADURL="https://dotnetcli.blob.core.windows.net/dotnet/Runtime/${DOTNETRUNTIMEVERSION}/${FILENAME}"
