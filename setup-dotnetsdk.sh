@@ -83,7 +83,8 @@ getversion_dotnetsdk()
 #DOTNETSDKVERSION=$(apt-cache search dotnet-sdk | awk '{print $1}' | awk -F- '{print $3}' | sort --version-sort | tail -n 1)
 #${HELPERSPATH}/apt-retry-install.sh aspnetcore-runtime-${DOTNETSDKVERSION}
 
-ARCHITECTURE="$(dpkg --print-architecture)" ; if [ "${ARCHITECTURE}" = "amd64" ] ; then PARTARCH="x64" ; else if [ "${ARCHITECTURE}" = "arm64" ] ; then PARTARCH="arm64" ; fi ; fi
+ARCHITECTURE="$(dpkg --print-architecture)"
+if [ "${ARCHITECTURE}" = "amd64" ] ; then PARTARCH="x64" ; else if [ "${ARCHITECTURE}" = "arm64" ] ; then PARTARCH="arm64" ; fi ; fi
 [ "${PARTARCH}" != "" ]
 
 DOTNETSDKVERSION="$(getversion_dotnetsdk ${PARTARCH} 1)"
