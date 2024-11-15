@@ -19,7 +19,15 @@ install_dotnetsdk()
     MAXRETRIES=30
     COUNTER=0
     SUCCESS=0
-    while [ $SUCCESS -eq 0 ] && [ $COUNTER -lt $MAXRETRIES ] ; do echo "Retry #$COUNTER" ; if timeout 900s wget -4 --no-verbose --retry-connrefused --waitretry=3 --tries=20 "${DOWNLOADURL}" -O "${LOCALCACHEFILENAME}" ; then SUCCESS=1 ; else COUNTER=$(( $COUNTER + 1 )) ; sleep 5s ; fi ; done
+    while [ $SUCCESS -eq 0 ] && [ $COUNTER -lt $MAXRETRIES ] ; do
+      echo "Retry #$COUNTER"
+      if timeout 900s wget -4 --no-verbose --retry-connrefused --waitretry=3 --tries=20 "${DOWNLOADURL}" -O "${LOCALCACHEFILENAME}" ; then
+        SUCCESS=1
+      else
+        COUNTER=$(( $COUNTER + 1 ))
+        sleep 5s
+      fi
+    done
     [ $SUCCESS -eq 1 ]
   fi
   [ -f "${LOCALCACHEFILENAME}" ]
@@ -40,7 +48,12 @@ getversion_dotnetsdk()
   while [ $SUCCESS -eq 0 ] && [ $COUNTER -lt $MAXRETRIES ] ; do
     echo "Retry #$COUNTER"
     DOTNETSDKVERSION="$(timeout 900s wget --quiet --no-verbose --retry-connrefused --waitretry=3 --tries=20 https://dotnetcli.blob.core.windows.net/dotnet/release-metadata/releases-index.json -O - | jq -r '.["releases-index"][] | select(."support-phase"=="active") | ."latest-sdk"' | sort --version-sort --reverse | head -n 1)"
-    if [ "${DOTNETSDKVERSION}" != "" ] ; then SUCCESS=1 ; else COUNTER=$(( $COUNTER + 1 )) ; sleep 5s ; fi
+    if [ "${DOTNETSDKVERSION}" != "" ] ; then
+      SUCCESS=1
+    else
+      COUNTER=$(( $COUNTER + 1 ))
+      sleep 5s
+    fi
   done
   [ $SUCCESS -eq 1 ]
   [ "${DOTNETSDKVERSION}" != "" ]
