@@ -42,12 +42,15 @@ install_dotnetsdk()
 
 getversion_dotnetsdk()
 {
+  PARTARCH="$1"
+  LINENUMBER="$2"
+
   MAXRETRIES=30
   COUNTER=0
   SUCCESS=0
   while [ $SUCCESS -eq 0 ] && [ $COUNTER -lt $MAXRETRIES ] ; do
-    echo "Retry #$COUNTER"
-    DOTNETSDKVERSION="$(timeout 900s wget --quiet --no-verbose --retry-connrefused --waitretry=3 --tries=20 https://dotnetcli.blob.core.windows.net/dotnet/release-metadata/releases-index.json -O - | jq -r '.["releases-index"][] | select(."support-phase"=="active") | ."latest-sdk"' | sort --version-sort --reverse | head -n 1)"
+    echo "Retry #$COUNTER" >&2
+    DOTNETSDKVERSION="$(timeout 900s wget --quiet --no-verbose --retry-connrefused --waitretry=3 --tries=20 https://dotnetcli.blob.core.windows.net/dotnet/release-metadata/releases-index.json -O - | jq -r '.["releases-index"][] | select(."support-phase"=="active") | ."latest-sdk"' | sort --version-sort --reverse | awk -v n=$LINENUMBER 'NR==n')"
     if [ "${DOTNETSDKVERSION}" != "" ] ; then
       SUCCESS=1
     else
@@ -56,7 +59,9 @@ getversion_dotnetsdk()
     fi
   done
   [ $SUCCESS -eq 1 ]
+
   [ "${DOTNETSDKVERSION}" != "" ]
+  echo "${DOTNETSDKVERSION}"
 }
 
 ARCHITECTURE="$(dpkg --print-architecture)"
