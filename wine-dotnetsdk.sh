@@ -20,7 +20,7 @@ install_dotnetsdk()
     COUNTER=0
     SUCCESS=0
     while [ $SUCCESS -eq 0 ] && [ $COUNTER -lt $MAXRETRIES ] ; do
-      echo "Retry #$COUNTER"
+      echo "Retry #$COUNTER" >&2
       if timeout 900s wget -4 --no-verbose --retry-connrefused --waitretry=3 --tries=20 "${DOWNLOADURL}" -O "${LOCALCACHEFILENAME}" ; then
         SUCCESS=1
       else
