@@ -74,4 +74,7 @@ if [ "${ARCHITECTURE}" = "amd64" ] ; then PARTARCH="x64" ; else if [ "${ARCHITEC
 DOTNETSDKVERSION="$(getversion_dotnetsdk ${PARTARCH} 1)"
 install_dotnetsdk "${PARTARCH}" "${DOTNETSDKVERSION}"
 
+DOTNETSDKVERSION="$(getversion_dotnetsdk ${PARTARCH} 2)"
+install_dotnetsdk "${PARTARCH}" "${DOTNETSDKVERSION}"
+
 #$WINEATOMIC "C:\\Program Files\\dotnet\\dotnet.exe" tool install --global dotnet-outdated-tool

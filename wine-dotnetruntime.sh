@@ -94,4 +94,5 @@ if [ "${ARCHITECTURE}" = "amd64" ] ; then PARTARCH="x64" ; else if [ "${ARCHITEC
 DOTNETRUNTIMEVERSION="$(getversion_dotnetruntime ${PARTARCH} 1)"
 install_dotnetruntime "${PARTARCH}" "${DOTNETRUNTIMEVERSION}"
 
-
+DOTNETRUNTIMEVERSION="$(getversion_dotnetruntime ${PARTARCH} 2)"
+install_dotnetruntime "${PARTARCH}" "${DOTNETRUNTIMEVERSION}"
