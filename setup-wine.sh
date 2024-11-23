@@ -25,6 +25,7 @@ ${HELPERSPATH}/apt-update.sh
 
 ${HELPERSPATH}/apt-retry-install.sh wget
 ${HELPERSPATH}/apt-retry-install.sh winbind
+${HELPERSPATH}/apt-retry-install.sh fontconfig
 ${HELPERSPATH}/apt-retry-install.sh libavahi-client3
 ${HELPERSPATH}/apt-retry-install.sh libjbig0
 ${HELPERSPATH}/apt-retry-install.sh libmount1
