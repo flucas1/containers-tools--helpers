@@ -7,10 +7,10 @@ set -o pipefail
 
 #echo "wineatomic -- entrypoint"
 
-if true ; then
-  WINEBOOTBINARY="wineboot"
-else
+if dpkg -s wine > /dev/null 2>&1 ; then
   WINEBOOTBINARY="wineboot-stable"
+else
+  WINEBOOTBINARY="wineboot"
 fi
 
 $WINEBOOTBINARY

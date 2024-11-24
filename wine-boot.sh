@@ -7,12 +7,12 @@ WINEATOMIC="/wine-atomic.sh"
 
 #https://github.com/Winetricks/winetricks/issues/1525
 
-if true ; then
-  WINEBOOTBINARY="wineboot"
-  WINECFGBINARY="winecfg"
-else
+if dpkg -s wine > /dev/null 2>&1 ; then
   WINEBOOTBINARY="wineboot-stable"
   WINECFGBINARY="winecfg-stable"
+else
+  WINEBOOTBINARY="wineboot"
+  WINECFGBINARY="winecfg"
 fi
 
 timeout 60s $WINEBOOTBINARY --init
