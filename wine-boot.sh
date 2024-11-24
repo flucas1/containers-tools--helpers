@@ -9,10 +9,8 @@ WINEATOMIC="/wine-atomic.sh"
 
 if dpkg -s wine > /dev/null 2>&1 ; then
   WINEBOOTBINARY="wineboot-stable"
-  WINECFGBINARY="winecfg-stable"
 else
   WINEBOOTBINARY="wineboot"
-  WINECFGBINARY="winecfg"
 fi
 
 timeout 60s $WINEBOOTBINARY --init
@@ -28,10 +26,10 @@ $WINEATOMIC reg add "HKCU\\Software\\Microsoft\\Avalon.Graphics" /v DisableHWAcc
 $WINEATOMIC uninstaller --list
 #wine winecfg
 
-WINVER="$(script -e -q -c "$WINEATOMIC $WINECFGBINARY /v" /dev/null)"
+WINVER="$(script -e -q -c "$WINEATOMIC winecfg /v" /dev/null)"
 echo "the first saved WINVER is ${WINVER}"
 
 $WINEATOMIC $WINECFGBINARY /v "${WINVER}" | cat
 
-WINVER="$(script -e -q -c "$WINEATOMIC $WINECFGBINARY /v" /dev/null)"
+WINVER="$(script -e -q -c "$WINEATOMIC winecfg /v" /dev/null)"
 echo "the second saved WINVER is ${WINVER}"
