@@ -7,7 +7,10 @@ WINEATOMIC="/wine-atomic.sh"
 
 #https://github.com/Winetricks/winetricks/issues/1525
 
-timeout 60s wineboot --init
+WINEBOOTBINARY="wineboot"
+WINECFGBINARY="wine"
+
+timeout 60s $WINEBOOTBINARY --init
 
 $WINEATOMIC reg add "HKCU\\Software\\Wine\\Drivers" /v Graphics /t REG_SZ /d null /f
 $WINEATOMIC reg add "HKLM\\Software\\Microsoft\\Windows NT\\CurrentVersion\\AeDebug" /v Auto /t REG_DWORD /d 1 /f
@@ -20,10 +23,10 @@ $WINEATOMIC reg add "HKCU\\Software\\Microsoft\\Avalon.Graphics" /v DisableHWAcc
 $WINEATOMIC uninstaller --list
 #wine winecfg
 
-WINVER="$(script -e -q -c "$WINEATOMIC winecfg /v" /dev/null)"
+WINVER="$(script -e -q -c "$WINEATOMIC $WINECFGBINARY /v" /dev/null)"
 echo "the first saved WINVER is ${WINVER}"
 
-$WINEATOMIC winecfg /v "${WINVER}" | cat
+$WINEATOMIC $WINECFGBINARY /v "${WINVER}" | cat
 
-WINVER="$($WINEATOMIC winecfg /v | timeout 10s cat | cat)"
+WINVER="$(script -e -q -c "$WINEATOMIC $WINECFGBINARY /v" /dev/null)"
 echo "the second saved WINVER is ${WINVER}"
