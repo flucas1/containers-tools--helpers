@@ -9,16 +9,14 @@ set -o pipefail
 
 if true ; then
   WINEBOOTBINARY="wineboot"
-  WINEBINARY="wine"
 else
   WINEBOOTBINARY="wineboot-stable"
-  WINEBINARY="wine-stable"
 fi
 
 $WINEBOOTBINARY
 
 #echo "wineatomic -- pre"
-$WINEBINARY "$@" | dos2unix --force
+wine "$@" | dos2unix --force
 #echo "wineatomic -- post"
 
 timeout 30s $WINEBOOTBINARY -e || true
