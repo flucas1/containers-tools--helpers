@@ -5,6 +5,10 @@ set -x
 
 #https://wiki.archlinux.org/title/Wine
 
+HELPERSPATH="/helpers"
+
+ARCHITECTURE="$(dpkg --print-architecture)"
+
 # winehq does not offer ARM64, only AMD64, for the sake of multiple containers, fallingback forcefully debian testing version
 if [ "${ARCHITECTURE}" = "arm64" ] ; then
   WINEGRAPE=""
@@ -15,10 +19,6 @@ else
 fi
 echo "WINEGRAPE is '${WINEGRAPE}'"
 echo "WINEVERSION is '${WINEVERSION}'"
-
-HELPERSPATH="/helpers"
-
-ARCHITECTURE="$(dpkg --print-architecture)"
 
 if [ "${ARCHITECTURE}" = "amd64" ] ; then
   dpkg --add-architecture i386
