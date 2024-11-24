@@ -9,14 +9,16 @@ set -o pipefail
 
 if dpkg -s wine > /dev/null 2>&1 ; then
   WINEBOOTBINARY="wineboot-stable"
+  WINEBINARY="wine-stable"
 else
   WINEBOOTBINARY="wineboot"
+  WINEBINARY="wine"
 fi
 
 $WINEBOOTBINARY
 
 #echo "wineatomic -- pre"
-wine "$@" | dos2unix --force
+$WINEBINARY "$@" | dos2unix --force
 #echo "wineatomic -- post"
 
 timeout 30s $WINEBOOTBINARY -e || true
