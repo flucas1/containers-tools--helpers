@@ -7,8 +7,13 @@ WINEATOMIC="/wine-atomic.sh"
 
 #https://github.com/Winetricks/winetricks/issues/1525
 
-WINEBOOTBINARY="wineboot"
-WINECFGBINARY="wine"
+if true ; then
+  WINEBOOTBINARY="wineboot"
+  WINECFGBINARY="winecfg"
+else
+  WINEBOOTBINARY="wineboot-stable"
+  WINECFGBINARY="winecfg-stable"
+fi
 
 timeout 60s $WINEBOOTBINARY --init
 

@@ -7,8 +7,13 @@ set -o pipefail
 
 #echo "wineatomic -- entrypoint"
 
-WINEBOOTBINARY="wineboot"
-WINEBINARY="wine"
+if true ; then
+  WINEBOOTBINARY="wineboot"
+  WINEBINARY="wine"
+else
+  WINEBOOTBINARY="wineboot-stable"
+  WINEBINARY="wine-stable"
+fi
 
 $WINEBOOTBINARY
 
