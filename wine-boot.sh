@@ -21,6 +21,7 @@ $WINEATOMIC uninstaller --list
 #wine winecfg
 
 WINVER="$($WINEATOMIC winecfg /v | timeout 10s cat | cat)"
-echo "saved WINVER ${WINVER}"
+echo "first saved WINVER ${WINVER}"
 $WINEATOMIC winecfg /v "${WINVER}" | cat
-$WINEATOMIC winecfg /v
+WINVER="$($WINEATOMIC winecfg /v | timeout 10s cat | cat)"
+echo "second saved WINVER ${WINVER}"
