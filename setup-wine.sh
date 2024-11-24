@@ -5,9 +5,15 @@ set -x
 
 #https://wiki.archlinux.org/title/Wine
 
-WINEGRAPE="$1"
+# winehq does not offer ARM64, only AMD64, for the sake of multiple containers, fallingback forcefully debian testing version
+if [ "${ARCHITECTURE}" = "arm64" ] ; then
+  WINEGRAPE=""
+  WINEVERSION=""
+else
+  WINEGRAPE="$1"
+  WINEVERSION="$2"
+fi
 echo "WINEGRAPE is '${WINEGRAPE}'"
-WINEVERSION="$2"
 echo "WINEVERSION is '${WINEVERSION}'"
 
 HELPERSPATH="/helpers"
