@@ -20,8 +20,13 @@ $WINEATOMIC reg add "HKCU\\Software\\Microsoft\\Avalon.Graphics" /v DisableHWAcc
 $WINEATOMIC uninstaller --list
 #wine winecfg
 
-WINVER="$($WINEATOMIC winecfg /v | timeout 10s cat | cat)"
-echo "first saved WINVER ${WINVER}"
+TEMP_FILE=$(mktemp)
+($WINEATOMIC winecfg /v | timeout 10s tee --output-error=exit ${TEMP_FILE}) || true
+WINVER="$(cat ${TEMP_FILE})"
+rm -f ${TEMP_FILE}
+echo "the first saved WINVER is ${WINVER}"
+
 $WINEATOMIC winecfg /v "${WINVER}" | cat
+
 WINVER="$($WINEATOMIC winecfg /v | timeout 10s cat | cat)"
-echo "second saved WINVER ${WINVER}"
+echo "the second saved WINVER is ${WINVER}"
