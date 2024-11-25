@@ -84,7 +84,7 @@ getversion_dotnetruntime()
   [ $SUCCESS -eq 1 ]
 
   [ "${DOTNETRUNTIMEVERSION}" != "" ]
-  echo "${DOTNETSDKVERSION}"
+  echo "${DOTNETRUNTIMEVERSION}"
 }
 
 ARCHITECTURE="$(dpkg --print-architecture)"

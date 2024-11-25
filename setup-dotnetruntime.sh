@@ -73,7 +73,7 @@ getversion_dotnetruntime()
   [ $SUCCESS -eq 1 ]
 
   [ "${DOTNETRUNTIMEVERSION}" != "" ]
-  echo "${DOTNETSDKVERSION}"
+  echo "${DOTNETRUNTIMEVERSION}"
 }
 
 #DOTNETRUNTIMEVERSION=$(apt-cache search dotnet-sdk | awk '{print $1}' | awk -F- '{print $3}' | sort --version-sort | tail -n 1)
