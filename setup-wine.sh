@@ -7,19 +7,14 @@ set -x
 
 HELPERSPATH="/helpers"
 
-ARCHITECTURE="$(dpkg --print-architecture)"
+#https://gitlab.com/Linaro/windowsonarm/woa-linux#unified-docker-image
 
-# winehq does not offer ARM64, only AMD64, for the sake of multiple containers, fallingback forcefully debian testing version
-if [ "${ARCHITECTURE}" = "arm64" ] ; then
-  WINEGRAPE=""
-  WINEVERSION=""
-else
-  WINEGRAPE="$1"
-  WINEVERSION="$2"
-fi
+WINEGRAPE="$1"
 echo "WINEGRAPE is '${WINEGRAPE}'"
+WINEVERSION="$2"
 echo "WINEVERSION is '${WINEVERSION}'"
 
+ARCHITECTURE="$(dpkg --print-architecture)"
 if [ "${ARCHITECTURE}" = "amd64" ] ; then
   dpkg --add-architecture i386
 fi
