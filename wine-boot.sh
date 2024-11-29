@@ -7,11 +7,7 @@ WINEATOMIC="/wine-atomic.sh"
 
 #https://github.com/Winetricks/winetricks/issues/1525
 
-if dpkg -s wine > /dev/null 2>&1 ; then
-  WINEBOOTBINARY="wineboot-stable"
-else
-  WINEBOOTBINARY="wineboot"
-fi
+WINEBOOTBINARY="wineboot"
 
 timeout 60s $WINEBOOTBINARY --init
 
