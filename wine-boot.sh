@@ -7,7 +7,11 @@ WINEATOMIC="/wine-atomic.sh"
 
 #https://github.com/Winetricks/winetricks/issues/1525
 
-WINEBOOTBINARY="wineboot"
+if dpkg -s wine > /dev/null 2>&1 ; then
+  WINEBOOTBINARY="wineboot-stable"
+else
+  WINEBOOTBINARY="wineboot"
+fi
 
 timeout 60s $WINEBOOTBINARY --init
 
@@ -25,7 +29,7 @@ $WINEATOMIC uninstaller --list
 WINVER="$(script -e -q -c "$WINEATOMIC winecfg /v" /dev/null)"
 echo "the first saved WINVER is ${WINVER}"
 
-script -e -q -c "$WINEATOMIC winecfg /v "${WINVER}"" /dev/null
+$WINEATOMIC $WINECFGBINARY /v "${WINVER}" | cat
 
 WINVER="$(script -e -q -c "$WINEATOMIC winecfg /v" /dev/null)"
 echo "the second saved WINVER is ${WINVER}"
