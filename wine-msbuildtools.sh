@@ -15,4 +15,6 @@ else
   winetricks vstools2019
 fi
 
+#https://github.com/mstorsjo/msvc-wine
+
 #$WINEATOMIC vc.exe --version
