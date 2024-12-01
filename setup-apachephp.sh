@@ -11,5 +11,4 @@ ${HELPERSPATH}/apt-retry-install.sh php-fpm
 
 PHPCONF=$(for item in $(ls /etc/apache2/conf-available/php*-fpm.conf) ; do basename $item ; done | sort --version-sort | tail -n 1)
 [ "$PHPCONF" != "" ]
-/usr/sbin/a2enmod $(echo $PHPCONF | rev | cut -c6- | rev)
-/usr/sbin/a2enconf php8.2-fpm
+/usr/sbin/a2enconf $(echo $PHPCONF | rev | cut -c6- | rev)
