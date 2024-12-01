@@ -11,7 +11,7 @@ ${HELPERSPATH}/apt-retry-install.sh apache2
 /usr/sbin/a2dissite default-ssl
 #/usr/sbin/a2disconf apache2-doc
 /usr/sbin/a2disconf serve-cgi-bin
-/usr/sbin/a2dismod dnssd
+#/usr/sbin/a2dismod dnssd
 /usr/sbin/a2dismod mpm_prefork
 /usr/sbin/a2enmod http2
 /usr/sbin/a2enmod mpm_event
