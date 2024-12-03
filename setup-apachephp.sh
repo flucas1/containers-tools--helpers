@@ -17,3 +17,5 @@ ${HELPERSPATH}/apt-retry-install.sh php
 PHPMODULE=$(for item in $(ls /etc/apache2/mods-available/php*.load) ; do basename $item ; done | sort --version-sort | tail -n 1)
 [ "$PHPMODULE" != "" ]
 /usr/sbin/a2enmod $(echo $PHPMODULE | rev | cut -c6- | rev)
+
+${HELPERSPATH}/apt-retry-install.sh php-sqlite3
