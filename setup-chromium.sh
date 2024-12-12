@@ -12,7 +12,7 @@ APTINSTALLVERSION="${CHROMIUMINSTALLVERSION}" ${HELPERSPATH}/apt-retry-install.s
 APTINSTALLVERSION="${CHROMIUMINSTALLVERSION}" ${HELPERSPATH}/apt-retry-install.sh chromium-driver
 
 mkdir -p /etc/chromium/policies/managed
-printf "{\n\"MetricsReportingEnabled\": false\n\"DefaultBrowserSettingEnabled\": false\n\"ExtensionInstallForcelist\": [ \"fjkmabmdepjfammlpliljpnbhleegehm\" ]\n}\n" > /etc/chromium/policies/managed/extensioninstallforcelist.json
+printf "{\n  \"MetricsReportingEnabled\": false,\n  \"DefaultBrowserSettingEnabled\": false,\n  \"ExtensionInstallForcelist\": [ \"fjkmabmdepjfammlpliljpnbhleegehm\" ]\n}\n" > /etc/chromium/policies/managed/extensioninstallforcelist.json
 
 APTINSTALLVERSION="${CHROMIUMINSTALLVERSION}" ${HELPERSPATH}/apt-retry-install.sh zip
 APTINSTALLVERSION="${CHROMIUMINSTALLVERSION}" ${HELPERSPATH}/apt-retry-install.sh unzip
