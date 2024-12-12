@@ -28,11 +28,12 @@ output_filepath="/usr/share/chromium/extensions/${chrome_extension_id}"
 #                                   => Chrome version history:
 #                                      - 64.0.3282 generates packages in (new) CRX3 format
 #                                      - 73.0.3683 removes support to import packages in (old) CRX2 format
+#                                      - 131.0.6778 release of 12 november 2024
 default_platform_os=''
 default_platform_arch=''
 default_product_id='chromecrx'
 default_product_channel='unknown'
-default_product_version='73.0.3683'
+default_product_version='131.0.6778'
 default_acceptformat='crx2,crx3'
 
 platform_os=${3:-$default_platform_os}
