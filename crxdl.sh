@@ -70,10 +70,12 @@ crx_download_url="${crx_download_url}&x=id%3D${chrome_extension_id}%26uc"
 
 timeout 900s wget --no-iri --retry-connrefused --waitretry=3 --tries=20 \
   --referer="https://chrome.google.com/webstore/detail/${chrome_extension_id}?hl=en" \
-  --user-agent="Mozilla/5.0 Chrome/${product_version}" \
+  --user-agent="Mozilla/5.0 (${platform_os}; ${platform_arch}) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/${product_version} Safari/537.36" \
   -O "${output_filepath}.crx" "$crx_download_url"
 
+[ -f "${output_filepath}.crx" ]
 zip -FFv "${output_filepath}.crx" --out "${output_filepath}.zip"
+[ -f "${output_filepath}.zip" ]
 rm -R -f "${output_filepath}.crx"
 
 rm -R -f "${output_filepath}"
