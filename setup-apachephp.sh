@@ -19,3 +19,5 @@ PHPMODULE=$(for item in $(ls /etc/apache2/mods-available/php*.load) ; do basenam
 /usr/sbin/a2enmod $(echo $PHPMODULE | rev | cut -c6- | rev)
 
 ${HELPERSPATH}/apt-retry-install.sh php-sqlite3
+${HELPERSPATH}/apt-retry-install.sh php-gd
+/usr/bin/php -m
