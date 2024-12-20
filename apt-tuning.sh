@@ -47,11 +47,11 @@ cat /dev/null > /etc/apt/sources.list.d/debian.list
 printf "deb http://deb.debian.org/debian $(lsb_release -c -s) main contrib non-free non-free-firmware\n" >> /etc/apt/sources.list.d/debian.list
 printf "deb http://deb.debian.org/debian $(lsb_release -c -s)-updates main contrib non-free non-free-firmware\n" >> /etc/apt/sources.list.d/debian.list
 printf "deb http://deb.debian.org/debian $(lsb_release -c -s)-backports main contrib non-free non-free-firmware\n" >> /etc/apt/sources.list.d/debian.list
-printf "deb http://security.debian.org/debian-security $(lsb_release -c -s)-security main contrib non-free non-free-firmware\n" >> /etc/apt/sources.list.d/debian.list
+printf "deb https://security.debian.org/debian-security $(lsb_release -c -s)-security main contrib non-free non-free-firmware\n" >> /etc/apt/sources.list.d/debian.list
 printf "deb http://deb.debian.org/debian stable main contrib non-free non-free-firmware\n" >> /etc/apt/sources.list.d/debian.list
 printf "deb http://deb.debian.org/debian stable-updates main contrib non-free non-free-firmware\n" >> /etc/apt/sources.list.d/debian.list
 printf "deb http://deb.debian.org/debian stable-backports main contrib non-free non-free-firmware\n" >> /etc/apt/sources.list.d/debian.list
-printf "deb http://security.debian.org/debian-security stable-security main contrib non-free non-free-firmware\n" >> /etc/apt/sources.list.d/debian.list
+printf "deb https://security.debian.org/debian-security stable-security main contrib non-free non-free-firmware\n" >> /etc/apt/sources.list.d/debian.list
 printf "deb http://deb.debian.org/debian testing main contrib non-free non-free-firmware\n" >> /etc/apt/sources.list.d/debian.list
 printf "deb http://deb.debian.org/debian testing-updates main contrib non-free non-free-firmware\n" >> /etc/apt/sources.list.d/debian.list
 printf "deb http://deb.debian.org/debian testing-backports main contrib non-free non-free-firmware\n" >> /etc/apt/sources.list.d/debian.list
