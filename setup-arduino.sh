@@ -3,6 +3,7 @@
 set -e
 set -x
 
+mkdir -p /opt/arduino
 curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | BINDIR=/opt/arduino sh
 
 #https://downloads.arduino.cc/arduino-cli/arduino-cli_latest_Linux_ARM64.tar.gz
