@@ -43,14 +43,18 @@ board = uno
 framework = arduino
 monitor_speed = 9600
 upload_speed = 115200
+
+[env:esp8266]
+platform = espressif8266
+board = d1_mini
+framework = arduino
+monitor_speed = 115200
+upload_speed = 115200
 DELIMITER_END_YAML_FILE
 cat "${PROJECTDIR}/platformio.ini"
 platformio pkg list --project-dir "${PROJECTDIR}"
 
-ln -s /usr/bin/python3 /usr/bin/python
-
-platformio pkg install platformio/framework-arduinoespressif8266 --project-dir "${PROJECTDIR}"
-platformio pkg install platformio/tool-esptool --project-dir "${PROJECTDIR}"
-platformio pkg install platformio/tool-esptoolpy --project-dir "${PROJECTDIR}"
+#ln -s /usr/bin/python3 /usr/bin/python
+platformio pkg install --project-dir "${PROJECTDIR}"
 
 platformio pkg list --project-dir "${PROJECTDIR}"
