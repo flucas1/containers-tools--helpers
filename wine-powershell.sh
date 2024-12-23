@@ -11,7 +11,8 @@ DIRECTINSTALL="$1"
 
 ARCHITECTURE="$(dpkg --print-architecture)" ; if [ "${ARCHITECTURE}" = "amd64" ] ; then PARTARCH="x64" ; else if [ "${ARCHITECTURE}" = "arm64" ] ; then PARTARCH="arm64" ; fi ; fi
 [ "${PARTARCH}" != "" ]
-PWSHVERSION="7.4.2"
+
+PWSHVERSION="7.4.6"
 [ "${PWSHVERSION}" != "" ]
 
 FILENAME="PowerShell-${PWSHVERSION}-win-${PARTARCH}.msi"
