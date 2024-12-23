@@ -51,7 +51,7 @@ lib_deps =
   LinkedList
   WiFiManager
   extEEPROM
-  Base64
+  agdl/Base64
   LiquidCrystal_PCF8574
   Adafruit Unified Sensor
   Adafruit DHT Unified
@@ -83,7 +83,7 @@ DELIMITER_END_YAML_FILE
 cat "${PROJECTDIR}/platformio.ini"
 platformio pkg list --project-dir "${PROJECTDIR}"
 
-#
+#pio pkg install --library "agdl/Base64" --project-dir "${PROJECTDIR}"
 platformio pkg install --project-dir "${PROJECTDIR}"
 
 platformio pkg list --project-dir "${PROJECTDIR}"
