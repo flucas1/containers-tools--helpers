@@ -6,8 +6,37 @@ set -x
 HELPERSPATH="/helpers"
 HELPERSCACHE="/helperscache"
 
-ACLIVERSION="1.1.1"
+checkLatestGithubVersion()
+{
+  local PROJECT_OWNER="$1"
+  local PROJECT_NAME="$2"
+  
+  CHECKLATESTVERSION_REGEX="v\?[0-9][A-Za-z0-9\.-]*"
+  CHECKLATESTVERSION_LATEST_URL="https://github.com/${PROJECT_OWNER}/${PROJECT_NAME}/releases/latest"
+  
+  MAXRETRIES=30
+  COUNTER=0
+  SUCCESS=0
+  while [ $SUCCESS -eq 0 ] && [ $COUNTER -lt $MAXRETRIES ] ; do
+    echo "Retry #$COUNTER" >&2
+    CHECKLATESTVERSION_TAG="$(timeout 900s wget -4 --quiet --no-verbose --retry-connrefused --waitretry=3 --tries=20 "${CHECKLATESTVERSION_LATEST_URL}" -O - | grep -o "<title>Release $CHECKLATESTVERSION_REGEX · ${PROJECT_OWNER}/${PROJECT_NAME}" | grep -o "$CHECKLATESTVERSION_REGEX")"
+    if [ "${CHECKLATESTVERSION_TAG}" != "" ] ; then
+      SUCCESS=1
+    else
+      COUNTER=$(( $COUNTER + 1 ))
+      sleep 5s
+    fi
+  done
+  [ $SUCCESS -eq 1 ]
+  
+  echo "${CHECKLATESTVERSION_TAG}"
+}
+
+ACLIVERSION="$(checkLatestGithubVersion arduino arduino-cli)"
 [ "${ACLIVERSION}" != "" ]
+
+echo ${ACLIVERSION}
+exit 0
 
 ARCHITECTURE="$(dpkg --print-architecture)"
 if [ "${ARCHITECTURE}" = "amd64" ] ; then
@@ -49,20 +78,6 @@ if echo ":$PATH:" | grep -v -q ":$TARGETPATH:" ; then
   PATH="${TARGETPATH}:${PATH}"
 fi
 arduino-cli version
-
-#PROJECT_NAME="arduino-cli"
-#EFFECTIVE_BINDIR="/opt/arduino"
-#mkdir -p $EFFECTIVE_BINDIR
-#TEMPDIR="${TMPDIR:-${TEMP:-${TMP:-/tmp}}}"
-#INSTALLATION_TMP_DIR="${TEMPDIR}/$PROJECT_NAME"
-#mkdir -p "$INSTALLATION_TMP_DIR"
-#tar xf "$INSTALLATION_TMP_FILE" -C "$INSTALLATION_TMP_DIR"
-#INSTALLATION_TMP_BIN="$INSTALLATION_TMP_DIR/$PROJECT_NAME"
-#cp "$INSTALLATION_TMP_BIN" "$EFFECTIVE_BINDIR"
-#rm -rf "$INSTALLATION_TMP_DIR"
-#rm -f "$INSTALLATION_TMP_FILE"
-#APPLICATION_VERSION="$("$EFFECTIVE_BINDIR/$PROJECT_NAME" version)"
-#echo "$APPLICATION_VERSION installed successfully in $EFFECTIVE_BINDIR"
 
 #arduino-cli config init
 #arduino-cli core search arduino:avr
