@@ -18,6 +18,7 @@ PROJECTDIR="/opt/platformio_project"
 mkdir -p "${PROJECTDIR}"
 
 platformio project init --project-dir "${PROJECTDIR}"
+cat "${PROJECTDIR}/platformio.ini"
 platformio pkg list --project-dir "${PROJECTDIR}"
 
 ln -s /usr/bin/python3 /usr/bin/python
