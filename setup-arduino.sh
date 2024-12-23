@@ -87,10 +87,27 @@ arduino-cli config set directories.data "${PATH_BOARDS}" --config-file "${CONFIG
 BOARDS_URL="https://raw.githubusercontent.com/digistump/arduino-boards-index/master/package_digistump_index.json"
 arduino-cli config add board_manager.additional_urls "${BOARDS_URL}" --config-file "${CONFIG_DIR}/arduino-cli.yaml"
 
-arduino-cli core update-index --config-file "$CONFIG_DIR/arduino-cli.yaml"
-arduino-cli core install digistump:avr --config-file "$CONFIG_DIR/arduino-cli.yaml"
+MAXRETRIES=30
+COUNTER=0
+SUCCESS=0
+while [ $SUCCESS -eq 0 ] && [ $COUNTER -lt $MAXRETRIES ] ; do
+  echo "Retry #$COUNTER" >&2
+  if timeout 300s arduino-cli core update-index --config-file "$CONFIG_DIR/arduino-cli.yaml" ; then
+    SUCCESS=1
+  else
+    COUNTER=$(( $COUNTER + 1 ))
+    sleep 5s
+  fi
+done
+[ $SUCCESS -eq 1 ]
 
-#arduino-cli config init
-#arduino-cli core search arduino:avr
-#arduino-cli core install arduino:avr
-#arduino-cli board list
+arduino-cli board list --config-file "$CONFIG_DIR/arduino-cli.yaml"
+
+arduino-cli core search arduino:avr --config-file "$CONFIG_DIR/arduino-cli.yaml"
+arduino-cli core install arduino:avr --config-file "$CONFIG_DIR/arduino-cli.yaml"
+arduino-cli board list --config-file "$CONFIG_DIR/arduino-cli.yaml"
+
+arduino-cli core search digistump:avr --config-file "$CONFIG_DIR/arduino-cli.yaml"
+arduino-cli core install digistump:avr --config-file "$CONFIG_DIR/arduino-cli.yaml"
+arduino-cli board list --config-file "$CONFIG_DIR/arduino-cli.yaml"
+
