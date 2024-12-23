@@ -11,19 +11,19 @@ ${HELPERSPATH}/pip-retry-install.sh platformio
 platformio --version
 
 mkdir -p /opt/platformio_shared
-sudo mkdir -p /etc/platformio
-echo "[platformio]\npackages_dir = /opt/platformio_shared" | sudo tee /etc/platformio/platformio.ini
+mkdir -p /etc/platformio
+echo "[platformio]\npackages_dir = /opt/platformio_shared" > /etc/platformio/platformio.ini
 
-#platformio upgrade
-#platformio --version
+PROJECTDIR="/opt/platformio_project"
+mkdir -p "${PROJECTDIR}"
 
-platformio project init
-platformio pkg list
+platformio project init --project-dir "${PROJECTDIR}"
+platformio pkg list --project-dir "${PROJECTDIR}"
 
 ln -s /usr/bin/python3 /usr/bin/python
 
-platformio pkg install platformio/framework-arduinoespressif8266
-platformio pkg install platformio/tool-esptool
-platformio pkg install platformio/tool-esptoolpy
+platformio pkg install platformio/framework-arduinoespressif8266 --project-dir "${PROJECTDIR}"
+platformio pkg install platformio/tool-esptool --project-dir "${PROJECTDIR}"
+platformio pkg install platformio/tool-esptoolpy --project-dir "${PROJECTDIR}"
 
-platformio pkg list
+platformio pkg list --project-dir "${PROJECTDIR}"
