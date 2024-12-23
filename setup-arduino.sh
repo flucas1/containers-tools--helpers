@@ -82,9 +82,13 @@ arduino-cli config init --config-file "${CONFIG_DIR}/arduino-cli.yaml"
 PATH_BOARDS="/opt/arduino/boards"
 mkdir -p "${PATH_BOARDS}"
 arduino-cli config set directories.data "${PATH_BOARDS}" --config-file "${CONFIG_DIR}/arduino-cli.yaml"
+arduino-cli core list --config-file "$CONFIG_DIR/arduino-cli.yaml"
 
-#BOARDS_URL="http://digistump.com/package_digistump_index.json"
-BOARDS_URL="https://raw.githubusercontent.com/digistump/arduino-boards-index/master/package_digistump_index.json"
+arduino-cli core search arduino:avr --config-file "$CONFIG_DIR/arduino-cli.yaml"
+arduino-cli core install arduino:avr --config-file "$CONFIG_DIR/arduino-cli.yaml"
+arduino-cli core list --config-file "$CONFIG_DIR/arduino-cli.yaml"
+
+BOARDS_URL="http://drazzy.com/package_drazzy.com_index.json"
 arduino-cli config add board_manager.additional_urls "${BOARDS_URL}" --config-file "${CONFIG_DIR}/arduino-cli.yaml"
 
 MAXRETRIES=30
@@ -101,9 +105,6 @@ while [ $SUCCESS -eq 0 ] && [ $COUNTER -lt $MAXRETRIES ] ; do
 done
 [ $SUCCESS -eq 1 ]
 
-arduino-cli core search arduino:avr --config-file "$CONFIG_DIR/arduino-cli.yaml"
-arduino-cli core install arduino:avr --config-file "$CONFIG_DIR/arduino-cli.yaml"
-
-arduino-cli core search digistump:avr --config-file "$CONFIG_DIR/arduino-cli.yaml"
-arduino-cli core install digistump:avr --config-file "$CONFIG_DIR/arduino-cli.yaml"
-
+arduino-cli core search ATTinyCore:avr --config-file "$CONFIG_DIR/arduino-cli.yaml"
+arduino-cli core install ATTinyCore:avr --config-file "$CONFIG_DIR/arduino-cli.yaml"
+arduino-cli core list --config-file "$CONFIG_DIR/arduino-cli.yaml"
