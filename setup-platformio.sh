@@ -14,8 +14,8 @@ mkdir -p /opt/platformio_shared
 sudo mkdir -p /etc/platformio
 echo "[platformio]\npackages_dir = /opt/platformio_shared" | sudo tee /etc/platformio/platformio.ini
 
-pio upgrade
-pio --version
+#pio upgrade
+#pio --version
 
 pio pkg list
 pio pkg update
