@@ -79,6 +79,19 @@ if echo ":$PATH:" | grep -v -q ":$TARGETPATH:" ; then
 fi
 arduino-cli version
 
+CONFIG_DIR="/etc/arduino-cli"
+mkdir -p "${CONFIG_DIR}"
+arduino-cli config init --config-file "${CONFIG_DIR}/arduino-cli.yaml"
+PATH_BOARDS="/opt/arduino/boards"
+mkdir -p "${PATH_BOARDS}"
+arduino-cli config set directories.data "${PATH_BOARDS}" --config-file 
+
+BOARDS_URL="http://digistump.com/package_digistump_index.json"
+arduino-cli config add board_manager.additional_urls "${BOARDS_URL}" --config-file "${CONFIG_DIR}/arduino-cli.yaml"
+
+arduino-cli core update-index --config-file "$CONFIG_DIR/arduino-cli.yaml"
+arduino-cli core install digistump:avr --config-file "$CONFIG_DIR/arduino-cli.yaml"
+
 #arduino-cli config init
 #arduino-cli core search arduino:avr
 #arduino-cli core install arduino:avr
