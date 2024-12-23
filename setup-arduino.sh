@@ -35,9 +35,6 @@ checkLatestGithubVersion()
 ACLIVERSION="$(checkLatestGithubVersion arduino arduino-cli)"
 [ "${ACLIVERSION}" != "" ]
 
-echo ${ACLIVERSION}
-exit 0
-
 ARCHITECTURE="$(dpkg --print-architecture)"
 if [ "${ARCHITECTURE}" = "amd64" ] ; then
   FILENAME="arduino-cli_${ACLIVERSION}_Linux_64bit.tar.gz"
