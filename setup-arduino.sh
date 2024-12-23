@@ -32,7 +32,7 @@ checkLatestGithubVersion()
   echo "${CHECKLATESTVERSION_TAG}"
 }
 
-ACLIVERSION="$(checkLatestGithubVersion arduino arduino-cli)"
+ACLIVERSION="$(checkLatestGithubVersion arduino arduino-cli | cut -c 2-)"
 [ "${ACLIVERSION}" != "" ]
 
 ARCHITECTURE="$(dpkg --print-architecture)"

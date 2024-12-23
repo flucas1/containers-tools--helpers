@@ -38,7 +38,7 @@ checkLatestGithubVersion()
   echo "${CHECKLATESTVERSION_TAG}"
 }
 
-PWSHVERSION="$(checkLatestGithubVersion PowerShell PowerShell)"
+PWSHVERSION="$(checkLatestGithubVersion PowerShell PowerShell | cut -c 2-)"
 [ "${PWSHVERSION}" != "" ]
 
 FILENAME="PowerShell-${PWSHVERSION}-win-${PARTARCH}.msi"
