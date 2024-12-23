@@ -17,7 +17,7 @@ echo "[platformio]\npackages_dir = /opt/platformio_shared" | sudo tee /etc/platf
 pio upgrade
 pio --version
 
-pio pkg list --no-color
+pio pkg list
 pio pkg update
 pio pkg list
 
