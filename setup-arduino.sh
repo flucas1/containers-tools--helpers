@@ -101,13 +101,9 @@ while [ $SUCCESS -eq 0 ] && [ $COUNTER -lt $MAXRETRIES ] ; do
 done
 [ $SUCCESS -eq 1 ]
 
-arduino-cli board list --config-file "$CONFIG_DIR/arduino-cli.yaml"
-
 arduino-cli core search arduino:avr --config-file "$CONFIG_DIR/arduino-cli.yaml"
 arduino-cli core install arduino:avr --config-file "$CONFIG_DIR/arduino-cli.yaml"
-arduino-cli board list --config-file "$CONFIG_DIR/arduino-cli.yaml"
 
 arduino-cli core search digistump:avr --config-file "$CONFIG_DIR/arduino-cli.yaml"
 arduino-cli core install digistump:avr --config-file "$CONFIG_DIR/arduino-cli.yaml"
-arduino-cli board list --config-file "$CONFIG_DIR/arduino-cli.yaml"
 
