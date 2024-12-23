@@ -12,7 +12,33 @@ DIRECTINSTALL="$1"
 ARCHITECTURE="$(dpkg --print-architecture)" ; if [ "${ARCHITECTURE}" = "amd64" ] ; then PARTARCH="x64" ; else if [ "${ARCHITECTURE}" = "arm64" ] ; then PARTARCH="arm64" ; fi ; fi
 [ "${PARTARCH}" != "" ]
 
-PWSHVERSION="7.4.6"
+checkLatestGithubVersion()
+{
+  local PROJECT_OWNER="$1"
+  local PROJECT_NAME="$2"
+  
+  CHECKLATESTVERSION_REGEX="v\?[0-9][A-Za-z0-9\.-]*"
+  CHECKLATESTVERSION_LATEST_URL="https://github.com/${PROJECT_OWNER}/${PROJECT_NAME}/releases/latest"
+  
+  MAXRETRIES=30
+  COUNTER=0
+  SUCCESS=0
+  while [ $SUCCESS -eq 0 ] && [ $COUNTER -lt $MAXRETRIES ] ; do
+    echo "Retry #$COUNTER" >&2
+    CHECKLATESTVERSION_TAG="$(timeout 30s wget -4 --quiet --no-verbose --retry-connrefused --waitretry=3 --tries=20 "${CHECKLATESTVERSION_LATEST_URL}" -O - | grep -o "<title>Release $CHECKLATESTVERSION_REGEX · ${PROJECT_OWNER}/${PROJECT_NAME}" | grep -o "$CHECKLATESTVERSION_REGEX")"
+    if [ "${CHECKLATESTVERSION_TAG}" != "" ] ; then
+      SUCCESS=1
+    else
+      COUNTER=$(( $COUNTER + 1 ))
+      sleep 5s
+    fi
+  done
+  [ $SUCCESS -eq 1 ]
+  
+  echo "${CHECKLATESTVERSION_TAG}"
+}
+
+PWSHVERSION="$(checkLatestGithubVersion PowerShell PowerShell)"
 [ "${PWSHVERSION}" != "" ]
 
 FILENAME="PowerShell-${PWSHVERSION}-win-${PARTARCH}.msi"
