@@ -83,7 +83,8 @@ PATH_BOARDS="/opt/arduino/boards"
 mkdir -p "${PATH_BOARDS}"
 arduino-cli config set directories.data "${PATH_BOARDS}" --config-file "${CONFIG_DIR}/arduino-cli.yaml"
 
-BOARDS_URL="http://digistump.com/package_digistump_index.json"
+#BOARDS_URL="http://digistump.com/package_digistump_index.json"
+BOARDS_URL="https://raw.githubusercontent.com/digistump/arduino-boards-index/master/package_digistump_index.json"
 arduino-cli config add board_manager.additional_urls "${BOARDS_URL}" --config-file "${CONFIG_DIR}/arduino-cli.yaml"
 
 arduino-cli core update-index --config-file "$CONFIG_DIR/arduino-cli.yaml"
