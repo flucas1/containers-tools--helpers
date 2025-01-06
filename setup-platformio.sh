@@ -39,32 +39,6 @@ cat >> "${PROJECTDIR}/platformio.ini" << DELIMITER_END_YAML_FILE
 
 [env]
 lib_deps =
-  RemoteDebug
-  PubSubClient
-  NTPClient
-  ESP Async WebServer
-  EspSoftwareSerial
-  Wire
-  SPI
-  Hash
-  ArduinoJson
-  LinkedList
-  WiFiManager
-  extEEPROM
-  agdl/Base64
-  LiquidCrystal_PCF8574
-  Adafruit Unified Sensor
-  Adafruit DHT Unified
-  DHT sensor library
-  RTClib
-  PCF8583
-  PCF8574_ESP
-  ESP8266WiFi
-  INA2xx
-  Adafruit ADS1X15
-  SparkFun BME280
-  BH1750
-  Board Identify
 
 [env:uno]
 platform = atmelavr
