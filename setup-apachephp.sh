@@ -21,3 +21,8 @@ PHPMODULE=$(for item in $(ls /etc/apache2/mods-available/php*.load) ; do basenam
 ${HELPERSPATH}/apt-retry-install.sh php-sqlite3
 ${HELPERSPATH}/apt-retry-install.sh php-gd
 /usr/bin/php -m
+
+PHPVERSION=$(echo $PHPMODULE | rev | cut -c6- | rev | cut -c4-)
+if [ "$PHPVERSION" = "8.4" ] ; then
+  echo "zend.max_allowed_stack_size = -1" > /etc/php/$PHPVERSION/apache2/conf.d/99-stack.ini
+fi
