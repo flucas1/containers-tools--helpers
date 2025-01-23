@@ -97,8 +97,18 @@ else
 fi
 [ "${WINECLEAN}" != "" ]
 
+WINEMNR="$(echo ${WINEBRANCH} | awk -F '-' '{print $1}')"
+[ "${WINEMNR}" != "" ]
+WINERC="$(echo ${WINEBRANCH} | awk -F '-' '{print $2}')"
+
+WINEBRANCH="$(echo ${WINEMNR} | awk -F '.' '{print $1}').$(echo ${WINEMNR} | awk -F '.' '{print $2}')"
+if [ "${WINERC}" != "" ] ; then
+  WINEBRANCH = "${WINEBRANCH}-${WINERC}"
+fi
+[ "${WINEBRANCH}" != "" ]
+
 #MONOVERSION="$(timeout 900s wget --quiet --retry-connrefused --waitretry=1 --tries=10 -O - https://dl.winehq.org/wine/wine-mono/ | xmlstarlet fo -R 2>/dev/null | xmlstarlet sel -t -v "//_:td[@class='indexcolname']/_:a" 2>/dev/null | tr -d "/" | grep -v - | tail -n +2 | sort -n | tail -n 1)"
-MONOVERSION="$(timeout 900s wget --quiet --retry-connrefused --waitretry=1 --tries=10 -O - "https://gitlab.winehq.org/wine/wine/-/raw/wine-${WINECLEAN}/dlls/appwiz.cpl/addons.c" | grep "#define MONO_VERSION" | awk '{print $3}' | tr -d '"')"
+MONOVERSION="$(timeout 900s wget --quiet --retry-connrefused --waitretry=1 --tries=10 -O - "https://gitlab.winehq.org/wine/wine/-/raw/wine-${WINEBRANCH}/dlls/appwiz.cpl/addons.c" | grep "#define MONO_VERSION" | awk '{print $3}' | tr -d '"')"
 [ "${MONOVERSION}" != "" ]
 mkdir -p /usr/share/wine/mono/
 if [ "${ARCHITECTURE}" = "amd64" ] ; then
@@ -112,7 +122,7 @@ if [ "${ARCHITECTURE}" = "arm64" ] ; then
 fi
 
 #GECKOVERSION="$(timeout 900s wget --quiet --retry-connrefused --waitretry=1 --tries=10 -O - https://dl.winehq.org/wine/wine-gecko/ | xmlstarlet fo -R 2>/dev/null | xmlstarlet sel -t -v "//_:td[@class='indexcolname']/_:a" 2>/dev/null | tr -d "/" | grep -v - | tail -n +2 | sort -n | tail -n 1)"
-GECKOVERSION="$(timeout 900s wget --quiet --retry-connrefused --waitretry=1 --tries=10 -O - "https://gitlab.winehq.org/wine/wine/-/raw/wine-${WINECLEAN}/dlls/appwiz.cpl/addons.c" | grep "#define GECKO_VERSION" | awk '{print $3}' | tr -d '"')"
+GECKOVERSION="$(timeout 900s wget --quiet --retry-connrefused --waitretry=1 --tries=10 -O - "https://gitlab.winehq.org/wine/wine/-/raw/wine-${WINEBRANCH}/dlls/appwiz.cpl/addons.c" | grep "#define GECKO_VERSION" | awk '{print $3}' | tr -d '"')"
 [ "${GECKOVERSION}" != "" ]
 mkdir -p /usr/share/wine/gecko/
 if [ "${ARCHITECTURE}" = "amd64" ] ; then
