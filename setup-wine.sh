@@ -97,9 +97,9 @@ else
 fi
 [ "${WINECLEAN}" != "" ]
 
-WINEMNR="$(echo ${WINEBRANCH} | awk -F '-' '{print $1}')"
+WINEMNR="$(echo ${WINECLEAN} | awk -F '-' '{print $1}')"
 [ "${WINEMNR}" != "" ]
-WINERC="$(echo ${WINEBRANCH} | awk -F '-' '{print $2}')"
+WINERC="$(echo ${WINECLEAN} | awk -F '-' '{print $2}')"
 
 WINEBRANCH="$(echo ${WINEMNR} | awk -F '.' '{print $1}').$(echo ${WINEMNR} | awk -F '.' '{print $2}')"
 if [ "${WINERC}" != "" ] ; then
