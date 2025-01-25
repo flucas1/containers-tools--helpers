@@ -15,6 +15,7 @@ ${HELPERSPATH}/apt-retry-install.sh apache2
 /usr/sbin/a2dismod mpm_prefork
 /usr/sbin/a2enmod http2
 /usr/sbin/a2enmod mpm_event
+/usr/sbin/a2enmod brotli
 
 # Write logs to stderr/stdout
 sed -i 's|^ErrorLog .*$|ErrorLog /dev/stderr|' /etc/apache2/apache2.conf
