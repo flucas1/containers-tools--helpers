@@ -15,11 +15,22 @@ ${HELPERSPATH}/apt-retry-install.sh apache2
 /usr/sbin/a2dismod mpm_prefork
 /usr/sbin/a2enmod http2
 /usr/sbin/a2enmod mpm_event
-/usr/sbin/a2enmod brotli
 
 # Write logs to stderr/stdout
 sed -i 's|^ErrorLog .*$|ErrorLog /dev/stderr|' /etc/apache2/apache2.conf
 sed -i '/^ErrorLog /a TransferLog /dev/stdout' /etc/apache2/apache2.conf
 sed -i -e '/ErrorLog /d' -e '/CustomLog /d' /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/default-ssl.conf
+
+/usr/sbin/a2enmod brotli
+cat > /etc/apache2/conf-available/brotli.conf << DELIMITER_END_CONF_FILE
+#<IfModule mod_brotli.c>
+    SetOutputFilter BROTLI_COMPRESS
+    SetEnvIfNoCase Request_URI \.(?:gif|jpe?g|png|swf|woff|woff2)$ no-brotli dont-vary
+
+    AddOutputFilterByType BROTLI_COMPRESS text/html text/plain text/xml text/css text/javascript application/javascript application/x-javascript application/json application/x-font-ttf application/vnd.ms-fontobject image/x-icon application/wasm
+    BrotliCompressionQuality 5
+#</IfModule>
+DELIMITER_END_CONF_FILE
+a2enconf brotli
 
 #rm -f /run/apache2/apache2.pid
