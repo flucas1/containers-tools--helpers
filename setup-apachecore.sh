@@ -40,6 +40,7 @@ cat > /etc/apache2/conf-available/brotli.conf << DELIMITER_END_CONF_FILE
     AddOutputFilterByType BROTLI_COMPRESS image/x-icon
     AddOutputFilterByType BROTLI_COMPRESS application/wasm
 
+    # Compression levels 10 and 11 become too slow, and only marginal improvement, do not use, apache stops serving data
     BrotliCompressionQuality 5
 #</IfModule>
 DELIMITER_END_CONF_FILE
