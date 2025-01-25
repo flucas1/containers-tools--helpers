@@ -22,13 +22,15 @@ ${HELPERSPATH}/apt-retry-install.sh rsync
 ${HELPERSPATH}/apt-retry-install.sh sshpass
 ${HELPERSPATH}/apt-retry-install.sh man-db
 ${HELPERSPATH}/apt-retry-install.sh man
-${HELPERSPATH}/apt-retry-install.sh zip
-${HELPERSPATH}/apt-retry-install.sh unzip
 ${HELPERSPATH}/apt-retry-install.sh procps
 ${HELPERSPATH}/apt-retry-install.sh dos2unix
 ${HELPERSPATH}/apt-retry-install.sh xmlstarlet
 ${HELPERSPATH}/apt-retry-install.sh adduser
+
+${HELPERSPATH}/apt-retry-install.sh zip
+${HELPERSPATH}/apt-retry-install.sh unzip
 ${HELPERSPATH}/apt-retry-install.sh 7zip
+${HELPERSPATH}/apt-retry-install.sh brotli
 
 ${HELPERSPATH}/apt-retry-install.sh curl
 ${HELPERSPATH}/apt-retry-install.sh wget
