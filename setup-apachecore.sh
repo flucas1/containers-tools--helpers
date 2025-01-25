@@ -27,7 +27,19 @@ cat > /etc/apache2/conf-available/brotli.conf << DELIMITER_END_CONF_FILE
     SetOutputFilter BROTLI_COMPRESS
     SetEnvIfNoCase Request_URI \.(?:gif|jpe?g|png|swf|woff|woff2)$ no-brotli dont-vary
 
-    AddOutputFilterByType BROTLI_COMPRESS text/html text/plain text/xml text/css text/javascript application/javascript application/x-javascript application/json application/x-font-ttf application/vnd.ms-fontobject image/x-icon application/wasm
+    AddOutputFilterByType BROTLI_COMPRESS text/html
+    AddOutputFilterByType BROTLI_COMPRESS text/plain
+    AddOutputFilterByType BROTLI_COMPRESS text/xml
+    AddOutputFilterByType BROTLI_COMPRESS text/css
+    AddOutputFilterByType BROTLI_COMPRESS text/javascript
+    AddOutputFilterByType BROTLI_COMPRESS application/javascript
+    AddOutputFilterByType BROTLI_COMPRESS application/x-javascript
+    AddOutputFilterByType BROTLI_COMPRESS application/json
+    AddOutputFilterByType BROTLI_COMPRESS application/x-font-ttf
+    AddOutputFilterByType BROTLI_COMPRESS application/vnd.ms-fontobject
+    AddOutputFilterByType BROTLI_COMPRESS image/x-icon
+    AddOutputFilterByType BROTLI_COMPRESS application/wasm
+
     BrotliCompressionQuality 5
 #</IfModule>
 DELIMITER_END_CONF_FILE
