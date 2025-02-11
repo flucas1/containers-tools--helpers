@@ -116,4 +116,6 @@ ${HELPERSPATH}/apt-retry-install.sh ocrmypdf
 ${HELPERSPATH}/apt-retry-install.sh jbig2enc
 
 ${HELPERSPATH}/apt-retry-install.sh make
+${HELPERSPATH}/apt-retry-install.sh pkgconf
+${HELPERSPATH}/apt-retry-install.sh gcc
 ${HELPERSPATH}/pip-retry-install.sh pymupdf
