@@ -120,4 +120,5 @@ ${HELPERSPATH}/apt-retry-install.sh pkgconf
 ${HELPERSPATH}/apt-retry-install.sh gcc
 ${HELPERSPATH}/apt-retry-install.sh g++
 ${HELPERSPATH}/apt-retry-install.sh libc6-dev
+${HELPERSPATH}/apt-retry-install.sh python3-dev
 ${HELPERSPATH}/pip-retry-install.sh pymupdf
