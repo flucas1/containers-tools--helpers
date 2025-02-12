@@ -114,11 +114,11 @@ ${HELPERSPATH}/apt-retry-install.sh python3-langdetect
 ${HELPERSPATH}/apt-retry-install.sh ocrmypdf
 ${HELPERSPATH}/apt-retry-install.sh jbig2enc
 
-#${HELPERSPATH}/apt-retry-install.sh python3-fitz # 1.24.2+ds1-3 gives segmentation fault # maybe create logic to check version and if that version use direct install
-${HELPERSPATH}/apt-retry-install.sh make
-${HELPERSPATH}/apt-retry-install.sh pkgconf
-${HELPERSPATH}/apt-retry-install.sh gcc
-${HELPERSPATH}/apt-retry-install.sh g++
-${HELPERSPATH}/apt-retry-install.sh libc6-dev
-${HELPERSPATH}/apt-retry-install.sh python3-dev
-${HELPERSPATH}/pip-retry-install.sh pymupdf
+${HELPERSPATH}/apt-retry-install.sh python3-fitz # python3-fitz 1.24.2+ds1-3 gives segmentation fault # maybe create logic to check version and if that version use direct install
+#${HELPERSPATH}/apt-retry-install.sh make
+#${HELPERSPATH}/apt-retry-install.sh pkgconf
+#${HELPERSPATH}/apt-retry-install.sh gcc
+#${HELPERSPATH}/apt-retry-install.sh g++
+#${HELPERSPATH}/apt-retry-install.sh libc6-dev
+#${HELPERSPATH}/apt-retry-install.sh python3-dev
+#${HELPERSPATH}/pip-retry-install.sh pymupdf
