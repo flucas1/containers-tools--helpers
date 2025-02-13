@@ -114,7 +114,11 @@ ${HELPERSPATH}/apt-retry-install.sh python3-langdetect
 ${HELPERSPATH}/apt-retry-install.sh ocrmypdf
 ${HELPERSPATH}/apt-retry-install.sh jbig2enc
 
-${HELPERSPATH}/apt-retry-install.sh python3-fitz # python3-fitz 1.24.2+ds1-3 gives segmentation fault # maybe create logic to check version and if that version use direct install
+# python3-fitz 1.24.2+ds1-3 up to 1.25.0+ds1-2 gives segmentation fault
+# maybe create logic to check version and if that version use direct install
+#${HELPERSPATH}/apt-retry-install.sh python3-fitz
+
+# pip 1.25.3 does not provide arm64 packages, and compilation fails because pf python 3.13
 #${HELPERSPATH}/apt-retry-install.sh make
 #${HELPERSPATH}/apt-retry-install.sh pkgconf
 #${HELPERSPATH}/apt-retry-install.sh gcc
@@ -122,3 +126,6 @@ ${HELPERSPATH}/apt-retry-install.sh python3-fitz # python3-fitz 1.24.2+ds1-3 giv
 #${HELPERSPATH}/apt-retry-install.sh libc6-dev
 #${HELPERSPATH}/apt-retry-install.sh python3-dev
 #${HELPERSPATH}/pip-retry-install.sh pymupdf
+
+# so sticking to pip 1.25.2
+${HELPERSPATH}/pip-retry-install.sh pymupdf==1.25.2
