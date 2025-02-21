@@ -99,7 +99,7 @@ COUNTER=0
 SUCCESS=0
 while [ $SUCCESS -eq 0 ] && [ $COUNTER -lt $MAXRETRIES ] ; do
   echo "Retry #$COUNTER" >&2
-  if timeout 300s arduino-cli core update-index --config-file --insecure "$CONFIG_DIR/arduino-cli.yaml" ; then
+  if timeout 300s arduino-cli core update-index --config-file "$CONFIG_DIR/arduino-cli.yaml" ; then
     SUCCESS=1
   else
     COUNTER=$(( $COUNTER + 1 ))
