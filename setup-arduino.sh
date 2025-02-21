@@ -90,7 +90,8 @@ arduino-cli core install arduino:avr --config-file "$CONFIG_DIR/arduino-cli.yaml
 arduino-cli core list --config-file "$CONFIG_DIR/arduino-cli.yaml"
 arduino-cli board listall --config-file /etc/arduino-cli/arduino-cli.yaml
 
-BOARDS_URL="http://drazzy.com/package_drazzy.com_index.json"
+#BOARDS_URL="http://drazzy.com/package_drazzy.com_index.json"
+BOARDS_URL="https://raw.githubusercontent.com/SpenceKonde/ReleaseScripts/refs/heads/master/package_drazzy.com_index.json"
 arduino-cli config add board_manager.additional_urls "${BOARDS_URL}" --config-file "${CONFIG_DIR}/arduino-cli.yaml"
 
 MAXRETRIES=30
