@@ -44,19 +44,81 @@ ${HELPERSPATH}/apt-retry-install.sh lsb-release
 rm -f /etc/apt/sources.list.d/debian.sources
 cat /dev/null > /etc/apt/sources.list
 cat /dev/null > /etc/apt/sources.list.d/debian.list
-printf "deb http://deb.debian.org/debian $(lsb_release -c -s) main contrib non-free non-free-firmware\n" >> /etc/apt/sources.list.d/debian.list
-printf "deb http://deb.debian.org/debian $(lsb_release -c -s)-updates main contrib non-free non-free-firmware\n" >> /etc/apt/sources.list.d/debian.list
-printf "deb http://deb.debian.org/debian $(lsb_release -c -s)-backports main contrib non-free non-free-firmware\n" >> /etc/apt/sources.list.d/debian.list
-printf "deb https://security.debian.org/debian-security $(lsb_release -c -s)-security main contrib non-free non-free-firmware\n" >> /etc/apt/sources.list.d/debian.list
-printf "deb http://deb.debian.org/debian stable main contrib non-free non-free-firmware\n" >> /etc/apt/sources.list.d/debian.list
-printf "deb http://deb.debian.org/debian stable-updates main contrib non-free non-free-firmware\n" >> /etc/apt/sources.list.d/debian.list
-printf "deb http://deb.debian.org/debian stable-backports main contrib non-free non-free-firmware\n" >> /etc/apt/sources.list.d/debian.list
-printf "deb https://security.debian.org/debian-security stable-security main contrib non-free non-free-firmware\n" >> /etc/apt/sources.list.d/debian.list
-printf "deb http://deb.debian.org/debian testing main contrib non-free non-free-firmware\n" >> /etc/apt/sources.list.d/debian.list
-printf "deb http://deb.debian.org/debian testing-updates main contrib non-free non-free-firmware\n" >> /etc/apt/sources.list.d/debian.list
-printf "deb http://deb.debian.org/debian testing-backports main contrib non-free non-free-firmware\n" >> /etc/apt/sources.list.d/debian.list
-printf "deb http://deb.debian.org/debian unstable main contrib non-free non-free-firmware\n" >> /etc/apt/sources.list.d/debian.list
-cat /etc/apt/sources.list.d/debian.list
+cat > /etc/apt/sources.list.d/debian.sources << DELIMITER_END_RAW_TEXT
+Types: deb
+URIs: http://deb.debian.org/debian/
+Suites: $(lsb_release -c -s)
+Components: main contrib non-free non-free-firmware
+Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
+
+Types: deb
+URIs: http://deb.debian.org/debian/
+Suites: $(lsb_release -c -s)-updates
+Components: main contrib non-free non-free-firmware
+Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
+
+Types: deb
+URIs: http://deb.debian.org/debian/
+Suites: $(lsb_release -c -s)-backports
+Components: main contrib non-free non-free-firmware
+Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
+
+Types: deb
+URIs: https://security.debian.org/debian-security/
+Suites: $(lsb_release -c -s)-security
+Components: main contrib non-free non-free-firmware
+Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
+
+Types: deb
+URIs: http://deb.debian.org/debian/
+Suites: stable
+Components: main contrib non-free non-free-firmware
+Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
+
+Types: deb
+URIs: http://deb.debian.org/debian/
+Suites: stable-updates
+Components: main contrib non-free non-free-firmware
+Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
+
+Types: deb
+URIs: http://deb.debian.org/debian/
+Suites: stable-backports
+Components: main contrib non-free non-free-firmware
+Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
+
+Types: deb
+URIs: https://security.debian.org/debian-security/
+Suites: stable-security
+Components: main contrib non-free non-free-firmware
+Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
+
+Types: deb
+URIs: http://deb.debian.org/debian/
+Suites: testing
+Components: main contrib non-free non-free-firmware
+Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
+
+Types: deb
+URIs: http://deb.debian.org/debian/
+Suites: testing-updates
+Components: main contrib non-free non-free-firmware
+Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
+
+Types: deb
+URIs: https://security.debian.org/debian-security/
+Suites: testing-backports
+Components: main contrib non-free non-free-firmware
+Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
+
+Types: deb
+URIs: http://deb.debian.org/debian/
+Suites: unstable
+Components: main contrib non-free non-free-firmware
+Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
+
+DELIMITER_END_RAW_TEXT
+cat /etc/apt/sources.list.d/debian.sources
 
 echo "APT::Default-Release \"$(lsb_release -c -s)\";" > /etc/apt/apt.conf.d/20-tum.conf
 
@@ -132,10 +194,6 @@ Pin-Priority: 50
 #Package: python3-pycurl
 #Pin: version 7.45.3-*
 #Pin-Priority: -1
-
-Package: systemd
-Pin: version 257.3-*
-Pin-Priority: -1
 
 DELIMITER_END_RAW_TEXT
 
