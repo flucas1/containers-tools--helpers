@@ -133,6 +133,10 @@ Pin-Priority: 50
 #Pin: version 7.45.3-*
 #Pin-Priority: -1
 
+Package: systemd
+Pin: version 257.3-*
+Pin-Priority: -1
+
 DELIMITER_END_RAW_TEXT
 
 
@@ -146,6 +150,6 @@ Pin: origin ${CUSTOMREPOSITORY_SERVER}
 Pin-Priority: 999
 
 DELIMITER_END_RAW_TEXT
-  printf "deb [trusted=yes] https://${CUSTOMREPOSITORY_SERVER}${CUSTOMREPOSITORY_PATH} ${CUSTOMREPOSITORY_IDENTIFIER} main" > /etc/apt/sources.list.d/${CUSTOMREPOSITORY_IDENTIFIER}.list
+  printf "Types: deb\nURIs: https://${CUSTOMREPOSITORY_SERVER}${CUSTOMREPOSITORY_PATH}\nSuites: ${CUSTOMREPOSITORY_IDENTIFIER}\nComponents: main\nSigned-By: \nTrusted: yes\n" > /etc/apt/sources.list.d/${CUSTOMREPOSITORY_IDENTIFIER}.sources
   ${HELPERSPATH}/apt-update.sh
 fi
