@@ -14,7 +14,7 @@ echo "WINEGRAPE is '${WINEGRAPE}'"
 WINEVERSION="$2"
 echo "WINEVERSION is '${WINEVERSION}'"
 
-if [ "${WINEGRAPE}" = "" ] ; then
+#if [ "${WINEGRAPE}" = "" ] ; then
   ARCHITECTURE="$(dpkg --print-architecture)"
   if [ "${ARCHITECTURE}" = "amd64" ] ; then
     dpkg --add-architecture i386
@@ -24,7 +24,7 @@ if [ "${WINEGRAPE}" = "" ] ; then
   fi
 
   ${HELPERSPATH}/apt-update.sh
-fi
+#fi
 
 ${HELPERSPATH}/apt-retry-install.sh wget
 ${HELPERSPATH}/apt-retry-install.sh winbind
@@ -33,7 +33,7 @@ ${HELPERSPATH}/apt-retry-install.sh libavahi-client3
 ${HELPERSPATH}/apt-retry-install.sh libjbig0
 ${HELPERSPATH}/apt-retry-install.sh libmount1
 ${HELPERSPATH}/apt-retry-install.sh libsane1
-if [ "${WINEGRAPE}" = "" ] ; then
+#if [ "${WINEGRAPE}" = "" ] ; then
   if [ "${ARCHITECTURE}" = "amd64" ] ; then
     ${HELPERSPATH}/apt-retry-install.sh libavahi-client3:i386
     ${HELPERSPATH}/apt-retry-install.sh libjbig0:i386
@@ -46,7 +46,7 @@ if [ "${WINEGRAPE}" = "" ] ; then
     ${HELPERSPATH}/apt-retry-install.sh libmount1:armhf
     ${HELPERSPATH}/apt-retry-install.sh libsane1:armhf
   fi
-fi
+#fi
 
 if [ "${WINEVERSION}" = "" ] ; then
   DEBIANSUFFIX=""
@@ -76,7 +76,7 @@ else
   ${HELPERSPATH}/apt-retry-install.sh wine-${WINEGRAPE}${DEBIANSUFFIX}
   if [ "${ARCHITECTURE}" = "amd64" ] ; then
     ${HELPERSPATH}/apt-retry-install.sh wine-${WINEGRAPE}-amd64${DEBIANSUFFIX}
-#    ${HELPERSPATH}/apt-retry-install.sh wine-${WINEGRAPE}-i386${DEBIANSUFFIX}
+    ${HELPERSPATH}/apt-retry-install.sh wine-${WINEGRAPE}-i386${DEBIANSUFFIX}
   fi
 fi
 
