@@ -14,15 +14,17 @@ echo "WINEGRAPE is '${WINEGRAPE}'"
 WINEVERSION="$2"
 echo "WINEVERSION is '${WINEVERSION}'"
 
-ARCHITECTURE="$(dpkg --print-architecture)"
-if [ "${ARCHITECTURE}" = "amd64" ] ; then
-  dpkg --add-architecture i386
-fi
-if [ "${ARCHITECTURE}" = "arm64" ] ; then
-  dpkg --add-architecture armhf
-fi
+if [ "${WINEGRAPE}" = "" ] ; then
+  ARCHITECTURE="$(dpkg --print-architecture)"
+  if [ "${ARCHITECTURE}" = "amd64" ] ; then
+    dpkg --add-architecture i386
+  fi
+  if [ "${ARCHITECTURE}" = "arm64" ] ; then
+    dpkg --add-architecture armhf
+  fi
 
-${HELPERSPATH}/apt-update.sh
+  ${HELPERSPATH}/apt-update.sh
+fi
 
 ${HELPERSPATH}/apt-retry-install.sh wget
 ${HELPERSPATH}/apt-retry-install.sh winbind
@@ -31,17 +33,19 @@ ${HELPERSPATH}/apt-retry-install.sh libavahi-client3
 ${HELPERSPATH}/apt-retry-install.sh libjbig0
 ${HELPERSPATH}/apt-retry-install.sh libmount1
 ${HELPERSPATH}/apt-retry-install.sh libsane1
-if [ "${ARCHITECTURE}" = "amd64" ] ; then
-  ${HELPERSPATH}/apt-retry-install.sh libavahi-client3:i386
-  ${HELPERSPATH}/apt-retry-install.sh libjbig0:i386
-  ${HELPERSPATH}/apt-retry-install.sh libmount1:i386
-  ${HELPERSPATH}/apt-retry-install.sh libsane1:i386
-fi
-if [ "${ARCHITECTURE}" = "arm64" ] ; then
-  ${HELPERSPATH}/apt-retry-install.sh libavahi-client3:armhf
-  ${HELPERSPATH}/apt-retry-install.sh libjbig0:armhf
-  ${HELPERSPATH}/apt-retry-install.sh libmount1:armhf
-  ${HELPERSPATH}/apt-retry-install.sh libsane1:armhf
+if [ "${WINEGRAPE}" = "" ] ; then
+  if [ "${ARCHITECTURE}" = "amd64" ] ; then
+    ${HELPERSPATH}/apt-retry-install.sh libavahi-client3:i386
+    ${HELPERSPATH}/apt-retry-install.sh libjbig0:i386
+    ${HELPERSPATH}/apt-retry-install.sh libmount1:i386
+    ${HELPERSPATH}/apt-retry-install.sh libsane1:i386
+  fi
+  if [ "${ARCHITECTURE}" = "arm64" ] ; then
+    ${HELPERSPATH}/apt-retry-install.sh libavahi-client3:armhf
+    ${HELPERSPATH}/apt-retry-install.sh libjbig0:armhf
+    ${HELPERSPATH}/apt-retry-install.sh libmount1:armhf
+    ${HELPERSPATH}/apt-retry-install.sh libsane1:armhf
+  fi
 fi
 
 if [ "${WINEVERSION}" = "" ] ; then
@@ -50,7 +54,7 @@ else
   DEBIANSUFFIX="=${WINEVERSION}*"
 fi
 
-if [ "${WINEGRAPE}" = "" ] ; then 
+if [ "${WINEGRAPE}" = "" ] ; then
   ${HELPERSPATH}/apt-retry-install.sh libwine${DEBIANSUFFIX}
   ${HELPERSPATH}/apt-retry-install.sh wine${DEBIANSUFFIX}
   ${HELPERSPATH}/apt-retry-install.sh wine64${DEBIANSUFFIX}
@@ -71,9 +75,9 @@ else
   ${HELPERSPATH}/apt-retry-install.sh winehq-${WINEGRAPE}${DEBIANSUFFIX}
   ${HELPERSPATH}/apt-retry-install.sh wine-${WINEGRAPE}${DEBIANSUFFIX}
   ${HELPERSPATH}/apt-retry-install.sh wine-${WINEGRAPE}-amd64${DEBIANSUFFIX}
-  if [ "${ARCHITECTURE}" = "amd64" ] ; then
-    ${HELPERSPATH}/apt-retry-install.sh wine-${WINEGRAPE}-i386${DEBIANSUFFIX}
-  fi
+#  if [ "${ARCHITECTURE}" = "amd64" ] ; then
+#    ${HELPERSPATH}/apt-retry-install.sh wine-${WINEGRAPE}-i386${DEBIANSUFFIX}
+#  fi
 fi
 
 wine --version
