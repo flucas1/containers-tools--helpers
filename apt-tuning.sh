@@ -203,6 +203,14 @@ Package: systemd:i386
 Pin: version 257.3-1
 Pin-Priority: -1
 
+Package: libudev1
+Pin: version 257.3-1
+Pin-Priority: -1
+
+Package: libudev1:i386
+Pin: version 257.3-1
+Pin-Priority: -1
+
 Package: udev
 Pin: version 257.3-1
 Pin-Priority: -1
