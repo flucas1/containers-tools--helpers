@@ -160,11 +160,19 @@ Pin: release o=Debian,a=testing-security
 Pin-Priority: 750
 
 Package: *
+Pin: release o=Debian,a=testing-backports
+Pin-Priority: 750
+
+Package: *
 Pin: release o=Debian,a=testing
 Pin-Priority: 700
 
 Package: *
 Pin: release o=Debian,a=stable-security
+Pin-Priority: 650
+
+Package: *
+Pin: release o=Debian,a=stable-backports
 Pin-Priority: 650
 
 Package: *
