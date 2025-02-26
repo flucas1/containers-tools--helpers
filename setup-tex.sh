@@ -112,7 +112,7 @@ ${HELPERSPATH}/apt-retry-install.sh python3-fonttools
 ${HELPERSPATH}/apt-retry-install.sh python3-pypdf
 ${HELPERSPATH}/apt-retry-install.sh python3-langdetect
 ${HELPERSPATH}/apt-retry-install.sh ocrmypdf
-${HELPERSPATH}/apt-retry-install.sh jbig2enc
+${HELPERSPATH}/apt-retry-install.sh jbig2
 
 # python3-fitz 1.24.2+ds1-3 up to 1.25.0+ds1-2 gives segmentation fault
 # maybe create logic to check version and if that version use direct install
