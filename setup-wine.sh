@@ -85,14 +85,19 @@ dpkg -l | grep wine
 if [ "${WINEVERSION}" != "" ] ; then if [ $(dpkg -l | grep winehq | awk "{\$1==\"ii\" ; print \$3}" | awk -F "~" "{print \$1}") = "${WINEVERSION}" ] ; then printf OK ; else printf "issue during wineversion check 1" ; fi ; fi
 if [ "${WINEVERSION}" != "" ] ; then if [ $(wine --version | awk "{print \$1}" | awk -F - "{print \$2}") = "${WINEVERSION}" ] ; then printf OK ; else printf "issue during wineversion check 2" ; fi ; fi
 
-if [ "${ARCHITECTURE}" = "amd64" ] ; then
-  dpkg-query -l '*:i386' || true
-fi
-if [ "${ARCHITECTURE}" = "arm64" ] ; then
-  dpkg-query -l '*:armhf' || true
-fi
+dpkg-query -l '*:amd64' || true
+dpkg-query -l '*:i386' || true
+dpkg-query -l '*:arm64' || true
+dpkg-query -l '*:armhf' || true
 
-${HELPERSPATH}/apt-retry-install.sh winetricks
+if [ "${WINEGRAPE}" = "" ] ; then
+  ${HELPERSPATH}/apt-retry-install.sh winetricks
+else
+  WINETRICKSBIN="/usr/bin/winetricks"
+  rm -f "${WINETRICKSBIN}"
+  timeout 900s wget --quiet --retry-connrefused --waitretry=1 --tries=10 -O "${WINETRICKSBIN}" https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks
+  chmod +x "${WINETRICKSBIN}"
+fi
 
 if [ "${WINEGRAPE}" = "" ] ; then
   WINECLEAN="$(dpkg -s wine | grep "^Version:" | awk -F ' ' '{print $2}' | awk -F '-' '{print $1}' | sed "s/~rc/-rc/g" | awk -F '~' '{print $1}')"
