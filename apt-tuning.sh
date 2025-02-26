@@ -195,6 +195,10 @@ Pin-Priority: 50
 #Pin: version 7.45.3-*
 #Pin-Priority: -1
 
+Package: systemd
+Pin: version 257.3-1
+Pin-Priority: -1
+
 DELIMITER_END_RAW_TEXT
 
 
