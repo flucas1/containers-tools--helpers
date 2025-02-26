@@ -190,6 +190,10 @@ Pin: release o=Debian,a=oldstable-security
 Pin-Priority: 250
 
 Package: *
+Pin: release o=Debian,a=oldstable-backports
+Pin-Priority: 250
+
+Package: *
 Pin: release o=Debian,a=oldstable
 Pin-Priority: 200
 
