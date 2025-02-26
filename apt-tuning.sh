@@ -69,6 +69,7 @@ Suites: $(lsb_release -c -s)-security
 Components: main contrib non-free non-free-firmware
 Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
 
+
 Types: deb
 URIs: http://deb.debian.org/debian/
 Suites: stable
@@ -93,6 +94,7 @@ Suites: stable-security
 Components: main contrib non-free non-free-firmware
 Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
 
+
 Types: deb
 URIs: http://deb.debian.org/debian/
 Suites: testing
@@ -112,8 +114,15 @@ Components: main contrib non-free non-free-firmware
 Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
 
 Types: deb
+URIs: https://security.debian.org/debian-security/
+Suites: testing-security
+Components: main contrib non-free non-free-firmware
+Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
+
+
+Types: deb
 URIs: http://deb.debian.org/debian/
-Suites: unstable
+Suites: sid
 Components: main contrib non-free non-free-firmware
 Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
 
@@ -154,6 +163,7 @@ Pin: origin nuitka.net
 Pin-Priority: 995
 
 
+
 Package: *
 Pin: release o=Debian,a=$(lsb_release -c -s)-security
 Pin-Priority: 750
@@ -165,6 +175,8 @@ Pin-Priority: 750
 Package: *
 Pin: release o=Debian,a=$(lsb_release -c -s)
 Pin-Priority: 700
+
+
 
 Package: *
 Pin: release o=Debian,a=testing-security
@@ -178,6 +190,8 @@ Package: *
 Pin: release o=Debian,a=testing
 Pin-Priority: 700
 
+
+
 Package: *
 Pin: release o=Debian,a=stable-security
 Pin-Priority: 650
@@ -189,6 +203,8 @@ Pin-Priority: 650
 Package: *
 Pin: release o=Debian,a=stable
 Pin-Priority: 600
+
+
 
 Package: *
 Pin: release o=Debian,a=sid
@@ -207,6 +223,8 @@ Pin-Priority: 250
 Package: *
 Pin: release o=Debian,a=oldstable
 Pin-Priority: 200
+
+
 
 Package: *
 Pin: release o=Debian,a=rc-buggy
