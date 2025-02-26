@@ -199,6 +199,11 @@ Package: systemd
 Pin: version 257.3-1
 Pin-Priority: -1
 
+Package: udev
+Pin: version 257.3-1
+Pin-Priority: -1
+
+
 DELIMITER_END_RAW_TEXT
 
 
