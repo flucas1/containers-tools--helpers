@@ -211,13 +211,10 @@ Package: udev:i386
 Pin: version 257.3-1
 Pin-Priority: -1
 
-
 DELIMITER_END_RAW_TEXT
 
-
 if [ "${CUSTOMREPOSITORY_IDENTIFIER}" != "" ] ; then
-  cat > /etc/apt/preferences << DELIMITER_END_RAW_TEXT
-
+  cat >> /etc/apt/preferences << DELIMITER_END_RAW_TEXT
 
 
 Package: *
@@ -225,6 +222,9 @@ Pin: origin ${CUSTOMREPOSITORY_SERVER}
 Pin-Priority: 999
 
 DELIMITER_END_RAW_TEXT
+cat /etc/apt/preferences
+
+if [ "${CUSTOMREPOSITORY_IDENTIFIER}" != "" ] ; then
   printf "Types: deb\nURIs: https://${CUSTOMREPOSITORY_SERVER}${CUSTOMREPOSITORY_PATH}\nSuites: ${CUSTOMREPOSITORY_IDENTIFIER}\nComponents: main\nSigned-By: \nTrusted: yes\n" > /etc/apt/sources.list.d/${CUSTOMREPOSITORY_IDENTIFIER}.sources
   ${HELPERSPATH}/apt-update.sh
 fi
