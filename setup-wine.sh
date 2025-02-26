@@ -32,6 +32,7 @@ ${HELPERSPATH}/apt-retry-install.sh fontconfig
 ${HELPERSPATH}/apt-retry-install.sh libavahi-client3
 ${HELPERSPATH}/apt-retry-install.sh libjbig0
 ${HELPERSPATH}/apt-retry-install.sh libmount1
+${HELPERSPATH}/apt-retry-install.sh libudev1
 ${HELPERSPATH}/apt-retry-install.sh udev
 ${HELPERSPATH}/apt-retry-install.sh libsane1
 #if [ "${WINEGRAPE}" = "" ] ; then
@@ -39,6 +40,7 @@ ${HELPERSPATH}/apt-retry-install.sh libsane1
     ${HELPERSPATH}/apt-retry-install.sh libavahi-client3:i386
     ${HELPERSPATH}/apt-retry-install.sh libjbig0:i386
     ${HELPERSPATH}/apt-retry-install.sh libmount1:i386
+    ${HELPERSPATH}/apt-retry-install.sh libudev1:i386
     ${HELPERSPATH}/apt-retry-install.sh udev:i386
     ${HELPERSPATH}/apt-retry-install.sh libsane1:i386
   fi
@@ -46,6 +48,7 @@ ${HELPERSPATH}/apt-retry-install.sh libsane1
     ${HELPERSPATH}/apt-retry-install.sh libavahi-client3:armhf
     ${HELPERSPATH}/apt-retry-install.sh libjbig0:armhf
     ${HELPERSPATH}/apt-retry-install.sh libmount1:armhf
+    ${HELPERSPATH}/apt-retry-install.sh libudev1:armhf
     ${HELPERSPATH}/apt-retry-install.sh udev:armhf
     ${HELPERSPATH}/apt-retry-install.sh libsane1:armhf
   fi
