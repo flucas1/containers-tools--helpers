@@ -199,7 +199,15 @@ Package: systemd
 Pin: version 257.3-1
 Pin-Priority: -1
 
+Package: systemd:i386
+Pin: version 257.3-1
+Pin-Priority: -1
+
 Package: udev
+Pin: version 257.3-1
+Pin-Priority: -1
+
+Package: udev:i386
 Pin: version 257.3-1
 Pin-Priority: -1
 
