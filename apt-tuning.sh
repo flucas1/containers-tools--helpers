@@ -154,6 +154,17 @@ Pin: origin nuitka.net
 Pin-Priority: 995
 
 
+Package: *
+Pin: release o=Debian,a=$(lsb_release -c -s)-security
+Pin-Priority: 750
+
+Package: *
+Pin: release o=Debian,a=$(lsb_release -c -s)-backports
+Pin-Priority: 750
+
+Package: *
+Pin: release o=Debian,a=$(lsb_release -c -s)
+Pin-Priority: 700
 
 Package: *
 Pin: release o=Debian,a=testing-security
