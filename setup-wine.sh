@@ -98,6 +98,7 @@ else
   timeout 900s wget --quiet --retry-connrefused --waitretry=1 --tries=10 -O "${WINETRICKSBIN}" https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks
   chmod +x "${WINETRICKSBIN}"
 fi
+winetricks --version
 
 if [ "${WINEGRAPE}" = "" ] ; then
   WINECLEAN="$(dpkg -s wine | grep "^Version:" | awk -F ' ' '{print $2}' | awk -F '-' '{print $1}' | sed "s/~rc/-rc/g" | awk -F '~' '{print $1}')"
