@@ -74,10 +74,10 @@ else
 
   ${HELPERSPATH}/apt-retry-install.sh winehq-${WINEGRAPE}${DEBIANSUFFIX}
   ${HELPERSPATH}/apt-retry-install.sh wine-${WINEGRAPE}${DEBIANSUFFIX}
-  ${HELPERSPATH}/apt-retry-install.sh wine-${WINEGRAPE}-amd64${DEBIANSUFFIX}
-#  if [ "${ARCHITECTURE}" = "amd64" ] ; then
+  if [ "${ARCHITECTURE}" = "amd64" ] ; then
+    ${HELPERSPATH}/apt-retry-install.sh wine-${WINEGRAPE}-amd64${DEBIANSUFFIX}
 #    ${HELPERSPATH}/apt-retry-install.sh wine-${WINEGRAPE}-i386${DEBIANSUFFIX}
-#  fi
+  fi
 fi
 
 wine --version
