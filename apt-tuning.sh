@@ -35,6 +35,7 @@ HELPERSPATH="/helpers"
 
 http_proxy="${APTCACHER}" ${HELPERSPATH}/apt-update.sh
 
+http_proxy="${APTCACHER}" ${HELPERSPATH}/apt-retry-install.sh iproute2
 http_proxy="${APTCACHER}" ${HELPERSPATH}/apt-retry-install.sh auto-apt-proxy
 
 ${HELPERSPATH}/apt-retry-install.sh apt-transport-https
