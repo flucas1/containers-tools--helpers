@@ -222,6 +222,7 @@ Pin: origin ${CUSTOMREPOSITORY_SERVER}
 Pin-Priority: 999
 
 DELIMITER_END_RAW_TEXT
+fi
 cat /etc/apt/preferences
 
 if [ "${CUSTOMREPOSITORY_IDENTIFIER}" != "" ] ; then
