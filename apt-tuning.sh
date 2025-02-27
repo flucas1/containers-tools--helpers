@@ -245,6 +245,14 @@ Package: systemd:i386
 Pin: version 257.3-1
 Pin-Priority: -1
 
+Package: systemd-standalone-sysusers
+Pin: version 257.3-1
+Pin-Priority: -1
+
+Package: systemd-standalone-sysusers:i386
+Pin: version 257.3-1
+Pin-Priority: -1
+
 Package: udev
 Pin: version 257.3-1
 Pin-Priority: -1
