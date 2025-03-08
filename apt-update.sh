@@ -12,7 +12,9 @@ while [ $SUCCESS -eq 0 ] && [ $COUNTER -lt $MAXRETRIES ] ; do
     SUCCESS=1
   else
     COUNTER=$(( $COUNTER + 1 ))
-	sleep 5s
+    # extra delay to allow apt-cacher-ng to rebuild indexes
+    # with 5s delay, the whole loop lasts less than 3 min
+    sleep 30s
   fi
 done
 [ $SUCCESS -eq 1 ]
