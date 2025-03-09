@@ -237,36 +237,8 @@ Pin-Priority: 50
 #Pin: version 7.45.3-*
 #Pin-Priority: -1
 
-Package: systemd
-Pin: version 257.3-1
-Pin-Priority: -1
-
-Package: systemd:i386
-Pin: version 257.3-1
-Pin-Priority: -1
-
-Package: systemd-standalone-sysusers
-Pin: version 257.3-1
-Pin-Priority: -1
-
-Package: systemd-standalone-sysusers:i386
-Pin: version 257.3-1
-Pin-Priority: -1
-
-Package: udev
-Pin: version 257.3-1
-Pin-Priority: -1
-
-Package: udev:i386
-Pin: version 257.3-1
-Pin-Priority: -1
-
-#Package: libudev1
-#Pin: version 257.3-1
-#Pin-Priority: -1
-
-Package: libudev1:i386
-Pin: version 257.3-1
+Package: buildah
+Pin: version 1.39.0-*
 Pin-Priority: -1
 
 DELIMITER_END_RAW_TEXT
