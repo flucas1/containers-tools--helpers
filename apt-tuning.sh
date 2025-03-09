@@ -170,7 +170,7 @@ Pin: release o=Debian,a=$(lsb_release -c -s)-security
 Pin-Priority: 750
 
 Package: *
-Pin: release o=Debian,a=$(lsb_release -c -s)-backports
+Pin: release o=Debian Backports,a=$(lsb_release -c -s)-backports
 Pin-Priority: 750
 
 Package: *
@@ -184,7 +184,7 @@ Pin: release o=Debian,a=testing-security
 Pin-Priority: 750
 
 Package: *
-Pin: release o=Debian,a=testing-backports
+Pin: release o=Debian Backports,a=testing-backports
 Pin-Priority: 750
 
 Package: *
@@ -198,7 +198,7 @@ Pin: release o=Debian,a=stable-security
 Pin-Priority: 650
 
 Package: *
-Pin: release o=Debian,a=stable-backports
+Pin: release o=Debian Backports,a=stable-backports
 Pin-Priority: 650
 
 Package: *
@@ -218,7 +218,7 @@ Pin: release o=Debian,a=oldstable-security
 Pin-Priority: 250
 
 Package: *
-Pin: release o=Debian,a=oldstable-backports
+Pin: release o=Debian Backports,a=oldstable-backports
 Pin-Priority: 250
 
 Package: *
