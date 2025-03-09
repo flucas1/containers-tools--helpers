@@ -238,7 +238,7 @@ Pin-Priority: 50
 #Pin-Priority: -1
 
 Package: buildah
-Pin: version 1.39.0-*
+Pin: version 1.39.0+*
 Pin-Priority: -1
 
 DELIMITER_END_RAW_TEXT
