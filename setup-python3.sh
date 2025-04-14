@@ -17,6 +17,7 @@ ${HELPERSPATH}/apt-retry-install.sh python3-pycurl
 ${HELPERSPATH}/apt-retry-install.sh python3-dnspython
 ${HELPERSPATH}/apt-retry-install.sh python3-dateutil
 ${HELPERSPATH}/apt-retry-install.sh python3-mechanize
+${HELPERSPATH}/apt-retry-install.sh python3-dateparser
 ${HELPERSPATH}/apt-retry-install.sh python3-py7zr
 ${HELPERSPATH}/apt-retry-install.sh python3-bs4
 ${HELPERSPATH}/apt-retry-install.sh python3-lxml
