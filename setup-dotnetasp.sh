@@ -85,5 +85,12 @@ if [ "${ARCHITECTURE}" = "amd64" ] ; then PARTARCH="x64" ; else if [ "${ARCHITEC
 [ "${PARTARCH}" != "" ]
 
 # there should be a parameter with the version to use, newest, preview, 8.0, 9.0, 10.0, and if empty use newest
-DOTNETASPVERSION="$(getversion_dotnetasp ${PARTARCH} active 1)"
-install_dotnetasp "${PARTARCH}" "${DOTNETASPVERSION}"
+
+DOTNETSDKVERSION="$(getversion_dotnetsdk ${PARTARCH} preview 1)"
+install_dotnetsdk "${PARTARCH}" "${DOTNETSDKVERSION}"
+
+DOTNETSDKVERSION="$(getversion_dotnetsdk ${PARTARCH} active 1)"
+install_dotnetsdk "${PARTARCH}" "${DOTNETSDKVERSION}"
+
+DOTNETSDKVERSION="$(getversion_dotnetsdk ${PARTARCH} active 2)"
+install_dotnetsdk "${PARTARCH}" "${DOTNETSDKVERSION}"
