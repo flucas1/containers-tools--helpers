@@ -26,3 +26,5 @@ while [ $SUCCESS -eq 0 ] && [ $COUNTER -lt $MAXRETRIES ] ; do
   fi
 done
 [ $SUCCESS -eq 1 ]
+
+#$WINEATOMIC "C:\\Program Files\\dotnet\\dotnet.exe" tool install --global dotnet-outdated-tool

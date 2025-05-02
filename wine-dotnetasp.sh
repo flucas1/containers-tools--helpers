@@ -43,7 +43,8 @@ install_dotnetasp()
 getversion_dotnetasp()
 {
   PARTARCH="$1"
-  LINENUMBER="$2"
+  SUPPORT="$2"
+  LINENUMBER="$3"
 
   MAXRETRIES=30
   COUNTER=0
