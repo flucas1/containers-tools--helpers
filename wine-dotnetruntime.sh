@@ -7,6 +7,11 @@ HELPERSCACHE="/helperscache"
 WINEATOMIC="/wine-atomic.sh"
 DIRECTINSTALL="$1"
 
+DESIREDVERSION="$2"
+if [ "${DESIREDVERSION}" == "" ] ; then
+  DESIREDVERSION="newest"
+fi
+
 install_dotnetruntime()
 {
   PARTARCH="$1"
@@ -66,13 +71,18 @@ ARCHITECTURE="$(dpkg --print-architecture)"
 if [ "${ARCHITECTURE}" = "amd64" ] ; then PARTARCH="x64" ; else if [ "${ARCHITECTURE}" = "arm64" ] ; then PARTARCH="arm64" ; fi ; fi
 [ "${PARTARCH}" != "" ]
 
-# there should be a parameter with the version to use, newest, preview, 8.0, 9.0, 10.0, and if empty use newest
+# selecting the version to use -- newest, preview, previous -- todo: 8.0, 9.0, 10.0
 
-DOTNETRUNTIMEVERSION="$(getversion_dotnetruntime ${PARTARCH} preview 1)"
-install_dotnetruntime "${PARTARCH}" "${DOTNETRUNTIMEVERSION}"
-
-DOTNETRUNTIMEVERSION="$(getversion_dotnetruntime ${PARTARCH} active 1)"
-install_dotnetruntime "${PARTARCH}" "${DOTNETRUNTIMEVERSION}"
-
-DOTNETRUNTIMEVERSION="$(getversion_dotnetruntime ${PARTARCH} active 2)"
-install_dotnetruntime "${PARTARCH}" "${DOTNETRUNTIMEVERSION}"
+if [ "${DESIREDVERSION}" == "preview" ] ; then
+  DOTNETSDKVERSION="$(getversion_dotnetsdk ${PARTARCH} preview 1)"
+  install_dotnetsdk "${PARTARCH}" "${DOTNETSDKVERSION}"
+else if [ "${DESIREDVERSION}" == "newest" ] ; then
+  DOTNETSDKVERSION="$(getversion_dotnetsdk ${PARTARCH} active 1)"
+  install_dotnetsdk "${PARTARCH}" "${DOTNETSDKVERSION}"
+else if [ "${DESIREDVERSION}" == "previous" ] ; then
+  DOTNETSDKVERSION="$(getversion_dotnetsdk ${PARTARCH} active 2)"
+  install_dotnetsdk "${PARTARCH}" "${DOTNETSDKVERSION}"
+else
+  DOTNETSDKVERSION="$(getversion_dotnetsdk ${PARTARCH} active 2)"
+  install_dotnetsdk "${PARTARCH}" "${DOTNETSDKVERSION}"
+fi
