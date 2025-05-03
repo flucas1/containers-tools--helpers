@@ -7,7 +7,7 @@ HELPERSPATH="/helpers"
 HELPERSCACHE="/helperscache"
 
 DESIREDVERSION="$1"
-if [ "${DESIREDVERSION}" == "" ] ; then
+if [ "${DESIREDVERSION}" = "" ] ; then
   DESIREDVERSION="newest"
 fi
 

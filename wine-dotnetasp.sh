@@ -8,7 +8,7 @@ WINEATOMIC="/wine-atomic.sh"
 DIRECTINSTALL="$1"
 
 DESIREDVERSION="$2"
-if [ "${DESIREDVERSION}" == "" ] ; then
+if [ "${DESIREDVERSION}" = "" ] ; then
   DESIREDVERSION="newest"
 fi
 
