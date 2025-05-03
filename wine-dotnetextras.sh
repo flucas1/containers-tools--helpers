@@ -5,13 +5,12 @@ set -x
 
 WINEATOMIC="/wine-atomic.sh"
 
-install_wasmtoolsversioned()
+install_wasmtools()
 {
-  DOTNETVERSION="$1"
   MAXRETRIES=30 ; COUNTER=0 ; SUCCESS=0
   while [ $SUCCESS -eq 0 ] && [ $COUNTER -lt $MAXRETRIES ] ; do
     echo "Retry #$COUNTER"
-    if timeout 900s $WINEATOMIC "C:\\Program Files\\dotnet\\dotnet.exe" workload install wasm-tools${DOTNETVERSION} ; then
+    if timeout 900s $WINEATOMIC "C:\\Program Files\\dotnet\\dotnet.exe" workload install wasm ; then
       SUCCESS=1
     else
       COUNTER=$(( $COUNTER + 1 ))
@@ -20,12 +19,6 @@ install_wasmtoolsversioned()
   done
   [ $SUCCESS -eq 1 ]
 }
-
-install_wasmtools()
-{
-  install_wasmtoolsversioned
-}
-
 install_avaloniatemplates()
 {
   MAXRETRIES=30 ; COUNTER=0 ; SUCCESS=0

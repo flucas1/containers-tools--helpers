@@ -3,13 +3,12 @@
 set -e
 set -x
 
-install_wasmtoolsversioned()
+install_wasmtools()
 {
-  DOTNETVERSION="$1"
   MAXRETRIES=30 ; COUNTER=0 ; SUCCESS=0
   while [ $SUCCESS -eq 0 ] && [ $COUNTER -lt $MAXRETRIES ] ; do
     echo "Retry #$COUNTER"
-    if timeout 900s /opt/dotnet/dotnet workload install wasm-tools${DOTNETVERSION} ; then
+    if timeout 900s /opt/dotnet/dotnet workload install wasm-tools ; then
       SUCCESS=1
     else
       COUNTER=$(( $COUNTER + 1 ))
@@ -17,11 +16,6 @@ install_wasmtoolsversioned()
     fi
   done
   [ $SUCCESS -eq 1 ]
-}
-
-install_wasmtools()
-{
-  install_wasmtoolsversioned
 }
 
 install_avaloniatemplates()
