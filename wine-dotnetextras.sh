@@ -5,7 +5,7 @@ set -x
 
 WINEATOMIC="/wine-atomic.sh"
 
-install_wasmtoolsversioned()
+install_wasmtoolscurrent()
 {
   DOTNETSDKVERSION="$1"
   MAXRETRIES=30 ; COUNTER=0 ; SUCCESS=0
@@ -21,11 +21,15 @@ install_wasmtoolsversioned()
   [ $SUCCESS -eq 1 ]
 }
 
-install_wasmtools()
+install_wasmtoolsmultiple()
 {
-  DOTNETSDKS="$($WINEATOMIC "C:\\Program Files\\dotnet\\dotnet.exe" --list-sdks | awk '{first=$1; rest=substr($0, length($1)+2); print substr(rest, 2, length(rest)-2) "\\" first "\\Sdks"}')"
+  DOTNETSDKS="$($WINEATOMIC "C:\\Program Files\\dotnet\\dotnet.exe" --list-sdks | awk '{print $1}')"
   for DOTNETSDKVERSION in $DOTNETSDKS ; do
-    install_wasmtoolsversioned $DOTNETSDKVERSION
+    TEMPGLOBAL=".\\temp.global.json"
+    $WINEATOMIC del /F "${TEMPGLOBAL}"
+    $WINEATOMIC "C:\\Program Files\\dotnet\\dotnet.exe" new globaljson --sdk-version $DOTNETSDKVERSION --output "${TEMPGLOBAL}"
+    install_wasmtoolscurrent $DOTNETSDKVERSION
+    $WINEATOMIC del /F "${TEMPGLOBAL}"
   done
 }
 
@@ -44,7 +48,7 @@ install_avaloniatemplates()
   [ $SUCCESS -eq 1 ]
 }
 
-install_wasmtools
+install_wasmtoolsmultiple
 
 install_avaloniatemplates
 
