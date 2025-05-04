@@ -25,11 +25,11 @@ install_wasmtoolsmultiple()
 {
   DOTNETSDKS="$($WINEATOMIC "C:\\Program Files\\dotnet\\dotnet.exe" --list-sdks | awk '{print $1}')"
   for DOTNETSDKVERSION in $DOTNETSDKS ; do
-    TEMPGLOBAL=".\\temp.global.json"
-    $WINEATOMIC del /F /Q "${TEMPGLOBAL}"
-    $WINEATOMIC "C:\\Program Files\\dotnet\\dotnet.exe" new globaljson --sdk-version $DOTNETSDKVERSION --output "${TEMPGLOBAL}"
+    TEMPGLOBALJSON=".\\global.json"
+    $WINEATOMIC del /F /Q "${TEMPGLOBALJSONAL}"
+    $WINEATOMIC "C:\\Program Files\\dotnet\\dotnet.exe" new globaljson --sdk-version $DOTNETSDKVERSION --output "${TEMPGLOBALJSON}"
     install_wasmtoolscurrent $DOTNETSDKVERSION
-    $WINEATOMIC del /F /Q "${TEMPGLOBAL}"
+    $WINEATOMIC del /F /Q "${TEMPGLOBALJSON}"
   done
 }
 

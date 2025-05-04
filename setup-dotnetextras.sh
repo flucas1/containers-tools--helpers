@@ -23,11 +23,11 @@ install_wasmtoolsmultiple()
 {
   DOTNETSDKS="$(/opt/dotnet/dotnet --list-sdks | awk '{print $1}')"
   for DOTNETSDKVERSION in $DOTNETSDKS ; do
-    TEMPGLOBAL="./temp.global.json"
-    rm -f "${TEMPGLOBAL}"
-    dotnet new globaljson --sdk-version $DOTNETSDKVERSION --output "${TEMPGLOBAL}"
+    TEMPGLOBALJSON="./global.json"
+    rm -f "${TEMPGLOBALJSON}"
+    dotnet new globaljson --sdk-version $DOTNETSDKVERSION --output "${TEMPGLOBALJSON}"
     install_wasmtoolscurrent $DOTNETSDKVERSION
-    rm -f "${TEMPGLOBAL}"
+    rm -f "${TEMPGLOBALJSON}"
   done
 }
 
