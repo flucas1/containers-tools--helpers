@@ -5,11 +5,10 @@ set -x
 
 install_wasmtoolscurrent()
 {
-  DOTNETSDKVERSION="$1"
   MAXRETRIES=30 ; COUNTER=0 ; SUCCESS=0
   while [ $SUCCESS -eq 0 ] && [ $COUNTER -lt $MAXRETRIES ] ; do
     echo "Retry #$COUNTER"
-    if DOTNET_ROOT="${DOTNETSDKVERSION}" timeout 900s /opt/dotnet/dotnet workload install wasm-tools ; then
+    if timeout 900s /opt/dotnet/dotnet workload install wasm-tools ; then
       SUCCESS=1
     else
       COUNTER=$(( $COUNTER + 1 ))
@@ -23,11 +22,10 @@ install_wasmtoolsmultiple()
 {
   DOTNETSDKS="$(/opt/dotnet/dotnet --list-sdks | awk '{print $1}')"
   for DOTNETSDKVERSION in $DOTNETSDKS ; do
-    TEMPGLOBALJSON="./global.json"
-    rm -f "${TEMPGLOBALJSON}"
-    dotnet new globaljson --sdk-version $DOTNETSDKVERSION --output "${TEMPGLOBALJSON}"
-    install_wasmtoolscurrent $DOTNETSDKVERSION
-    rm -f "${TEMPGLOBALJSON}"
+    rm -f "./global.json"
+    dotnet new globaljson --sdk-version $DOTNETSDKVERSION
+    install_wasmtoolscurrent
+    rm -f "./global.json"
   done
 }
 
