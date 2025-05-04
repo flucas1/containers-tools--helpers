@@ -23,7 +23,7 @@ install_wasmtoolsmultiple()
   DOTNETSDKS="$(/opt/dotnet/dotnet --list-sdks | awk '{print $1}')"
   for DOTNETSDKVERSION in $DOTNETSDKS ; do
     rm -f "./global.json"
-    dotnet new globaljson --sdk-version $DOTNETSDKVERSION
+    dotnet new globaljson --sdk-version $DOTNETSDKVERSION --output "./"
     install_wasmtoolscurrent
     rm -f "./global.json"
   done
