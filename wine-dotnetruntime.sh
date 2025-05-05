@@ -74,15 +74,15 @@ if [ "${ARCHITECTURE}" = "amd64" ] ; then PARTARCH="x64" ; else if [ "${ARCHITEC
 # selecting the version to use -- newest, preview, previous -- todo: 8.0, 9.0, 10.0
 
 if [ "${DESIREDVERSION}" = "preview" ] ; then
-  DOTNETSDKVERSION="$(getversion_dotnetruntime ${PARTARCH} preview 1)"
-  install_dotnetruntime "${PARTARCH}" "${DOTNETSDKVERSION}"
+  DOTNETRUNTIMEVERSION="$(getversion_dotnetruntime ${PARTARCH} preview 1)"
+  install_dotnetruntime "${PARTARCH}" "${DOTNETRUNTIMEVERSION}"
 elif [ "${DESIREDVERSION}" = "newest" ] ; then
-  DOTNETSDKVERSION="$(getversion_dotnetruntime ${PARTARCH} active 1)"
-  install_dotnetruntime "${PARTARCH}" "${DOTNETSDKVERSION}"
+  DOTNETRUNTIMEVERSION="$(getversion_dotnetruntime ${PARTARCH} active 1)"
+  install_dotnetruntime "${PARTARCH}" "${DOTNETRUNTIMEVERSION}"
 elif [ "${DESIREDVERSION}" = "previous" ] ; then
-  DOTNETSDKVERSION="$(getversion_dotnetruntime ${PARTARCH} active 2)"
-  install_dotnetruntime "${PARTARCH}" "${DOTNETSDKVERSION}"
+  DOTNETRUNTIMEVERSION="$(getversion_dotnetruntime ${PARTARCH} active 2)"
+  install_dotnetruntime "${PARTARCH}" "${DOTNETRUNTIMEVERSION}"
 else
-  DOTNETSDKVERSION="$(getversion_dotnetruntime ${PARTARCH} force ${DESIREDVERSION})"
-  install_dotnetruntime "${PARTARCH}" "${DOTNETSDKVERSION}"
+  DOTNETRUNTIMEVERSION="$(getversion_dotnetruntime ${PARTARCH} force ${DESIREDVERSION})"
+  install_dotnetruntime "${PARTARCH}" "${DOTNETRUNTIMEVERSION}"
 fi
