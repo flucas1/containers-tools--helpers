@@ -24,10 +24,10 @@ install_wasmtoolsmultiple()
 {
   DOTNETSDKS="$($WINEATOMIC "C:\\Program Files\\dotnet\\dotnet.exe" --list-sdks | awk '{print $1}')"
   for DOTNETSDKVERSION in $DOTNETSDKS ; do
-    $WINEATOMIC cmd /c del /f /q ".\\global.json"
+    $WINEATOMIC cmd /c del /f /q ".\\global.json" || true
     $WINEATOMIC "C:\\Program Files\\dotnet\\dotnet.exe" new globaljson --sdk-version $DOTNETSDKVERSION --output ".\\"
     install_wasmtoolscurrent $DOTNETSDKVERSION
-    $WINEATOMIC cmd /c del /f /q ".\\global.json"
+    $WINEATOMIC cmd /c del /f /q ".\\global.json" || true
   done
 }
 
