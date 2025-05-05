@@ -93,14 +93,14 @@ if [ "${ARCHITECTURE}" = "amd64" ] ; then PARTARCH="x64" ; else if [ "${ARCHITEC
 
 if [ "${DESIREDVERSION}" = "preview" ] ; then
   DOTNETSDKVERSION="$(getversion_dotnetasp ${PARTARCH} preview 1)"
-  install_dotnetsdk "${PARTARCH}" "${DOTNETSDKVERSION}"
+  getversion_dotnetasp "${PARTARCH}" "${DOTNETSDKVERSION}"
 elif [ "${DESIREDVERSION}" = "newest" ] ; then
   DOTNETSDKVERSION="$(getversion_dotnetasp ${PARTARCH} active 1)"
-  install_dotnetsdk "${PARTARCH}" "${DOTNETSDKVERSION}"
+  getversion_dotnetasp "${PARTARCH}" "${DOTNETSDKVERSION}"
 elif [ "${DESIREDVERSION}" = "previous" ] ; then
   DOTNETSDKVERSION="$(getversion_dotnetasp ${PARTARCH} active 2)"
-  install_dotnetsdk "${PARTARCH}" "${DOTNETSDKVERSION}"
+  getversion_dotnetasp "${PARTARCH}" "${DOTNETSDKVERSION}"
 else
   DOTNETSDKVERSION="$(getversion_dotnetasp ${PARTARCH} force ${DESIREDVERSION})"
-  install_dotnetsdk "${PARTARCH}" "${DOTNETSDKVERSION}"
+  getversion_dotnetasp "${PARTARCH}" "${DOTNETSDKVERSION}"
 fi
