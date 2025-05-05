@@ -77,15 +77,15 @@ if [ "${ARCHITECTURE}" = "amd64" ] ; then PARTARCH="x64" ; else if [ "${ARCHITEC
 # selecting the version to use -- newest, preview, previous -- todo: 8.0, 9.0, 10.0
 
 if [ "${DESIREDVERSION}" = "preview" ] ; then
-  DOTNETSDKVERSION="$(getversion_dotnetsdk ${PARTARCH} preview 1)"
+  DOTNETSDKVERSION="$(install_dotnetasp ${PARTARCH} preview 1)"
   install_dotnetsdk "${PARTARCH}" "${DOTNETSDKVERSION}"
 elif [ "${DESIREDVERSION}" = "newest" ] ; then
-  DOTNETSDKVERSION="$(getversion_dotnetsdk ${PARTARCH} active 1)"
+  DOTNETSDKVERSION="$(install_dotnetasp ${PARTARCH} active 1)"
   install_dotnetsdk "${PARTARCH}" "${DOTNETSDKVERSION}"
 elif [ "${DESIREDVERSION}" = "previous" ] ; then
-  DOTNETSDKVERSION="$(getversion_dotnetsdk ${PARTARCH} active 2)"
+  DOTNETSDKVERSION="$(install_dotnetasp ${PARTARCH} active 2)"
   install_dotnetsdk "${PARTARCH}" "${DOTNETSDKVERSION}"
 else
-  DOTNETSDKVERSION="$(getversion_dotnetsdk ${PARTARCH} force ${DESIREDVERSION})"
+  DOTNETSDKVERSION="$(install_dotnetasp ${PARTARCH} force ${DESIREDVERSION})"
   install_dotnetsdk "${PARTARCH}" "${DOTNETSDKVERSION}"
 fi
