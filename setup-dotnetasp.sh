@@ -93,14 +93,14 @@ if [ "${ARCHITECTURE}" = "amd64" ] ; then PARTARCH="x64" ; else if [ "${ARCHITEC
 
 if [ "${DESIREDVERSION}" = "preview" ] ; then
   DOTNETASPVERSION="$(getversion_dotnetasp ${PARTARCH} preview 1)"
-  getversion_dotnetasp "${PARTARCH}" "${DOTNETASPVERSION}"
+  install_dotnetasp "${PARTARCH}" "${DOTNETASPVERSION}"
 elif [ "${DESIREDVERSION}" = "newest" ] ; then
   DOTNETASPVERSION="$(getversion_dotnetasp ${PARTARCH} active 1)"
-  getversion_dotnetasp "${PARTARCH}" "${DOTNETASPVERSION}"
+  install_dotnetasp "${PARTARCH}" "${DOTNETASPVERSION}"
 elif [ "${DESIREDVERSION}" = "previous" ] ; then
   DOTNETASPVERSION="$(getversion_dotnetasp ${PARTARCH} active 2)"
-  getversion_dotnetasp "${PARTARCH}" "${DOTNETASPVERSION}"
+  install_dotnetasp "${PARTARCH}" "${DOTNETASPVERSION}"
 else
   DOTNETASPVERSION="$(getversion_dotnetasp ${PARTARCH} force ${DESIREDVERSION})"
-  getversion_dotnetasp "${PARTARCH}" "${DOTNETASPVERSION}"
+  install_dotnetasp "${PARTARCH}" "${DOTNETASPVERSION}"
 fi
