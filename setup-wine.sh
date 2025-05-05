@@ -27,6 +27,7 @@ echo "WINEVERSION is '${WINEVERSION}'"
 #fi
 
 ${HELPERSPATH}/apt-retry-install.sh wget
+${HELPERSPATH}/apt-retry-install.sh bluez
 ${HELPERSPATH}/apt-retry-install.sh winbind
 ${HELPERSPATH}/apt-retry-install.sh fontconfig
 ${HELPERSPATH}/apt-retry-install.sh libavahi-client3
