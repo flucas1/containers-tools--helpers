@@ -134,7 +134,33 @@ while [ $SUCCESS -eq 0 ] && [ $COUNTER -lt $MAXRETRIES ] ; do
 done
 [ $SUCCESS -eq 1 ]
 
-arduino-cli core search ATTinyCore:avr --config-file "$CONFIG_DIR/arduino-cli.yaml"
-arduino-cli core install ATTinyCore:avr --config-file "$CONFIG_DIR/arduino-cli.yaml"
+MAXRETRIES=30
+COUNTER=0
+SUCCESS=0
+while [ $SUCCESS -eq 0 ] && [ $COUNTER -lt $MAXRETRIES ] ; do
+echo "Retry #$COUNTER" >&2
+if timeout 900s arduino-cli core search ATTinyCore:avr --config-file "$CONFIG_DIR/arduino-cli.yaml" ; then
+  SUCCESS=1
+else
+  COUNTER=$(( $COUNTER + 1 ))
+  sleep 5s
+fi
+done
+[ $SUCCESS -eq 1 ]
+
+MAXRETRIES=30
+COUNTER=0
+SUCCESS=0
+while [ $SUCCESS -eq 0 ] && [ $COUNTER -lt $MAXRETRIES ] ; do
+echo "Retry #$COUNTER" >&2
+if timeout 900s arduino-cli core install ATTinyCore:avr --config-file "$CONFIG_DIR/arduino-cli.yaml" ; then
+  SUCCESS=1
+else
+  COUNTER=$(( $COUNTER + 1 ))
+  sleep 5s
+fi
+done
+[ $SUCCESS -eq 1 ]
+
 arduino-cli core list --config-file "$CONFIG_DIR/arduino-cli.yaml"
 arduino-cli board listall --config-file "$CONFIG_DIR/arduino-cli.yaml"
