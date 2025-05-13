@@ -19,7 +19,7 @@ checkLatestGithubVersion()
   SUCCESS=0
   while [ $SUCCESS -eq 0 ] && [ $COUNTER -lt $MAXRETRIES ] ; do
     echo "Retry #$COUNTER" >&2
-    CHECKLATESTVERSION_TAG="$(timeout 30s wget -4 --quiet --no-verbose --retry-connrefused --waitretry=3 --tries=20 "${CHECKLATESTVERSION_LATEST_URL}" -O - | grep -o "<title>Release $CHECKLATESTVERSION_REGEX" | grep -o "$CHECKLATESTVERSION_REGEX")"
+    CHECKLATESTVERSION_TAG="$(timeout --kill-after=5s 30s wget -4 --quiet --no-verbose --retry-connrefused --waitretry=3 --tries=20 "${CHECKLATESTVERSION_LATEST_URL}" -O - | grep -o "<title>Release $CHECKLATESTVERSION_REGEX" | grep -o "$CHECKLATESTVERSION_REGEX")"
     if [ "${CHECKLATESTVERSION_TAG}" != "" ] ; then
       SUCCESS=1
     else
@@ -55,7 +55,7 @@ if [ ! -f "${LOCALCACHEFILENAME}" ] ; then
   SUCCESS=0
   while [ $SUCCESS -eq 0 ] && [ $COUNTER -lt $MAXRETRIES ] ; do
     echo "Retry #$COUNTER" >&2
-    if timeout 900s wget -4 --no-verbose --retry-connrefused --waitretry=3 --tries=20 "${DOWNLOADURL}" -O "${LOCALCACHEFILENAME}" ; then
+    if timeout --kill-after=5s 900s wget -4 --no-verbose --retry-connrefused --waitretry=3 --tries=20 "${DOWNLOADURL}" -O "${LOCALCACHEFILENAME}" ; then
       SUCCESS=1
     else
       COUNTER=$(( $COUNTER + 1 ))
@@ -90,7 +90,7 @@ COUNTER=0
 SUCCESS=0
 while [ $SUCCESS -eq 0 ] && [ $COUNTER -lt $MAXRETRIES ] ; do
 echo "Retry #$COUNTER" >&2
-if timeout 900s arduino-cli core search arduino:avr --config-file "$CONFIG_DIR/arduino-cli.yaml" ; then
+if timeout --kill-after=5s 900s arduino-cli core search arduino:avr --config-file "$CONFIG_DIR/arduino-cli.yaml" ; then
   SUCCESS=1
 else
   COUNTER=$(( $COUNTER + 1 ))
@@ -104,7 +104,7 @@ COUNTER=0
 SUCCESS=0
 while [ $SUCCESS -eq 0 ] && [ $COUNTER -lt $MAXRETRIES ] ; do
 echo "Retry #$COUNTER" >&2
-if timeout 900s arduino-cli core install arduino:avr --config-file "$CONFIG_DIR/arduino-cli.yaml" ; then
+if timeout --kill-after=5s 900s arduino-cli core install arduino:avr --config-file "$CONFIG_DIR/arduino-cli.yaml" ; then
   SUCCESS=1
 else
   COUNTER=$(( $COUNTER + 1 ))
@@ -139,7 +139,7 @@ COUNTER=0
 SUCCESS=0
 while [ $SUCCESS -eq 0 ] && [ $COUNTER -lt $MAXRETRIES ] ; do
 echo "Retry #$COUNTER" >&2
-if timeout 900s arduino-cli core search ATTinyCore:avr --config-file "$CONFIG_DIR/arduino-cli.yaml" ; then
+if timeout --kill-after=5s 900s arduino-cli core search ATTinyCore:avr --config-file "$CONFIG_DIR/arduino-cli.yaml" ; then
   SUCCESS=1
 else
   COUNTER=$(( $COUNTER + 1 ))
@@ -153,7 +153,7 @@ COUNTER=0
 SUCCESS=0
 while [ $SUCCESS -eq 0 ] && [ $COUNTER -lt $MAXRETRIES ] ; do
 echo "Retry #$COUNTER" >&2
-if timeout 900s arduino-cli core install ATTinyCore:avr --config-file "$CONFIG_DIR/arduino-cli.yaml" ; then
+if timeout --kill-after=5s 900s arduino-cli core install ATTinyCore:avr --config-file "$CONFIG_DIR/arduino-cli.yaml" ; then
   SUCCESS=1
 else
   COUNTER=$(( $COUNTER + 1 ))

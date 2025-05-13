@@ -8,7 +8,7 @@ install_wasmtoolscurrent()
   MAXRETRIES=30 ; COUNTER=0 ; SUCCESS=0
   while [ $SUCCESS -eq 0 ] && [ $COUNTER -lt $MAXRETRIES ] ; do
     echo "Retry #$COUNTER"
-    if timeout 900s /opt/dotnet/dotnet workload install wasm-tools ; then
+    if timeout --kill-after=5s 900s /opt/dotnet/dotnet workload install wasm-tools ; then
       SUCCESS=1
     else
       COUNTER=$(( $COUNTER + 1 ))
@@ -34,7 +34,7 @@ install_avaloniatemplates()
   MAXRETRIES=30 ; COUNTER=0 ; SUCCESS=0
   while [ $SUCCESS -eq 0 ] && [ $COUNTER -lt $MAXRETRIES ] ; do
     echo "Retry #$COUNTER"
-    if timeout 900s /opt/dotnet/dotnet new install avalonia.templates ; then
+    if timeout --kill-after=5s 900s /opt/dotnet/dotnet new install avalonia.templates ; then
       SUCCESS=1
     else
       COUNTER=$(( $COUNTER + 1 ))

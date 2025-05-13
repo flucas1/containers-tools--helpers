@@ -21,8 +21,8 @@ $WINEBOOTBINARY
 $WINEBINARY "$@" | dos2unix --force
 #echo "wineatomic -- post"
 
-timeout 30s $WINEBOOTBINARY -e || true
-timeout 30s $WINEBOOTBINARY -f || true
-timeout 30s $WINEBOOTBINARY -k || true
+timeout --kill-after=5s 30s $WINEBOOTBINARY -e || true
+timeout --kill-after=5s 30s $WINEBOOTBINARY -f || true
+timeout --kill-after=5s 30s $WINEBOOTBINARY -k || true
 
 #echo "wineatomic -- exitpoint"
