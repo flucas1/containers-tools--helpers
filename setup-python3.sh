@@ -24,3 +24,5 @@ ${HELPERSPATH}/apt-retry-install.sh python3-lxml
 ${HELPERSPATH}/apt-retry-install.sh python3-packaging
 #${HELPERSPATH}/apt-retry-install.sh python3-distutils
 ${HELPERSPATH}/apt-retry-install.sh python3-setuptools
+
+/usr/bin/python3 --version
