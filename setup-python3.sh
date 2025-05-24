@@ -22,7 +22,7 @@ ${HELPERSPATH}/apt-retry-install.sh python3-py7zr
 ${HELPERSPATH}/apt-retry-install.sh python3-bs4
 ${HELPERSPATH}/apt-retry-install.sh python3-lxml
 ${HELPERSPATH}/apt-retry-install.sh python3-packaging
-#${HELPERSPATH}/apt-retry-install.sh python3-distutils
 ${HELPERSPATH}/apt-retry-install.sh python3-setuptools
+${HELPERSPATH}/apt-retry-install.sh python3-secretstorage
 
 /usr/bin/python3 --version
