@@ -14,4 +14,5 @@ ${HELPERSPATH}/apt-retry-install.sh pkgconf
 ${HELPERSPATH}/apt-retry-install.sh ninja-build
 ${HELPERSPATH}/apt-retry-install.sh valgrind
 ${HELPERSPATH}/apt-retry-install.sh clang
+${HELPERSPATH}/apt-retry-install.sh llvm
 ${HELPERSPATH}/apt-retry-install.sh zlib1g-dev
