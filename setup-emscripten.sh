@@ -3,6 +3,8 @@
 set -e
 set -x
 
+HELPERSPATH="/helpers"
+
 ${HELPERSPATH}/apt-retry-install.sh git
 
 mkdir -p /opt/emsdk
