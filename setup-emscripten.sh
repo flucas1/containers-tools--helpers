@@ -47,4 +47,4 @@ fi
 /opt/emsdk/emsdk install "$EMSDKVERSION"
 /opt/emsdk/emsdk activate "$EMSDKVERSION"
 
-source /opt/emsdk/emsdk_env.sh
+/opt/emsdk/emsdk_env.sh
