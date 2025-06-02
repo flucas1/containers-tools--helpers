@@ -41,7 +41,7 @@ EMSDKVERSION="$(timeout --kill-after=5s 900s wget --quiet --no-verbose --retry-c
 [ "$EMSDKVERSION" != "" ]
 if [ "$EMSDKVERSION" = "3.1.56" ] ; then
   ARCHITECTURE="$(dpkg --print-architecture)"
-  if [ "${ARCHITECTURE}" = "arm64" ] ; then EMSDKVERSION = "3.1.57" ; fi
+  if [ "${ARCHITECTURE}" = "arm64" ] ; then EMSDKVERSION="3.1.57" ; fi
 fi
 
 /opt/emsdk/emsdk install "$EMSDKVERSION"
