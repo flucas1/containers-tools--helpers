@@ -48,4 +48,5 @@ sed "s#returncode = run(\['tar', #returncode = run(['tar', '--no-same-owner', #g
 /opt/emsdk/emsdk install "$EMSDKVERSION"
 /opt/emsdk/emsdk activate "$EMSDKVERSION"
 
-/usr/bin/sh -v /opt/emsdk/emsdk_env.sh
+# source /opt/emsdk/emsdk_env.sh -- but POSIX-compliant
+. /opt/emsdk/emsdk_env.sh
