@@ -44,6 +44,7 @@ if [ "$EMSDKVERSION" = "3.1.56" ] ; then
   if [ "${ARCHITECTURE}" = "arm64" ] ; then EMSDKVERSION="3.1.57" ; fi
 fi
 
+sed "s#returncode = run(\['tar', #returncode = run(['tar', '--no-same-owner', #g" -i /opt/emsdk/emsdk.py
 /opt/emsdk/emsdk install "$EMSDKVERSION"
 /opt/emsdk/emsdk activate "$EMSDKVERSION"
 
