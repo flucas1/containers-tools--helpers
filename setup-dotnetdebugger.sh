@@ -35,3 +35,5 @@ fi
 
 rm -f "/opt/vsdbg-${RUNTIME}.tar.gz"
 rm -f /opt/getvsdbg.sh
+
+/opt/vsdbg/vsdbg --version
