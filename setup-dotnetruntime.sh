@@ -20,6 +20,7 @@ install_dotnetruntime()
   #chmod +x /usr/bin/dotnet-install.sh
   #/usr/bin/dotnet-install.sh --channel ${DOTNETRUNTIMEVERSION} --install-dir "${TARGETPATH}" --verbose --runtime dotnet
 
+  mkdir -p "${HELPERSCACHE}"
   FILENAME="dotnet-runtime-${DOTNETRUNTIMEVERSION}-linux-${PARTARCH}.tar.gz"
   DOWNLOADURL="https://dotnetcli.blob.core.windows.net/dotnet/Runtime/${DOTNETRUNTIMEVERSION}/${FILENAME}"
   LOCALCACHEFILENAME="${HELPERSCACHE}/${FILENAME}"

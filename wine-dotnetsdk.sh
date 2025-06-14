@@ -18,12 +18,11 @@ install_dotnetsdk()
   DOTNETSDKVERSION="$2"
   
   # follow "channel-version" and "releases.json" from previous json into https://dotnetcli.blob.core.windows.net/dotnet/release-metadata/8.0/releases.json and select right link
+  mkdir -p "${HELPERSCACHE}"
   FILENAME="dotnet-sdk-${DOTNETSDKVERSION}-win-${PARTARCH}.exe"
   DOWNLOADURL="https://dotnetcli.blob.core.windows.net/dotnet/Sdk/${DOTNETSDKVERSION}/${FILENAME}"
   LOCALCACHEFILENAME="${HELPERSCACHE}/${FILENAME}"
   if [ ! -f "${LOCALCACHEFILENAME}" ] ; then
-    rm -f "${LOCALCACHEFILENAME}"
-    mkdir -p "${HELPERSCACHE}"
     MAXRETRIES=30
     COUNTER=0
     SUCCESS=0
