@@ -31,7 +31,7 @@ fi
 [ -f "${LOCALCACHEFILENAME}" ]
 
 #/usr/bin/sh /opt/getvsdbg.sh -v latest -l /opt/vsdbg
-/usr/bin/sh /opt/getvsdbg.sh -v latest -l /opt/vsdbg -s -e "/opt/vsdbg-${RUNTIME}.tar.gz"
+/usr/bin/sh /opt/getvsdbg.sh -v latest -l /opt/vsdbg -o -e "/opt/vsdbg-${RUNTIME}.tar.gz"
 
 rm -f "/opt/vsdbg-${RUNTIME}.tar.gz"
 rm -f /opt/getvsdbg.sh
