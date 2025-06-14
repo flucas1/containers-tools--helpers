@@ -11,8 +11,26 @@ TARGET=$(echo "${VERSION}" | tr '.' '-')
 ARCHITECTURE="$(dpkg --print-architecture)"
 if [ "${ARCHITECTURE}" = "amd64" ] ; then RUNTIME="linux-x64" ; else if [ "${ARCHITECTURE}" = "arm64" ] ; then RUNTIME="linux-arm64" ; fi ; fi
 
+LOCALCACHEFILENAME="/opt/vsdbg-${RUNTIME}.tar.gz"
+DOWNLOADURL="https://${HOST}/vsdbg-${TARGET}/vsdbg-${RUNTIME}.tar.gz"
+if [ ! -f "${LOCALCACHEFILENAME}" ] ; then
+  MAXRETRIES=30
+  COUNTER=0
+  SUCCESS=0
+  while [ $SUCCESS -eq 0 ] && [ $COUNTER -lt $MAXRETRIES ] ; do
+    echo "Retry #$COUNTER" >&2
+    if timeout --kill-after=5s 900s wget -4 --no-verbose --retry-connrefused --waitretry=3 --tries=20 "${DOWNLOADURL}" -O "${LOCALCACHEFILENAME}" ; then
+      SUCCESS=1
+    else
+      COUNTER=$(( $COUNTER + 1 ))
+      sleep 5s
+    fi
+  done
+[ $SUCCESS -eq 1 ]
+fi
+[ -f "${LOCALCACHEFILENAME}" ]
+
 #/usr/bin/sh /opt/getvsdbgsh -v latest -l /opt/vsdbg
-timeout --kill-after=5s 900s wget --quiet --no-verbose --retry-connrefused --waitretry=3 --tries=20 "https://${HOST}/vsdbg-${TARGET}/vsdbg-${RUNTIME}.tar.gz" -O "/opt/vsdbg-${RUNTIME}.tar.gz"
 /usr/bin/sh /opt/getvsdbgsh -v latest -l /opt/vsdbg -s -e "/opt/vsdbg-${RUNTIME}.tar.gz"
 
 rm -f "/opt/vsdbg-${RUNTIME}.tar.gz"

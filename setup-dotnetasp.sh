@@ -27,8 +27,6 @@ install_dotnetasp()
   #  rm -f "${LOCALCACHEFILENAME}"
   #fi
   if [ ! -f "${LOCALCACHEFILENAME}" ] ; then
-    rm -f "${LOCALCACHEFILENAME}"
-    mkdir -p "${HELPERSCACHE}"
     MAXRETRIES=30
     COUNTER=0
     SUCCESS=0
