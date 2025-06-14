@@ -46,7 +46,11 @@ fi
 
 sed "s#returncode = run(\['tar', #returncode = run(['tar', '--no-same-owner', #g" -i /opt/emsdk/emsdk.py
 #/opt/emsdk/emsdk install "$EMSDKVERSION"
-python -c "import sys,os,socket; socket.setdefaulttimeout(10); socket.getaddrinfo=lambda *a,**k:[i for i in socket.getaddrinfo.__globals__['getaddrinfo'](*a,**k) if i[0]==socket.AF_INET]; sys.argv=['/opt/emsdk/emsdk.py','install',os.environ['EMSDKVERSION']]; exec(open('/opt/emsdk/emsdk.py').read())"
+python3 -c "import sys, os, socket; socket.setdefaulttimeout(10); \
+orig_getaddrinfo = socket.getaddrinfo; \
+socket.getaddrinfo = lambda *args, **kwargs: [info for info in orig_getaddrinfo(*args, **kwargs) if info[0] == socket.AF_INET]; \
+sys.argv=['/opt/emsdk/emsdk.py','install','${EMSDKVERSION}']; \
+__file__=sys.argv[0]; exec(open('/opt/emsdk/emsdk.py').read())"
 /opt/emsdk/emsdk activate "$EMSDKVERSION"
 
 # source /opt/emsdk/emsdk_env.sh -- but POSIX-compliant
