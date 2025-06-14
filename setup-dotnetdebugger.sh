@@ -12,8 +12,8 @@ ARCHITECTURE="$(dpkg --print-architecture)"
 if [ "${ARCHITECTURE}" = "amd64" ] ; then RUNTIME="linux-x64" ; else if [ "${ARCHITECTURE}" = "arm64" ] ; then RUNTIME="linux-arm64" ; fi ; fi
 
 #/usr/bin/sh /opt/getvsdbgsh -v latest -l /opt/vsdbg
-timeout --kill-after=5s 900s wget --quiet --no-verbose --retry-connrefused --waitretry=3 --tries=20 https://${HOST}/vsdbg-${TARGET}/vsdbg-${RUNTIME}.tar.gz -O /opt/vsdbg-${RUNTIME}.tar.gz
-/usr/bin/sh /opt/getvsdbgsh -v latest -l /opt/vsdbg -s -e /opt/vsdbg-${RUNTIME}.tar.gz
+timeout --kill-after=5s 900s wget --quiet --no-verbose --retry-connrefused --waitretry=3 --tries=20 "https://${HOST}/vsdbg-${TARGET}/vsdbg-${RUNTIME}.tar.gz" -O "/opt/vsdbg-${RUNTIME}.tar.gz"
+/usr/bin/sh /opt/getvsdbgsh -v latest -l /opt/vsdbg -s -e "/opt/vsdbg-${RUNTIME}.tar.gz"
 
-rm -f /opt/vsdbg-${RUNTIME}.tar.gz
+rm -f "/opt/vsdbg-${RUNTIME}.tar.gz"
 rm -f /opt/getvsdbg.sh
