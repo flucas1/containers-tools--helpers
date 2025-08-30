@@ -6,13 +6,13 @@ set -x
 dpkg --configure -a
 
 APTARGUMENTS="-q=1 -y"
-if [ -f /usr/bin/aptitude ] ; then
-  APTBINARY="/usr/bin/aptitude"
-  APTARGUMENTS="--without-recommends --allow-new-upgrades --allow-new-installs ${APTARGUMENTS}"
-else
+#if [ -f /usr/bin/aptitude ] ; then
+#  APTBINARY="/usr/bin/aptitude"
+#  APTARGUMENTS="--without-recommends --allow-new-upgrades --allow-new-installs ${APTARGUMENTS}"
+#else
   APTBINARY="/usr/bin/apt-get"
   APTARGUMENTS="--no-install-recommends --allow-downgrades ${APTARGUMENTS}"
-fi
+#fi
 
 if [ -z "${APTINSTALLVERSION}" ] ; then
   if [ -z "${APTINSTALLRELEASE}" ] ; then
