@@ -35,6 +35,7 @@ ${HELPERSPATH}/apt-retry-install.sh libjbig0
 ${HELPERSPATH}/apt-retry-install.sh libmount1
 ${HELPERSPATH}/apt-retry-install.sh libudev1
 ${HELPERSPATH}/apt-retry-install.sh udev
+${HELPERSPATH}/apt-retry-install.sh libcurl3t64-gnutls
 ${HELPERSPATH}/apt-retry-install.sh libsane1
 #if [ "${WINEGRAPE}" = "" ] ; then
   if [ "${ARCHITECTURE}" = "amd64" ] ; then
@@ -43,6 +44,7 @@ ${HELPERSPATH}/apt-retry-install.sh libsane1
     ${HELPERSPATH}/apt-retry-install.sh libmount1:i386
     ${HELPERSPATH}/apt-retry-install.sh libudev1:i386
     ${HELPERSPATH}/apt-retry-install.sh udev:i386
+    ${HELPERSPATH}/apt-retry-install.sh libcurl3t64-gnutls:i386
     ${HELPERSPATH}/apt-retry-install.sh libsane1:i386
   fi
   if [ "${ARCHITECTURE}" = "arm64" ] ; then
@@ -51,6 +53,7 @@ ${HELPERSPATH}/apt-retry-install.sh libsane1
     ${HELPERSPATH}/apt-retry-install.sh libmount1:armhf
     ${HELPERSPATH}/apt-retry-install.sh libudev1:armhf
     ${HELPERSPATH}/apt-retry-install.sh udev:armhf
+    ${HELPERSPATH}/apt-retry-install.sh libcurl3t64-gnutls:armhf
     ${HELPERSPATH}/apt-retry-install.sh libsane1:armhf
   fi
 #fi
