@@ -44,12 +44,14 @@ ${HELPERSPATH}/apt-retry-install.sh lsb-release
 ${HELPERSPATH}/apt-retry-install.sh wget
 
 DEBIANBASE="${1}"
+echo "DEBIANBASE is ${DEBIANBASE}"
 if [ "${DEBIANBASE}" = "" ] ; then
   DEBIANBASE="$(lsb_release -c -s)"
 else
-  DEBIANBASE="$(timeout --kill-after=5s 900s wget --quiet --retry-connrefused --waitretry=1 --tries=10 -O - "https://ftp.debian.org/debian/dists/{DEBIANBASE}/Release" | grep -i '^Codename:' | awk '{print $2}')"
+  DEBIANBASE="$(timeout --kill-after=5s 900s wget --quiet --retry-connrefused --waitretry=1 --tries=10 -O - "https://ftp.debian.org/debian/dists/${DEBIANBASE}/Release" | grep -i '^Codename:' | awk '{print $2}')"
 fi
 echo "DEBIANBASE is ${DEBIANBASE}"
+[ "${DEBIANBASE}" != "" ]
 
 rm -f /etc/apt/sources.list.d/debian.sources
 cat /dev/null > /etc/apt/sources.list
