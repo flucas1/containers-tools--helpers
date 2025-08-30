@@ -3,11 +3,6 @@
 set -e
 set -x
 
-DEBIANBASE="${1}"
-if [ "${DEBIANBASE}" = "" ] ; then
-  DEBIANBASE="$(lsb_release -c -s)"
-fi
-
 printf "APT::Acquire::Retries \"10\";" > /etc/apt/apt.conf.d/80-retries
 printf "APT::Acquire::ForceIPv4 \"true\";" > /etc/apt/apt.conf.d/80-ipv4
 printf "APT::Acquire::Pipeline-Depth \"0\";" > /etc/apt/apt.conf.d/80-pipeline
@@ -46,6 +41,13 @@ http_proxy="${APTCACHER}" ${HELPERSPATH}/apt-retry-install.sh auto-apt-proxy
 ${HELPERSPATH}/apt-retry-install.sh apt-transport-https
 ${HELPERSPATH}/apt-retry-install.sh ca-certificates
 ${HELPERSPATH}/apt-retry-install.sh lsb-release
+
+DEBIANBASE="${1}"
+if [ "${DEBIANBASE}" = "" ] ; then
+  DEBIANBASE="$(lsb_release -c -s)"
+else
+  DEBIANBASE="$(curl -s https://ftp.debian.org/debian/dists/{DEBIANBASE}/Release | grep -i '^Codename:' | awk '{print $2}')"
+fi
 
 rm -f /etc/apt/sources.list.d/debian.sources
 cat /dev/null > /etc/apt/sources.list
