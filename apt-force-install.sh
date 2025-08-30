@@ -24,4 +24,8 @@ else
   APTTARGETFULLVERSION=$(/usr/bin/apt list --all-versions ${1} 2> /dev/null | grep "^${1}" | awk '{print $2}' | sort -V | awk '$0=="'${APTINSTALLVERSION}'" || $0~"'^${APTINSTALLVERSION}.'" || $0~"'^${APTINSTALLVERSION}-'" { print $0 }' | tail -n 1)
   "${APTBINARY}" ${APTARGUMENTS} install $1=${APTTARGETFULLVERSION}
 fi
-/usr/bin/dpkg -s $1 >/dev/null 2>&1
+
+if ! /usr/bin/dpkg -s $1 >/dev/null 2>&1 ; then
+  /usr/bin/apt-cache policy $1
+  /usr/bin/false
+fi
