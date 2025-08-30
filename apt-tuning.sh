@@ -41,13 +41,15 @@ http_proxy="${APTCACHER}" ${HELPERSPATH}/apt-retry-install.sh auto-apt-proxy
 ${HELPERSPATH}/apt-retry-install.sh apt-transport-https
 ${HELPERSPATH}/apt-retry-install.sh ca-certificates
 ${HELPERSPATH}/apt-retry-install.sh lsb-release
+${HELPERSPATH}/apt-retry-install.sh wget
 
 DEBIANBASE="${1}"
 if [ "${DEBIANBASE}" = "" ] ; then
   DEBIANBASE="$(lsb_release -c -s)"
 else
-  DEBIANBASE="$(curl -s https://ftp.debian.org/debian/dists/{DEBIANBASE}/Release | grep -i '^Codename:' | awk '{print $2}')"
+  DEBIANBASE="$(timeout --kill-after=5s 900s wget --quiet --retry-connrefused --waitretry=1 --tries=10 -O - "https://ftp.debian.org/debian/dists/{DEBIANBASE}/Release" | grep -i '^Codename:' | awk '{print $2}')"
 fi
+echo "DEBIANBASE is ${DEBIANBASE}"
 
 rm -f /etc/apt/sources.list.d/debian.sources
 cat /dev/null > /etc/apt/sources.list
