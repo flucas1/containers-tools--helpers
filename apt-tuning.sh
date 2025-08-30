@@ -4,7 +4,7 @@ set -e
 set -x
 
 DEBIANBASE="${1}"
-if [ '${DEBIANBASE}" = "" ] ; then
+if [ "${DEBIANBASE}" = "" ] ; then
   DEBIANBASE="$(lsb_release -c -s)"
 fi
 
