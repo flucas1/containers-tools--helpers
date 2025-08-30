@@ -5,7 +5,7 @@ set -x
 
 HELPERSPATH="/helpers"
 
-apt -y full-upgrade
+apt-get -y full-upgrade
 
 ${HELPERSPATH}/apt-retry-install.sh apt-utils
 ${HELPERSPATH}/apt-retry-install.sh aptitude
