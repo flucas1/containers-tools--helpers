@@ -3,6 +3,11 @@
 set -e
 set -x
 
+DEBIANBASE="${1}"
+if [ '${DEBIANBASE}" = "" ] ; then
+  DEBIANBASE="$(lsb_release -c -s)"
+fi
+
 printf "APT::Acquire::Retries \"10\";" > /etc/apt/apt.conf.d/80-retries
 printf "APT::Acquire::ForceIPv4 \"true\";" > /etc/apt/apt.conf.d/80-ipv4
 printf "APT::Acquire::Pipeline-Depth \"0\";" > /etc/apt/apt.conf.d/80-pipeline
@@ -48,25 +53,25 @@ cat /dev/null > /etc/apt/sources.list.d/debian.list
 cat > /etc/apt/sources.list.d/debian.sources << DELIMITER_END_RAW_TEXT
 Types: deb
 URIs: http://deb.debian.org/debian/
-Suites: $(lsb_release -c -s)
+Suites: ${DEBIANBASE}
 Components: main contrib non-free non-free-firmware
 Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
 
 Types: deb
 URIs: http://deb.debian.org/debian/
-Suites: $(lsb_release -c -s)-updates
+Suites: ${DEBIANBASE}-updates
 Components: main contrib non-free non-free-firmware
 Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
 
 Types: deb
 URIs: http://deb.debian.org/debian/
-Suites: $(lsb_release -c -s)-backports
+Suites: ${DEBIANBASE}-backports
 Components: main contrib non-free non-free-firmware
 Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
 
 Types: deb
 URIs: https://security.debian.org/debian-security/
-Suites: $(lsb_release -c -s)-security
+Suites: ${DEBIANBASE}-security
 Components: main contrib non-free non-free-firmware
 Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
 
@@ -130,7 +135,7 @@ Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
 DELIMITER_END_RAW_TEXT
 cat /etc/apt/sources.list.d/debian.sources
 
-echo "APT::Default-Release \"$(lsb_release -c -s)\";" > /etc/apt/apt.conf.d/20-tum.conf
+echo "APT::Default-Release \"${DEBIANBASE}\";" > /etc/apt/apt.conf.d/20-tum.conf
 
 cat > /etc/apt/preferences << DELIMITER_END_RAW_TEXT
 # P >= 1000       --- causes a version to be installed even if this constitutes a downgrade of the package
@@ -166,15 +171,15 @@ Pin-Priority: 995
 
 
 Package: *
-Pin: release o=Debian,a=$(lsb_release -c -s)-security
+Pin: release o=Debian,a=${DEBIANBASE}-security
 Pin-Priority: 750
 
 Package: *
-Pin: release o=Debian Backports,a=$(lsb_release -c -s)-backports
+Pin: release o=Debian Backports,a=${DEBIANBASE}-backports
 Pin-Priority: 750
 
 Package: *
-Pin: release o=Debian,a=$(lsb_release -c -s)
+Pin: release o=Debian,a=${DEBIANBASE}
 Pin-Priority: 700
 
 
