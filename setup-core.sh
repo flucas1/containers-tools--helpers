@@ -5,11 +5,13 @@ set -x
 
 HELPERSPATH="/helpers"
 
+apt -y full-upgrade
+
 ${HELPERSPATH}/apt-retry-install.sh apt-utils
 ${HELPERSPATH}/apt-retry-install.sh aptitude
 ${HELPERSPATH}/apt-retry-install.sh debconf
 
-aptitude -y full-upgrade
+aptitude -y full-upgrade --allow-new-upgrades --allow-new-installs
 
 ${HELPERSPATH}/apt-retry-install.sh sudo
 ${HELPERSPATH}/apt-retry-install.sh nano
