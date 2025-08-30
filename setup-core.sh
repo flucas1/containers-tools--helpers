@@ -23,7 +23,6 @@ ${HELPERSPATH}/apt-retry-install.sh jq
 ${HELPERSPATH}/apt-retry-install.sh rsync
 ${HELPERSPATH}/apt-retry-install.sh sshpass
 ${HELPERSPATH}/apt-retry-install.sh man-db
-${HELPERSPATH}/apt-retry-install.sh man
 ${HELPERSPATH}/apt-retry-install.sh procps
 ${HELPERSPATH}/apt-retry-install.sh dos2unix
 ${HELPERSPATH}/apt-retry-install.sh xmlstarlet
