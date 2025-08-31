@@ -100,7 +100,7 @@ ${HELPERSPATH}/apt-retry-install.sh texlive-full
 ${HELPERSPATH}/apt-retry-install.sh qpdf
 ${HELPERSPATH}/apt-retry-install.sh inkscape
 ${HELPERSPATH}/apt-retry-install.sh poppler-utils
-${HELPERSPATH}/apt-retry-install.sh exiftool
+${HELPERSPATH}/apt-retry-install.sh libimage-exiftool-perl
 ${HELPERSPATH}/apt-retry-install.sh diffpdf
 ${HELPERSPATH}/apt-retry-install.sh libreoffice
 ${HELPERSPATH}/apt-retry-install.sh fontforge
