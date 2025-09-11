@@ -47,6 +47,19 @@ install_dotnetsdk()
   [ "${LISTSDK}" != "" ]
 }
 
+fetch_dotnetsdk_version()
+{
+  SUPPORT="$1"
+  LINENUMBER="$2"
+
+  timeout --kill-after=5s 900s \
+    wget -4 --quiet --no-verbose --retry-connrefused --waitretry=3 --tries=20 \
+      https://dotnetcli.blob.core.windows.net/dotnet/release-metadata/releases-index.json -O - \
+    | jq -r '.["releases-index"][] | select(."support-phase"=="'"${SUPPORT}"'") | ."latest-sdk"' \
+    | sort --version-sort --reverse \
+    | awk -v n=$LINENUMBER 'NR==n'
+}
+
 getversion_dotnetsdk()
 {
   PARTARCH="$1"
@@ -56,9 +69,20 @@ getversion_dotnetsdk()
   MAXRETRIES=30
   COUNTER=0
   SUCCESS=0
+  DOTNETSDKVERSION=""
+
   while [ $SUCCESS -eq 0 ] && [ $COUNTER -lt $MAXRETRIES ] ; do
     echo "Retry #$COUNTER" >&2
-    DOTNETSDKVERSION="$(timeout --kill-after=5s 900s wget -4 --quiet --no-verbose --retry-connrefused --waitretry=3 --tries=20 https://dotnetcli.blob.core.windows.net/dotnet/release-metadata/releases-index.json -O - | jq -r '.["releases-index"][] | select(."support-phase"=="'${SUPPORT}'") | ."latest-sdk"' | sort --version-sort --reverse | awk -v n=$LINENUMBER 'NR==n')"
+    
+    # Try primary support phase
+    DOTNETASPVERSION="$(fetch_dotnetsdk_version "$SUPPORT" "$LINENUMBER")"
+    
+    # If support is "preview" and nothing found, try "go-live"
+    if [ -z "$DOTNETASPVERSION" ] && [ "$SUPPORT" = "preview" ]; then
+      echo "Preview not found, trying go-live..." >&2
+      DOTNETASPVERSION="$(fetch_dotnetsdk_version "go-live" "$LINENUMBER")"
+    fi
+    
     if [ "${DOTNETSDKVERSION}" != "" ] ; then
       SUCCESS=1
     else
