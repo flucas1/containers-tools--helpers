@@ -88,12 +88,12 @@ getversion_dotnetsdk()
     echo "Retry #$COUNTER" >&2
     
     # Try primary support phase
-    DOTNETASPVERSION="$(fetch_dotnetsdk_version "$SUPPORT" "$LINENUMBER")"
+    DOTNETSDKVERSION="$(fetch_dotnetsdk_version "$SUPPORT" "$LINENUMBER")"
     
     # If support is "preview" and nothing found, try "go-live"
-    if [ -z "$DOTNETASPVERSION" ] && [ "$SUPPORT" = "preview" ]; then
+    if [ -z "$DOTNETSDKVERSION" ] && [ "$SUPPORT" = "preview" ]; then
       echo "Preview not found, trying go-live..." >&2
-      DOTNETASPVERSION="$(fetch_dotnetsdk_version "go-live" "$LINENUMBER")"
+      DOTNETSDKVERSION="$(fetch_dotnetsdk_version "go-live" "$LINENUMBER")"
     fi
     
     if [ "${DOTNETSDKVERSION}" != "" ] ; then
