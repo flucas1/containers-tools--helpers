@@ -83,6 +83,12 @@ getversion_dotnetsdk()
       DOTNETSDKVERSION="$(fetch_dotnetsdk_version "go-live" "$LINENUMBER")"
     fi
     
+    # fallback to active
+    if [ -z "$DOTNETSDKVERSION" ] && [ "$SUPPORT" = "preview" ]; then
+      echo "Preview not found, trying active..." >&2
+      DOTNETSDKVERSION="$(fetch_dotnetsdk_version "active" "$LINENUMBER")"
+    fi
+    
     if [ "${DOTNETSDKVERSION}" != "" ] ; then
       SUCCESS=1
     else

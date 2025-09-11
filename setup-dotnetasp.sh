@@ -92,6 +92,12 @@ getversion_dotnetasp()
       DOTNETASPVERSION="$(fetch_dotnetasp_version "go-live" "$LINENUMBER")"
     fi
     
+    # fallback to active
+    if [ -z "$DOTNETASPVERSION" ] && [ "$SUPPORT" = "preview" ]; then
+      echo "Preview not found, trying active..." >&2
+      DOTNETASPVERSION="$(fetch_dotnetasp_version "active" "$LINENUMBER")"
+    fi
+    
     if [ "${DOTNETASPVERSION}" != "" ] ; then
       SUCCESS=1
     else

@@ -77,6 +77,12 @@ getversion_dotnetruntime()
       DOTNETRUNTIMEVERSION="$(fetch_dotnetruntime_version "go-live" "$LINENUMBER")"
     fi
     
+    # fallback to active
+    if [ -z "$DOTNETRUNTIMEVERSION" ] && [ "$SUPPORT" = "preview" ]; then
+      echo "Preview not found, trying active..." >&2
+      DOTNETRUNTIMEVERSION="$(fetch_dotnetruntime_version "active" "$LINENUMBER")"
+    fi
+    
     if [ "${DOTNETRUNTIMEVERSION}" != "" ] ; then
       SUCCESS=1
     else
