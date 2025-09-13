@@ -171,6 +171,10 @@ Pin: origin dl.winehq.org
 Pin-Priority: 995
 
 Package: *
+Pin: origin pkgs.k8s.io
+Pin-Priority: 995
+
+Package: *
 Pin: origin nuitka.net
 Pin-Priority: 995
 
