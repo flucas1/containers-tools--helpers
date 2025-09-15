@@ -6,7 +6,7 @@ set -x
 printf "APT::Acquire::Retries \"10\";" > /etc/apt/apt.conf.d/80-retries
 printf "APT::Acquire::ForceIPv4 \"true\";" > /etc/apt/apt.conf.d/80-ipv4
 printf "APT::Acquire::Pipeline-Depth \"0\";" > /etc/apt/apt.conf.d/80-pipeline
-#printf "APT::Acquire::Queue-Mode \"access\";" > /etc/apt/apt.conf.d/80-queue # access can create more simultaneous connections if a host offers multiple URI types
+#printf "APT::Acquire::Queue-Mode \"host\";" > /etc/apt/apt.conf.d/80-queue        # access can create more simultaneous connections if a host offers multiple URI types
 printf "APT::Acquire::http::timeout \"5\";" > /etc/apt/apt.conf.d/80-timeout
 printf "APT::Update::Error-Mode \"any\";" > /etc/apt/apt.conf.d/80-errormode
 printf "Dpkg::Use-Pty \"0\";" > /etc/apt/apt.conf.d/80-usepty
