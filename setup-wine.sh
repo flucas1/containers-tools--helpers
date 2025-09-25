@@ -7,6 +7,21 @@ set -x
 
 HELPERSPATH="/helpers"
 
+install_package_tolerant()
+{
+    PACKAGE="$1"
+
+    # Attempt installation, ignore errors
+    "${HELPERSPATH}/apt-retry-install.sh" "$PACKAGE" || true
+
+    # Check if package is installed
+    if dpkg -s "$PACKAGE" >/dev/null 2>&1; then
+        return 0
+    else
+        return 1
+    fi
+}
+
 #https://gitlab.com/Linaro/windowsonarm/woa-linux#unified-docker-image
 
 WINEGRAPE="$1"
@@ -88,15 +103,15 @@ else
   timeout --kill-after=5s 900s wget --quiet --retry-connrefused --waitretry=1 --tries=10 https://dl.winehq.org/wine-builds/winehq.key -O /etc/apt/keyrings/winehq.asc
   ${HELPERSPATH}/apt-update.sh
 
-  ${HELPERSPATH}/apt-retry-install.sh winehq-${WINEGRAPE}${DEBIANSUFFIX}
-  ${HELPERSPATH}/apt-retry-install.sh wine-${WINEGRAPE}${DEBIANSUFFIX}
+  install_package_tolerant winehq-${WINEGRAPE}${DEBIANSUFFIX}
+  install_package_tolerant wine-${WINEGRAPE}${DEBIANSUFFIX}
   if [ "${ARCHITECTURE}" = "amd64" ] ; then
-    ${HELPERSPATH}/apt-retry-install.sh wine-${WINEGRAPE}-amd64${DEBIANSUFFIX}
-    ${HELPERSPATH}/apt-retry-install.sh wine-${WINEGRAPE}-i386${DEBIANSUFFIX}
+    install_package_tolerant wine-${WINEGRAPE}-amd64${DEBIANSUFFIX}
+    install_package_tolerant wine-${WINEGRAPE}-i386${DEBIANSUFFIX}
   fi
   if [ "${ARCHITECTURE}" = "arm64" ] ; then
-    ${HELPERSPATH}/apt-retry-install.sh wine-${WINEGRAPE}-arm64${DEBIANSUFFIX}
-    ${HELPERSPATH}/apt-retry-install.sh wine-${WINEGRAPE}-armhf${DEBIANSUFFIX}
+    install_package_tolerant wine-${WINEGRAPE}-arm64${DEBIANSUFFIX}
+    install_package_tolerant wine-${WINEGRAPE}-armhf${DEBIANSUFFIX}
   fi
 fi
 
