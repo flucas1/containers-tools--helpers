@@ -7,10 +7,6 @@ dpkg --configure -a
 
 APTARGUMENTS="-q=1 -y"
 
-if [ "${IGNORE_MISSING}" = "yes" ] ; then
-  APTARGUMENTS="--ignore-missing ${APTARGUMENTS}"
-fi
-
 if [ -f /usr/bin/aptitude ] ; then
   APTBINARY="/usr/bin/aptitude"
   APTARGUMENTS="--without-recommends --allow-new-upgrades --allow-new-installs ${APTARGUMENTS}"
