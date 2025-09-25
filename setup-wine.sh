@@ -88,15 +88,15 @@ else
   timeout --kill-after=5s 900s wget --quiet --retry-connrefused --waitretry=1 --tries=10 https://dl.winehq.org/wine-builds/winehq.key -O /etc/apt/keyrings/winehq.asc
   ${HELPERSPATH}/apt-update.sh
 
-  IGNORE_MISSING=yes ${HELPERSPATH}/apt-retry-install.sh winehq-${WINEGRAPE}${DEBIANSUFFIX}
-  IGNORE_MISSING=yes ${HELPERSPATH}/apt-retry-install.sh wine-${WINEGRAPE}${DEBIANSUFFIX}
+  ${HELPERSPATH}/apt-retry-install.sh winehq-${WINEGRAPE}${DEBIANSUFFIX}
+  ${HELPERSPATH}/apt-retry-install.sh wine-${WINEGRAPE}${DEBIANSUFFIX}
   if [ "${ARCHITECTURE}" = "amd64" ] ; then
-    IGNORE_MISSING=yes ${HELPERSPATH}/apt-retry-install.sh wine-${WINEGRAPE}-amd64${DEBIANSUFFIX}
-    IGNORE_MISSING=yes ${HELPERSPATH}/apt-retry-install.sh wine-${WINEGRAPE}-i386${DEBIANSUFFIX}
+    ${HELPERSPATH}/apt-retry-install.sh wine-${WINEGRAPE}-amd64${DEBIANSUFFIX}
+    ${HELPERSPATH}/apt-retry-install.sh wine-${WINEGRAPE}-i386${DEBIANSUFFIX}
   fi
   if [ "${ARCHITECTURE}" = "arm64" ] ; then
-    IGNORE_MISSING=yes ${HELPERSPATH}/apt-retry-install.sh wine-${WINEGRAPE}-arm64${DEBIANSUFFIX}
-    IGNORE_MISSING=yes ${HELPERSPATH}/apt-retry-install.sh wine-${WINEGRAPE}-armhf${DEBIANSUFFIX}
+    ${HELPERSPATH}/apt-retry-install.sh wine-${WINEGRAPE}-arm64${DEBIANSUFFIX}
+    ${HELPERSPATH}/apt-retry-install.sh wine-${WINEGRAPE}-armhf${DEBIANSUFFIX}
   fi
 fi
 
