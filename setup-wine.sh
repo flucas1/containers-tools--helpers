@@ -36,6 +36,7 @@ ${HELPERSPATH}/apt-retry-install.sh libmount1
 ${HELPERSPATH}/apt-retry-install.sh libudev1
 ${HELPERSPATH}/apt-retry-install.sh udev
 ${HELPERSPATH}/apt-retry-install.sh libcurl3t64-gnutls
+${HELPERSPATH}/apt-retry-install.sh libgd3
 ${HELPERSPATH}/apt-retry-install.sh libgphoto2-6t64
 ${HELPERSPATH}/apt-retry-install.sh libsane1
 #if [ "${WINEGRAPE}" = "" ] ; then
@@ -46,6 +47,7 @@ ${HELPERSPATH}/apt-retry-install.sh libsane1
     ${HELPERSPATH}/apt-retry-install.sh libudev1:i386
     ${HELPERSPATH}/apt-retry-install.sh udev:i386
     ${HELPERSPATH}/apt-retry-install.sh libcurl3t64-gnutls:i386
+    ${HELPERSPATH}/apt-retry-install.sh libgd3:i386
     ${HELPERSPATH}/apt-retry-install.sh libgphoto2-6t64:i386
     ${HELPERSPATH}/apt-retry-install.sh libsane1:i386
   fi
@@ -56,6 +58,7 @@ ${HELPERSPATH}/apt-retry-install.sh libsane1
     ${HELPERSPATH}/apt-retry-install.sh libudev1:armhf
     ${HELPERSPATH}/apt-retry-install.sh udev:armhf
     ${HELPERSPATH}/apt-retry-install.sh libcurl3t64-gnutls:armhf
+    ${HELPERSPATH}/apt-retry-install.sh libgd3:armhf
     ${HELPERSPATH}/apt-retry-install.sh libgphoto2-6t64:armhf
     ${HELPERSPATH}/apt-retry-install.sh libsane1:armhf
   fi
