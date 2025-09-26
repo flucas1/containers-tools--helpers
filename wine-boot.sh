@@ -7,6 +7,13 @@ WINEATOMIC="/wine-atomic.sh"
 
 #https://github.com/Winetricks/winetricks/issues/1525
 
+echo "The WINEDEBUG is '${WINEDEBUG}'"
+echo "The WINEPREFIX is '${WINEPREFIX}'"
+echo "The WINEARCH is '${WINEARCH}'"
+echo "The WINEDLLOVERRIDES is '${WINEDLLOVERRIDES}'"
+echo "The LC_ALL is '${LC_ALL}'"
+echo "The DBUS_FATAL_WARNINGS is '${DBUS_FATAL_WARNINGS}'"
+
 if dpkg -s wine > /dev/null 2>&1 ; then
   WINEBOOTBINARY="wineboot-stable"
 else
