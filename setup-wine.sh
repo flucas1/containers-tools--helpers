@@ -15,6 +15,10 @@ WINEVERSION="$2"
 echo "WINEVERSION is '${WINEVERSION}'"
 MULTIARCH="$3"
 if [ "${MULTIARCH}" = "-" ] ; then MULTIARCH="" ; fi
+if [ "${MULTIARCH}" = "no" ] ; then MULTIARCH="" ; fi
+if [ "${MULTIARCH}" = "NO" ] ; then MULTIARCH="" ; fi
+if [ "${MULTIARCH}" = "N" ] ; then MULTIARCH="" ; fi
+if [ "${MULTIARCH}" = "0" ] ; then MULTIARCH="" ; fi
 echo "MULTIARCH is '${MULTIARCH}'"
 
 if [ "${MULTIARCH}" != "" ] ; then
