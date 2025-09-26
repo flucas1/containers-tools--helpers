@@ -52,15 +52,16 @@ else
   DEBIANSUFFIX="=${WINEVERSION}*"
 fi
 
+FINALPACKAGES=""
 if [ "${WINEGRAPE}" = "" ] ; then
-  ${HELPERSPATH}/apt-retry-install.sh libwine${DEBIANSUFFIX}
-  ${HELPERSPATH}/apt-retry-install.sh wine${DEBIANSUFFIX}
-  ${HELPERSPATH}/apt-retry-install.sh wine64${DEBIANSUFFIX}
+  FINALPACKAGES="${FINALPACKAGES} libwine${DEBIANSUFFIX}"
+  FINALPACKAGES="${FINALPACKAGES} wine${DEBIANSUFFIX}"
+  FINALPACKAGES="${FINALPACKAGES} wine64${DEBIANSUFFIX}"
   if [ "${ARCHITECTURE}" = "amd64" ] ; then
-    ${HELPERSPATH}/apt-retry-install.sh wine32:i386${DEBIANSUFFIX}
+    FINALPACKAGES="${FINALPACKAGES} wine32:i386${DEBIANSUFFIX}"
   fi
   if [ "${ARCHITECTURE}" = "arm64" ] ; then
-    ${HELPERSPATH}/apt-retry-install.sh wine32:armhf${DEBIANSUFFIX}
+    FINALPACKAGES="${FINALPACKAGES} wine32:armhf${DEBIANSUFFIX}"
   fi
 else
   #https://wiki.winehq.org/Debian
@@ -70,17 +71,18 @@ else
   timeout --kill-after=5s 900s wget --quiet --retry-connrefused --waitretry=1 --tries=10 https://dl.winehq.org/wine-builds/winehq.key -O /etc/apt/keyrings/winehq.asc
   ${HELPERSPATH}/apt-update.sh
 
-  ${HELPERSPATH}/apt-retry-install.sh winehq-${WINEGRAPE}${DEBIANSUFFIX}
-  ${HELPERSPATH}/apt-retry-install.sh wine-${WINEGRAPE}${DEBIANSUFFIX}
+  FINALPACKAGES="${FINALPACKAGES} winehq-${WINEGRAPE}${DEBIANSUFFIX}"
+  FINALPACKAGES="${FINALPACKAGES} wine-${WINEGRAPE}${DEBIANSUFFIX}"
   if [ "${ARCHITECTURE}" = "amd64" ] ; then
-    ${HELPERSPATH}/apt-retry-install.sh wine-${WINEGRAPE}-amd64${DEBIANSUFFIX}
-    ${HELPERSPATH}/apt-retry-install.sh wine-${WINEGRAPE}-i386${DEBIANSUFFIX}
+    FINALPACKAGES="${FINALPACKAGES} wine-${WINEGRAPE}-amd64${DEBIANSUFFIX}"
+    FINALPACKAGES="${FINALPACKAGES} wine-${WINEGRAPE}-i386${DEBIANSUFFIX}"
   fi
   if [ "${ARCHITECTURE}" = "arm64" ] ; then
-    ${HELPERSPATH}/apt-retry-install.sh wine-${WINEGRAPE}-arm64${DEBIANSUFFIX}
-    ${HELPERSPATH}/apt-retry-install.sh wine-${WINEGRAPE}-armhf${DEBIANSUFFIX}
+    FINALPACKAGES="${FINALPACKAGES} wine-${WINEGRAPE}-arm64${DEBIANSUFFIX}"
+    FINALPACKAGES="${FINALPACKAGES} wine-${WINEGRAPE}-armhf${DEBIANSUFFIX}"
   fi
 fi
+${HELPERSPATH}/apt-retry-install.sh ${FINALPACKAGES}
 
 wine --version
 dpkg -l | grep wine
