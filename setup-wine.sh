@@ -31,7 +31,7 @@ ${HELPERSPATH}/apt-retry-install.sh bluez
 ${HELPERSPATH}/apt-retry-install.sh winbind
 ${HELPERSPATH}/apt-retry-install.sh fontconfig
 
-REFERENCEPACKAGES="libavahi-client3 libjbig0 libmount1 libudev1 udev libcurl3t64-gnutls libgd3 libgphoto2-6t64 libsane1"
+REFERENCEPACKAGES="libavahi-client3 libjbig0 libmount1 libudev1 udev libcurl3t64-gnutls libgd3 libgphoto2-6t64 libsane1 libsane-common acl libpci3 pci.ids libsnmp40t64 libsnmp-base"
 FINALPACKAGES=""
 for TESTPACKAGE in $(echo "${REFERENCEPACKAGES}"); do
   FINALPACKAGES="${FINALPACKAGES} ${TESTPACKAGE}"
