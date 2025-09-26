@@ -84,12 +84,34 @@ else
     FINALPACKAGES="${FINALPACKAGES} wine-${WINEGRAPE}-amd64${DEBIANSUFFIX}"
     if [ "${MULTIARCH}" != "" ] ; then
       FINALPACKAGES="${FINALPACKAGES} wine-${WINEGRAPE}-i386${DEBIANSUFFIX}"
+    else
+      FINALVERSION="$(apt-cache policy wine-${WINEGRAPE}-amd64${DEBIANSUFFIX} | grep Installed | awk '{print $2}')"
+      [ "${FINALVERSION}" != "" ]
+      rm -rf /tmp/wine-${WINEGRAPE}-i386-dummy_${FINALVERSION}_all.deb
+      rm -rf /tmp/wine-${WINEGRAPE}-i386-dummy_${FINALVERSION}
+      mkdir -p /tmp/wine-${WINEGRAPE}-i386-dummy_${FINALVERSION}/DEBIAN
+      echo -e "Package: wine-${WINEGRAPE}-i386-dummy\nVersion: ${FINALVERSION}\nArchitecture: all\nProvides: wine-${WINEGRAPE}-i386 (= ${FINALVERSION})\nConflicts: wine-${WINEGRAPE}-i386\nReplaces: wine-${WINEGRAPE}-i386\nMaintainer: Dummy Maintainer\nDescription: Dummy package to satisfy wine-${WINEGRAPE}-i386 dependency.\n" > /tmp/wine-${WINEGRAPE}-i386-dummy_${FINALVERSION}/DEBIAN/control
+      dpkg-deb --build /tmp/wine-${WINEGRAPE}-i386-dummy_${FINALVERSION} /tmp/wine-${WINEGRAPE}-i386-dummy_${FINALVERSION}_all.deb
+      dpkg -i /tmp/wine-${WINEGRAPE}-i386-dummy_${FINALVERSION}_all.deb
+      rm -rf /tmp/wine-${WINEGRAPE}-i386-dummy_${FINALVERSION}_all.deb
+      rm -rf /tmp/wine-${WINEGRAPE}-i386-dummy_${FINALVERSION}
     fi
   fi
   if [ "${ARCHITECTURE}" = "arm64" ] ; then
     FINALPACKAGES="${FINALPACKAGES} wine-${WINEGRAPE}-arm64${DEBIANSUFFIX}"
     if [ "${MULTIARCH}" != "" ] ; then
       FINALPACKAGES="${FINALPACKAGES} wine-${WINEGRAPE}-armhf${DEBIANSUFFIX}"
+    else
+      FINALVERSION="$(apt-cache policy wine-${WINEGRAPE}-arm64${DEBIANSUFFIX} | grep Installed | awk '{print $2}')"
+      [ "${FINALVERSION}" != "" ]
+      rm -rf /tmp/wine-${WINEGRAPE}-armhf-dummy_${FINALVERSION}_all.deb
+      rm -rf /tmp/wine-${WINEGRAPE}-armhf-dummy_${FINALVERSION}
+      mkdir -p /tmp/wine-${WINEGRAPE}-armhf-dummy_${FINALVERSION}/DEBIAN
+      echo -e "Package: wine-${WINEGRAPE}-armhf-dummy\nVersion: ${FINALVERSION}\nArchitecture: all\nProvides: wine-${WINEGRAPE}-armhf (= ${FINALVERSION})\nConflicts: wine-${WINEGRAPE}-armhf\nReplaces: wine-${WINEGRAPE}-armhf\nMaintainer: Dummy Maintainer\nDescription: Dummy package to satisfy wine-${WINEGRAPE}-armhf dependency.\n" > /tmp/wine-${WINEGRAPE}-armhf-dummy_${FINALVERSION}/DEBIAN/control
+      dpkg-deb --build /tmp/wine-${WINEGRAPE}-armhf-dummy_${FINALVERSION} /tmp/wine-${WINEGRAPE}-armhf-dummy_${FINALVERSION}_all.deb
+      dpkg -i /tmp/wine-${WINEGRAPE}-armhf-dummy_${FINALVERSION}_all.deb
+      rm -rf /tmp/wine-${WINEGRAPE}-armhf-dummy_${FINALVERSION}_all.deb
+      rm -rf /tmp/wine-${WINEGRAPE}-armhf-dummy_${FINALVERSION}
     fi
   fi
   if [ "${MULTIARCH}" != "" ] ; then
