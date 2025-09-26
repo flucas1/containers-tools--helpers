@@ -20,9 +20,10 @@ if [ "${MULTIARCH}" = "NO" ] ; then MULTIARCH="" ; fi
 if [ "${MULTIARCH}" = "N" ] ; then MULTIARCH="" ; fi
 if [ "${MULTIARCH}" = "0" ] ; then MULTIARCH="" ; fi
 echo "MULTIARCH is '${MULTIARCH}'"
+ARCHITECTURE="$(dpkg --print-architecture)"
+echo "ARCHITECTURE is '${ARCHITECTURE}'"
 
 if [ "${MULTIARCH}" != "" ] ; then
-  ARCHITECTURE="$(dpkg --print-architecture)"
   if [ "${ARCHITECTURE}" = "amd64" ] ; then
     dpkg --add-architecture i386
   fi
