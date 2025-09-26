@@ -33,7 +33,6 @@ ${HELPERSPATH}/apt-retry-install.sh fontconfig
 
 REFERENCEPACKAGES="libavahi-client3 libjbig0 libmount1 libudev1 udev libcurl3t64-gnutls libgd3 libgphoto2-6t64 libsane1"
 FINALPACKAGES=""
-
 for TESTPACKAGE in $(echo "${REFERENCEPACKAGES}"); do
   FINALPACKAGES="${FINALPACKAGES} ${TESTPACKAGE}"
   #if [ "${WINEGRAPE}" = "" ] ; then
@@ -45,6 +44,7 @@ for TESTPACKAGE in $(echo "${REFERENCEPACKAGES}"); do
     fi
   #fi
 done
+${HELPERSPATH}/apt-retry-install.sh ${FINALPACKAGES}
 
 if [ "${WINEVERSION}" = "" ] ; then
   DEBIANSUFFIX=""
