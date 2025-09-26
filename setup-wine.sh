@@ -80,17 +80,21 @@ else
   timeout --kill-after=5s 900s wget --quiet --retry-connrefused --waitretry=1 --tries=10 https://dl.winehq.org/wine-builds/winehq.key -O /etc/apt/keyrings/winehq.asc
   ${HELPERSPATH}/apt-update.sh
 
-  FINALPACKAGES="${FINALPACKAGES} winehq-${WINEGRAPE}${DEBIANSUFFIX}"
-  FINALPACKAGES="${FINALPACKAGES} wine-${WINEGRAPE}${DEBIANSUFFIX}"
-  if [ "${MULTIARCH}" != "" ] ; then
-    if [ "${ARCHITECTURE}" = "amd64" ] ; then
-      FINALPACKAGES="${FINALPACKAGES} wine-${WINEGRAPE}-amd64${DEBIANSUFFIX}"
+  if [ "${ARCHITECTURE}" = "amd64" ] ; then
+    FINALPACKAGES="${FINALPACKAGES} wine-${WINEGRAPE}-amd64${DEBIANSUFFIX}"
+    if [ "${MULTIARCH}" != "" ] ; then
       FINALPACKAGES="${FINALPACKAGES} wine-${WINEGRAPE}-i386${DEBIANSUFFIX}"
     fi
-    if [ "${ARCHITECTURE}" = "arm64" ] ; then
-      FINALPACKAGES="${FINALPACKAGES} wine-${WINEGRAPE}-arm64${DEBIANSUFFIX}"
+  fi
+  if [ "${ARCHITECTURE}" = "arm64" ] ; then
+    FINALPACKAGES="${FINALPACKAGES} wine-${WINEGRAPE}-arm64${DEBIANSUFFIX}"
+    if [ "${MULTIARCH}" != "" ] ; then
       FINALPACKAGES="${FINALPACKAGES} wine-${WINEGRAPE}-armhf${DEBIANSUFFIX}"
     fi
+  fi
+  if [ "${MULTIARCH}" != "" ] ; then
+    FINALPACKAGES="${FINALPACKAGES} wine-${WINEGRAPE}${DEBIANSUFFIX}"
+    FINALPACKAGES="${FINALPACKAGES} winehq-${WINEGRAPE}${DEBIANSUFFIX}"
   fi
 fi
 ${HELPERSPATH}/apt-retry-install.sh ${FINALPACKAGES}
