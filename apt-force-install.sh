@@ -3,7 +3,8 @@
 set -e
 set -x
 
-TARGETPACKAGE="$1"
+PACKAGELIST="$1"
+TARGETPACKAGE="${PACKAGELIST}"
 
 dpkg --configure -a
 
