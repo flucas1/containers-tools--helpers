@@ -91,7 +91,7 @@ else
       rm -rf /tmp/wine-${WINEGRAPE}-i386-dummy_${FINALVERSION}_all.deb
       rm -rf /tmp/wine-${WINEGRAPE}-i386-dummy_${FINALVERSION}
       mkdir -p /tmp/wine-${WINEGRAPE}-i386-dummy_${FINALVERSION}/DEBIAN
-      echo -e "Package: wine-${WINEGRAPE}-i386-dummy\nVersion: ${FINALVERSION}\nArchitecture: all\nProvides: wine-${WINEGRAPE}-i386 (= ${FINALVERSION})\nConflicts: wine-${WINEGRAPE}-i386\nReplaces: wine-${WINEGRAPE}-i386\nMaintainer: Dummy Maintainer\nDescription: Dummy package to satisfy wine-${WINEGRAPE}-i386 dependency.\n" > /tmp/wine-${WINEGRAPE}-i386-dummy_${FINALVERSION}/DEBIAN/control
+      /usr/bin/echo -e "Package: wine-${WINEGRAPE}-i386-dummy\nVersion: ${FINALVERSION}\nArchitecture: all\nProvides: wine-${WINEGRAPE}-i386 (= ${FINALVERSION})\nConflicts: wine-${WINEGRAPE}-i386\nReplaces: wine-${WINEGRAPE}-i386\nMaintainer: Dummy Maintainer\nDescription: Dummy package to satisfy wine-${WINEGRAPE}-i386 dependency.\n" > /tmp/wine-${WINEGRAPE}-i386-dummy_${FINALVERSION}/DEBIAN/control
       dpkg-deb --build /tmp/wine-${WINEGRAPE}-i386-dummy_${FINALVERSION} /tmp/wine-${WINEGRAPE}-i386-dummy_${FINALVERSION}_all.deb
       dpkg -i /tmp/wine-${WINEGRAPE}-i386-dummy_${FINALVERSION}_all.deb
       rm -rf /tmp/wine-${WINEGRAPE}-i386-dummy_${FINALVERSION}_all.deb
@@ -108,7 +108,7 @@ else
       rm -rf /tmp/wine-${WINEGRAPE}-armhf-dummy_${FINALVERSION}_all.deb
       rm -rf /tmp/wine-${WINEGRAPE}-armhf-dummy_${FINALVERSION}
       mkdir -p /tmp/wine-${WINEGRAPE}-armhf-dummy_${FINALVERSION}/DEBIAN
-      echo -e "Package: wine-${WINEGRAPE}-armhf-dummy\nVersion: ${FINALVERSION}\nArchitecture: all\nProvides: wine-${WINEGRAPE}-armhf (= ${FINALVERSION})\nConflicts: wine-${WINEGRAPE}-armhf\nReplaces: wine-${WINEGRAPE}-armhf\nMaintainer: Dummy Maintainer\nDescription: Dummy package to satisfy wine-${WINEGRAPE}-armhf dependency.\n" > /tmp/wine-${WINEGRAPE}-armhf-dummy_${FINALVERSION}/DEBIAN/control
+      /usr/bin/echo -e "Package: wine-${WINEGRAPE}-armhf-dummy\nVersion: ${FINALVERSION}\nArchitecture: all\nProvides: wine-${WINEGRAPE}-armhf (= ${FINALVERSION})\nConflicts: wine-${WINEGRAPE}-armhf\nReplaces: wine-${WINEGRAPE}-armhf\nMaintainer: Dummy Maintainer\nDescription: Dummy package to satisfy wine-${WINEGRAPE}-armhf dependency.\n" > /tmp/wine-${WINEGRAPE}-armhf-dummy_${FINALVERSION}/DEBIAN/control
       dpkg-deb --build /tmp/wine-${WINEGRAPE}-armhf-dummy_${FINALVERSION} /tmp/wine-${WINEGRAPE}-armhf-dummy_${FINALVERSION}_all.deb
       dpkg -i /tmp/wine-${WINEGRAPE}-armhf-dummy_${FINALVERSION}_all.deb
       rm -rf /tmp/wine-${WINEGRAPE}-armhf-dummy_${FINALVERSION}_all.deb
