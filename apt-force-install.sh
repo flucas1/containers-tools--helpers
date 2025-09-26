@@ -42,6 +42,4 @@ for TESTPACKAGE in $(echo "${PACKAGELIST}" | tr ',' ' '); do
     FAILED=1
   fi
 done
-if [ $FAILED -ne 0 ]; then
-  /usr/bin/false
-fi
+[ $FAILED -eq 0 ]
