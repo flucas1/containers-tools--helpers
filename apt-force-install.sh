@@ -3,6 +3,8 @@
 set -e
 set -x
 
+TARGETPACKAGE="$1"
+
 dpkg --configure -a
 
 APTARGUMENTS="-q=1 -y"
@@ -17,16 +19,16 @@ fi
 
 if [ -z "${APTINSTALLVERSION}" ] ; then
   if [ -z "${APTINSTALLRELEASE}" ] ; then
-    "${APTBINARY}" ${APTARGUMENTS} install $1
+    "${APTBINARY}" ${APTARGUMENTS} install "${TARGETPACKAGE}"
   else
-    "${APTBINARY}" ${APTARGUMENTS} install $1/$APTINSTALLRELEASE
+    "${APTBINARY}" ${APTARGUMENTS} install "${TARGETPACKAGE}/${APTINSTALLRELEASE}"
   fi
 else
   APTTARGETFULLVERSION=$(/usr/bin/apt list --all-versions ${1} 2> /dev/null | grep "^${1}" | awk '{print $2}' | sort -V | awk '$0=="'${APTINSTALLVERSION}'" || $0~"'^${APTINSTALLVERSION}.'" || $0~"'^${APTINSTALLVERSION}-'" { print $0 }' | tail -n 1)
-  "${APTBINARY}" ${APTARGUMENTS} install $1=${APTTARGETFULLVERSION}
+  "${APTBINARY}" ${APTARGUMENTS} install "${TARGETPACKAGE}=${APTTARGETFULLVERSION}"
 fi
 
-if ! /usr/bin/dpkg -s $1 >/dev/null 2>&1 ; then
-  /usr/bin/apt-cache policy $1
+if ! /usr/bin/dpkg -s "${TARGETPACKAGE}" >/dev/null 2>&1 ; then
+  /usr/bin/apt-cache policy "${TARGETPACKAGE}"
   /usr/bin/false
 fi
