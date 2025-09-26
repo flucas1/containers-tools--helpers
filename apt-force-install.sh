@@ -4,7 +4,6 @@ set -e
 set -x
 
 PACKAGELIST="$1"
-TARGETPACKAGE="${PACKAGELIST}"
 
 dpkg --configure -a
 
@@ -18,18 +17,32 @@ else
   APTARGUMENTS="--no-install-recommends --allow-downgrades ${APTARGUMENTS}"
 fi
 
+EFFECTIVEPACKAGELIST=""
 if [ -z "${APTINSTALLVERSION}" ] ; then
   if [ -z "${APTINSTALLRELEASE}" ] ; then
-    "${APTBINARY}" ${APTARGUMENTS} install "${TARGETPACKAGE}"
+    EFFECTIVEPACKAGELIST="$(echo "${PACKAGELIST}" | tr ',' ' ')"
   else
-    "${APTBINARY}" ${APTARGUMENTS} install "${TARGETPACKAGE}/${APTINSTALLRELEASE}"
+    EFFECTIVEPACKAGELIST=""
+    for TESTPACKAGE in $(echo "${PACKAGELIST}" | tr ',' ' '); do
+      if [ "${EFFECTIVEPACKAGELIST}" != "" ] ; then EFFECTIVEPACKAGELIST="${EFFECTIVEPACKAGELIST} " ; fi
+      EFFECTIVEPACKAGELIST="${EFFECTIVEPACKAGELIST}${PACKAGELIST}/${APTINSTALLRELEASE}"
+    done
   fi
 else
-  APTTARGETFULLVERSION=$(/usr/bin/apt list --all-versions ${1} 2> /dev/null | grep "^${1}" | awk '{print $2}' | sort -V | awk '$0=="'${APTINSTALLVERSION}'" || $0~"'^${APTINSTALLVERSION}.'" || $0~"'^${APTINSTALLVERSION}-'" { print $0 }' | tail -n 1)
-  "${APTBINARY}" ${APTARGUMENTS} install "${TARGETPACKAGE}=${APTTARGETFULLVERSION}"
+  echo "$PACKAGELIST" | grep -qv ','
+  APTTARGETFULLVERSION=$(/usr/bin/apt list --all-versions ${PACKAGELIST} 2> /dev/null | grep "^${PACKAGELIST}" | awk '{print $2}' | sort -V | awk '$0=="'${APTINSTALLVERSION}'" || $0~"'^${APTINSTALLVERSION}.'" || $0~"'^${APTINSTALLVERSION}-'" { print $0 }' | tail -n 1)
+  EFFECTIVEPACKAGELIST="${PACKAGELIST}=${APTTARGETFULLVERSION}"
 fi
+[ "${EFFECTIVEPACKAGELIST}" != "" ]
+"${APTBINARY}" ${APTARGUMENTS} install ${EFFECTIVEPACKAGELIST}
 
-if ! /usr/bin/dpkg -s "${TARGETPACKAGE}" >/dev/null 2>&1 ; then
-  /usr/bin/apt-cache policy "${TARGETPACKAGE}"
+FAILED=0
+for TESTPACKAGE in $(echo "${PACKAGELIST}" | tr ',' ' '); do
+  if ! /usr/bin/dpkg -s "${TESTPACKAGE}" >/dev/null 2>&1 ; then
+    /usr/bin/apt-cache policy "${TESTPACKAGE}"
+    FAILED=1
+  fi
+done
+if [ $FAILED -ne 0 ]; then
   /usr/bin/false
 fi
