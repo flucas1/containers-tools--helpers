@@ -30,39 +30,21 @@ ${HELPERSPATH}/apt-retry-install.sh wget
 ${HELPERSPATH}/apt-retry-install.sh bluez
 ${HELPERSPATH}/apt-retry-install.sh winbind
 ${HELPERSPATH}/apt-retry-install.sh fontconfig
-${HELPERSPATH}/apt-retry-install.sh libavahi-client3
-${HELPERSPATH}/apt-retry-install.sh libjbig0
-${HELPERSPATH}/apt-retry-install.sh libmount1
-${HELPERSPATH}/apt-retry-install.sh libudev1
-${HELPERSPATH}/apt-retry-install.sh udev
-${HELPERSPATH}/apt-retry-install.sh libcurl3t64-gnutls
-${HELPERSPATH}/apt-retry-install.sh libgd3
-${HELPERSPATH}/apt-retry-install.sh libgphoto2-6t64
-${HELPERSPATH}/apt-retry-install.sh libsane1
-#if [ "${WINEGRAPE}" = "" ] ; then
-  if [ "${ARCHITECTURE}" = "amd64" ] ; then
-    ${HELPERSPATH}/apt-retry-install.sh libavahi-client3:i386
-    ${HELPERSPATH}/apt-retry-install.sh libjbig0:i386
-    ${HELPERSPATH}/apt-retry-install.sh libmount1:i386
-    ${HELPERSPATH}/apt-retry-install.sh libudev1:i386
-    ${HELPERSPATH}/apt-retry-install.sh udev:i386
-    ${HELPERSPATH}/apt-retry-install.sh libcurl3t64-gnutls:i386
-    ${HELPERSPATH}/apt-retry-install.sh libgd3:i386
-    ${HELPERSPATH}/apt-retry-install.sh libgphoto2-6t64:i386
-    ${HELPERSPATH}/apt-retry-install.sh libsane1:i386
-  fi
-  if [ "${ARCHITECTURE}" = "arm64" ] ; then
-    ${HELPERSPATH}/apt-retry-install.sh libavahi-client3:armhf
-    ${HELPERSPATH}/apt-retry-install.sh libjbig0:armhf
-    ${HELPERSPATH}/apt-retry-install.sh libmount1:armhf
-    ${HELPERSPATH}/apt-retry-install.sh libudev1:armhf
-    ${HELPERSPATH}/apt-retry-install.sh udev:armhf
-    ${HELPERSPATH}/apt-retry-install.sh libcurl3t64-gnutls:armhf
-    ${HELPERSPATH}/apt-retry-install.sh libgd3:armhf
-    ${HELPERSPATH}/apt-retry-install.sh libgphoto2-6t64:armhf
-    ${HELPERSPATH}/apt-retry-install.sh libsane1:armhf
-  fi
-#fi
+
+REFERENCEPACKAGES="libavahi-client3 libjbig0 libmount1 libudev1 udev libcurl3t64-gnutls libgd3 libgphoto2-6t64 libsane1"
+FINALPACKAGES=""
+
+for TESTPACKAGE in $(echo "${REFERENCEPACKAGES}"); do
+  FINALPACKAGES="${FINALPACKAGES} ${TESTPACKAGE}"
+  #if [ "${WINEGRAPE}" = "" ] ; then
+    if [ "${ARCHITECTURE}" = "amd64" ] ; then
+      FINALPACKAGES="${FINALPACKAGES} ${TESTPACKAGE}:i386"
+    fi
+    if [ "${ARCHITECTURE}" = "arm64" ] ; then
+      FINALPACKAGES="${FINALPACKAGES} ${TESTPACKAGE}:armhf"
+    fi
+  #fi
+done
 
 if [ "${WINEVERSION}" = "" ] ; then
   DEBIANSUFFIX=""
