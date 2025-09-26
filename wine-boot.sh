@@ -22,6 +22,7 @@ $WINEATOMIC reg add "HKCU\\Software\\Wine\\WineDbg" /v BreakOnFirstChance /t REG
 $WINEATOMIC reg add "HKCU\\Software\\Wine\\WineDbg" /v ShowCrashDialog /t REG_DWORD /d 0 /f
 $WINEATOMIC reg add "HKCU\\Software\\Wine\\Explorer" /v Desktops /t REG_SZ /d 1024x768 /f
 $WINEATOMIC reg add "HKCU\\Software\\Microsoft\\Avalon.Graphics" /v DisableHWAcceleration /t REG_DWORD /d 1 /f
+$WINEATOMIC reg add "HKLM\\System\\CurrentControlSet\\Services\\winebth" /v Start /t REG_DWORD /d 4 /f
 
 $WINEATOMIC uninstaller --list
 #wine winecfg
