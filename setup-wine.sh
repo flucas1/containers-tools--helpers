@@ -13,8 +13,11 @@ WINEGRAPE="$1"
 echo "WINEGRAPE is '${WINEGRAPE}'"
 WINEVERSION="$2"
 echo "WINEVERSION is '${WINEVERSION}'"
+MULTIARCH="$3"
+if [ "${MULTIARCH}" = "-" ] ; then MULTIARCH="" ; fi
+echo "MULTIARCH is '${MULTIARCH}'"
 
-#if [ "${WINEGRAPE}" = "" ] ; then
+if [ "${MULTIARCH}" != "" ] ; then
   ARCHITECTURE="$(dpkg --print-architecture)"
   if [ "${ARCHITECTURE}" = "amd64" ] ; then
     dpkg --add-architecture i386
@@ -24,7 +27,7 @@ echo "WINEVERSION is '${WINEVERSION}'"
   fi
 
   ${HELPERSPATH}/apt-update.sh
-#fi
+fi
 
 ${HELPERSPATH}/apt-retry-install.sh wget
 ${HELPERSPATH}/apt-retry-install.sh bluez
@@ -35,14 +38,14 @@ REFERENCEPACKAGES="libavahi-client3 libjbig0 libmount1 libudev1 udev libcurl3t64
 FINALPACKAGES=""
 for TESTPACKAGE in $(echo "${REFERENCEPACKAGES}"); do
   FINALPACKAGES="${FINALPACKAGES} ${TESTPACKAGE}"
-  #if [ "${WINEGRAPE}" = "" ] ; then
+  if [ "${MULTIARCH}" != "" ] ; then
     if [ "${ARCHITECTURE}" = "amd64" ] ; then
       FINALPACKAGES="${FINALPACKAGES} ${TESTPACKAGE}:i386"
     fi
     if [ "${ARCHITECTURE}" = "arm64" ] ; then
       FINALPACKAGES="${FINALPACKAGES} ${TESTPACKAGE}:armhf"
     fi
-  #fi
+  fi
 done
 ${HELPERSPATH}/apt-retry-install.sh ${FINALPACKAGES}
 
@@ -57,11 +60,13 @@ if [ "${WINEGRAPE}" = "" ] ; then
   FINALPACKAGES="${FINALPACKAGES} libwine${DEBIANSUFFIX}"
   FINALPACKAGES="${FINALPACKAGES} wine${DEBIANSUFFIX}"
   FINALPACKAGES="${FINALPACKAGES} wine64${DEBIANSUFFIX}"
-  if [ "${ARCHITECTURE}" = "amd64" ] ; then
-    FINALPACKAGES="${FINALPACKAGES} wine32:i386${DEBIANSUFFIX}"
-  fi
-  if [ "${ARCHITECTURE}" = "arm64" ] ; then
-    FINALPACKAGES="${FINALPACKAGES} wine32:armhf${DEBIANSUFFIX}"
+  if [ "${MULTIARCH}" != "" ] ; then
+    if [ "${ARCHITECTURE}" = "amd64" ] ; then
+      FINALPACKAGES="${FINALPACKAGES} wine32:i386${DEBIANSUFFIX}"
+    fi
+    if [ "${ARCHITECTURE}" = "arm64" ] ; then
+      FINALPACKAGES="${FINALPACKAGES} wine32:armhf${DEBIANSUFFIX}"
+    fi
   fi
 else
   #https://wiki.winehq.org/Debian
@@ -73,13 +78,15 @@ else
 
   FINALPACKAGES="${FINALPACKAGES} winehq-${WINEGRAPE}${DEBIANSUFFIX}"
   FINALPACKAGES="${FINALPACKAGES} wine-${WINEGRAPE}${DEBIANSUFFIX}"
-  if [ "${ARCHITECTURE}" = "amd64" ] ; then
-    FINALPACKAGES="${FINALPACKAGES} wine-${WINEGRAPE}-amd64${DEBIANSUFFIX}"
-    FINALPACKAGES="${FINALPACKAGES} wine-${WINEGRAPE}-i386${DEBIANSUFFIX}"
-  fi
-  if [ "${ARCHITECTURE}" = "arm64" ] ; then
-    FINALPACKAGES="${FINALPACKAGES} wine-${WINEGRAPE}-arm64${DEBIANSUFFIX}"
-    FINALPACKAGES="${FINALPACKAGES} wine-${WINEGRAPE}-armhf${DEBIANSUFFIX}"
+  if [ "${MULTIARCH}" != "" ] ; then
+    if [ "${ARCHITECTURE}" = "amd64" ] ; then
+      FINALPACKAGES="${FINALPACKAGES} wine-${WINEGRAPE}-amd64${DEBIANSUFFIX}"
+      FINALPACKAGES="${FINALPACKAGES} wine-${WINEGRAPE}-i386${DEBIANSUFFIX}"
+    fi
+    if [ "${ARCHITECTURE}" = "arm64" ] ; then
+      FINALPACKAGES="${FINALPACKAGES} wine-${WINEGRAPE}-arm64${DEBIANSUFFIX}"
+      FINALPACKAGES="${FINALPACKAGES} wine-${WINEGRAPE}-armhf${DEBIANSUFFIX}"
+    fi
   fi
 fi
 ${HELPERSPATH}/apt-retry-install.sh ${FINALPACKAGES}
