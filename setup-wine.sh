@@ -40,8 +40,11 @@ ${HELPERSPATH}/apt-retry-install.sh winbind
 ${HELPERSPATH}/apt-retry-install.sh fontconfig
 ${HELPERSPATH}/apt-retry-install.sh udev
 ${HELPERSPATH}/apt-retry-install.sh acl
+${HELPERSPATH}/apt-retry-install.sh pci.ids
+${HELPERSPATH}/apt-retry-install.sh libsnmp-base
+${HELPERSPATH}/apt-retry-install.sh libsane-common
 
-REFERENCEPACKAGES="libavahi-client3 libjbig0 libmount1 libudev1 libcurl3t64-gnutls libgd3 libgphoto2-6t64 libsane1 libsane-common libpci3 pci.ids libsnmp40t64 libsnmp-base"
+REFERENCEPACKAGES="libavahi-client3 libjbig0 libmount1 libudev1 libcurl3t64-gnutls libgd3 libgphoto2-6t64 libsane1 libpci3 libsnmp40t64"
 FINALPACKAGES=""
 for TESTPACKAGE in $(echo "${REFERENCEPACKAGES}"); do
   FINALPACKAGES="${FINALPACKAGES} ${TESTPACKAGE}"
