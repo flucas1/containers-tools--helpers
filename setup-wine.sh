@@ -47,7 +47,12 @@ ${HELPERSPATH}/apt-retry-install.sh libsane-common
 REFERENCEPACKAGES="libavahi-client3 libjbig0 libmount1 libudev1 libcurl3t64-gnutls libgd3 libgphoto2-6t64 libsane1 libpci3 libsnmp40t64"
 FINALPACKAGES=""
 for TESTPACKAGE in $(echo "${REFERENCEPACKAGES}"); do
-  FINALPACKAGES="${FINALPACKAGES} ${TESTPACKAGE}"
+  if [ "${ARCHITECTURE}" = "amd64" ] ; then
+    FINALPACKAGES="${FINALPACKAGES} ${TESTPACKAGE}:amd64"
+  fi
+  if [ "${ARCHITECTURE}" = "arm64" ] ; then
+    FINALPACKAGES="${FINALPACKAGES} ${TESTPACKAGE}:arm64"
+  fi
   if [ "${MULTIARCH}" != "" ] ; then
     if [ "${ARCHITECTURE}" = "amd64" ] ; then
       FINALPACKAGES="${FINALPACKAGES} ${TESTPACKAGE}:i386"
