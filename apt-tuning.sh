@@ -272,5 +272,6 @@ cat /etc/apt/preferences
 
 if [ "${CUSTOMREPOSITORY_IDENTIFIER}" != "" ] ; then
   printf "Types: deb\nURIs: https://${CUSTOMREPOSITORY_SERVER}${CUSTOMREPOSITORY_PATH}\nSuites: ${CUSTOMREPOSITORY_IDENTIFIER}\nComponents: main\nSigned-By: \nTrusted: yes\n" > /etc/apt/sources.list.d/${CUSTOMREPOSITORY_IDENTIFIER}.sources
-  ${HELPERSPATH}/apt-update.sh
 fi
+
+${HELPERSPATH}/apt-update.sh
