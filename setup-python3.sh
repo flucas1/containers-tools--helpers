@@ -24,5 +24,6 @@ ${HELPERSPATH}/apt-retry-install.sh python3-lxml
 ${HELPERSPATH}/apt-retry-install.sh python3-packaging
 ${HELPERSPATH}/apt-retry-install.sh python3-setuptools
 ${HELPERSPATH}/apt-retry-install.sh python3-secretstorage
+${HELPERSPATH}/apt-retry-install.sh python3-aiofiles
 
 /usr/bin/python3 --version
