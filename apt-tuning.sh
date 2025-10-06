@@ -274,4 +274,4 @@ if [ "${CUSTOMREPOSITORY_IDENTIFIER}" != "" ] ; then
   printf "Types: deb\nURIs: https://${CUSTOMREPOSITORY_SERVER}${CUSTOMREPOSITORY_PATH}\nSuites: ${CUSTOMREPOSITORY_IDENTIFIER}\nComponents: main\nSigned-By: \nTrusted: yes\n" > /etc/apt/sources.list.d/${CUSTOMREPOSITORY_IDENTIFIER}.sources
 fi
 
-${HELPERSPATH}/apt-update.sh
+http_proxy="${APTCACHER}" ${HELPERSPATH}/apt-update.sh
