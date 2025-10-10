@@ -8,7 +8,6 @@ HELPERSCACHE="/helperscache"
 
 ${HELPERSPATH}/apt-retry-install.sh libc6
 ${HELPERSPATH}/apt-retry-install.sh libgcc-s1
-${HELPERSPATH}/apt-retry-install.sh libicu76
 ${HELPERSPATH}/apt-retry-install.sh libssl3t64
 ${HELPERSPATH}/apt-retry-install.sh libstdc++6
 ${HELPERSPATH}/apt-retry-install.sh tzdata
@@ -18,3 +17,6 @@ ${HELPERSPATH}/apt-retry-install.sh libfreetype6
 ${HELPERSPATH}/apt-retry-install.sh libfontconfig1
 ${HELPERSPATH}/apt-retry-install.sh wget
 ${HELPERSPATH}/apt-retry-install.sh jq
+
+NEWESTICU=$(apt-cache search libicu | grep -oP 'libicu\d+' | sort -V | tail -n1)
+${HELPERSPATH}/apt-retry-install.sh "${NEWESTICU}"
