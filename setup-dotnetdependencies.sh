@@ -8,6 +8,7 @@ HELPERSCACHE="/helperscache"
 
 ${HELPERSPATH}/apt-retry-install.sh libc6
 ${HELPERSPATH}/apt-retry-install.sh libgcc-s1
+${HELPERSPATH}/apt-retry-install.sh libicu76
 ${HELPERSPATH}/apt-retry-install.sh libssl3t64
 ${HELPERSPATH}/apt-retry-install.sh libstdc++6
 ${HELPERSPATH}/apt-retry-install.sh tzdata
