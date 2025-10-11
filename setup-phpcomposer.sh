@@ -11,7 +11,7 @@ COUNTER=0
 SUCCESS=0
 while [ $SUCCESS -eq 0 ] && [ $COUNTER -lt $MAXRETRIES ] ; do
   echo "Retry #$COUNTER" >&2
-  if /helpers/wget-with-retries.sh "${DOWNLOADURL}" -O "${TEMPINSTALLFILE}" ; then
+  if /helpers/wget-with-retries.sh "${DOWNLOADURL}" "${TEMPINSTALLFILE}" ; then
     SUCCESS=1
   else
     COUNTER=$(( $COUNTER + 1 ))

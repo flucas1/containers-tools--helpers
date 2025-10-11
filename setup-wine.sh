@@ -89,7 +89,7 @@ else
   
   mkdir -p /etc/apt/sources.list.d
   printf "Types: deb\nURIs: https://dl.winehq.org/wine-builds/debian\nSuites: $(lsb_release -c -s)\nComponents: main\nArchitectures: amd64 i386\nSigned-By: /etc/apt/keyrings/winehq.asc\n" > /etc/apt/sources.list.d/winehq.sources
-  /helpers/wget-with-retries.sh https://dl.winehq.org/wine-builds/winehq.key -O /etc/apt/keyrings/winehq.asc
+  /helpers/wget-with-retries.sh https://dl.winehq.org/wine-builds/winehq.key /etc/apt/keyrings/winehq.asc
   ${HELPERSPATH}/apt-update.sh
 
   if [ "${ARCHITECTURE}" = "amd64" ] ; then

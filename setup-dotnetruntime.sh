@@ -16,7 +16,7 @@ install_dotnetruntime()
   PARTARCH="$1"
   DOTNETRUNTIMEVERSION="$2"
 
-  #MAXRETRIES=30 ; COUNTER=0 ; SUCCESS=0 ; while [ $SUCCESS -eq 0 ] && [ $COUNTER -lt $MAXRETRIES ] ; do echo "Retry #$COUNTER" ; if /helpers/wget-with-retries.sh https://dot.net/v1/dotnet-install.sh -O "/usr/bin/dotnet-install.sh" ; then SUCCESS=1 ; else COUNTER=$(( $COUNTER + 1 )) ; sleep 5s ; fi ; done ; [ $SUCCESS -eq 1 ]
+  #MAXRETRIES=30 ; COUNTER=0 ; SUCCESS=0 ; while [ $SUCCESS -eq 0 ] && [ $COUNTER -lt $MAXRETRIES ] ; do echo "Retry #$COUNTER" ; if /helpers/wget-with-retries.sh https://dot.net/v1/dotnet-install.sh "/usr/bin/dotnet-install.sh" ; then SUCCESS=1 ; else COUNTER=$(( $COUNTER + 1 )) ; sleep 5s ; fi ; done ; [ $SUCCESS -eq 1 ]
   #chmod +x /usr/bin/dotnet-install.sh
   #/usr/bin/dotnet-install.sh --channel ${DOTNETRUNTIMEVERSION} --install-dir "${TARGETPATH}" --verbose --runtime dotnet
 
@@ -33,7 +33,7 @@ install_dotnetruntime()
     SUCCESS=0
     while [ $SUCCESS -eq 0 ] && [ $COUNTER -lt $MAXRETRIES ] ; do
       echo "Retry #$COUNTER" >&2
-      if /helpers/wget-with-retries.sh "${DOWNLOADURL}" -O "${LOCALCACHEFILENAME}" ; then
+      if /helpers/wget-with-retries.sh "${DOWNLOADURL}" "${LOCALCACHEFILENAME}" ; then
         SUCCESS=1
       else
         COUNTER=$(( $COUNTER + 1 ))
