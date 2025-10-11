@@ -28,7 +28,7 @@ install_dotnetruntime()
     SUCCESS=0
     while [ $SUCCESS -eq 0 ] && [ $COUNTER -lt $MAXRETRIES ] ; do
       echo "Retry #$COUNTER" >&2
-      if timeout --kill-after=5s 900s wget -4 --quiet --no-verbose --retry-connrefused --waitretry=3 --tries=20 "${DOWNLOADURL}" -O "${LOCALCACHEFILENAME}" ; then
+      if /helpers/wget-with-retries.sh "${DOWNLOADURL}" -O "${LOCALCACHEFILENAME}" ; then
         SUCCESS=1
       else
         COUNTER=$(( $COUNTER + 1 ))
@@ -46,9 +46,7 @@ fetch_dotnetruntime_version()
   SUPPORT="$1"
   LINENUMBER="$2"
 
-  timeout --kill-after=5s 900s \
-    wget -4 --quiet --no-verbose --retry-connrefused --waitretry=3 --tries=20 \
-      https://dotnetcli.blob.core.windows.net/dotnet/release-metadata/releases-index.json -O - \
+  /helpers/wget-with-retries.sh https://dotnetcli.blob.core.windows.net/dotnet/release-metadata/releases-index.json - \
     | jq -r '.["releases-index"][] | select(."support-phase"=="'"${SUPPORT}"'") | ."latest-runtime"' \
     | sort --version-sort --reverse \
     | awk -v n=$LINENUMBER 'NR==n'

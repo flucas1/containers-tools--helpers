@@ -48,7 +48,7 @@ echo "DEBIANBASE is ${DEBIANBASE}"
 if [ "${DEBIANBASE}" = "" ] ; then
   DEBIANBASE="$(lsb_release -c -s)"
 else
-  DEBIANBASE="$(timeout --kill-after=5s 900s wget -4 --quiet --no-verbose --retry-connrefused --waitretry=3 --tries=20 -O - "https://deb.debian.org/debian/dists/${DEBIANBASE}/Release" | grep -i '^Codename:' | awk '{print $2}')"
+  DEBIANBASE="$(/helpers/wget-with-retries.sh "https://deb.debian.org/debian/dists/${DEBIANBASE}/Release" - | grep -i '^Codename:' | awk '{print $2}')"
 fi
 echo "DEBIANBASE is ${DEBIANBASE}"
 [ "${DEBIANBASE}" != "" ]

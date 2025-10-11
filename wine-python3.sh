@@ -12,7 +12,7 @@ $WINEATOMIC reg add "HKCU\\SYSTEM\\CurrentControlSet\\Control\\FileSystem" /v Lo
 ARCHITECTURE="$(dpkg --print-architecture)" ; if [ "${ARCHITECTURE}" = "amd64" ] ; then PARTARCH="amd64" ; else if [ "${ARCHITECTURE}" = "arm64" ] ; then PARTARCH="arm64" ; fi ; fi
 [ "${PARTARCH}" != "" ]
 LSBRELEASE="$(lsb_release -c | cut -f2)"
-MAXRETRIES=30 ; COUNTER=0 ; SUCCESS=0 ; while [ $SUCCESS -eq 0 ] && [ $COUNTER -lt $MAXRETRIES ] ; do echo "Retry #$COUNTER" ; PYTHONRAWDATA="$(timeout --kill-after=5s 900s wget --no-verbose --retry-connrefused --waitretry=3 --tries=20 "https://qa.debian.org/madison.php?package=python3&table=debian&s=${LSBRELEASE}&text=on" -q -O -)" ; if [ "${PYTHONRAWDATA}" != "" ] ; then SUCCESS=1 ; else COUNTER=$(( $COUNTER + 1 )) ; sleep 5s ; fi ; done ; [ $SUCCESS -eq 1 ]
+MAXRETRIES=30 ; COUNTER=0 ; SUCCESS=0 ; while [ $SUCCESS -eq 0 ] && [ $COUNTER -lt $MAXRETRIES ] ; do echo "Retry #$COUNTER" ; PYTHONRAWDATA="$(/helpers/wget-with-retries.sh "https://qa.debian.org/madison.php?package=python3&table=debian&s=${LSBRELEASE}&text=on" -)" ; if [ "${PYTHONRAWDATA}" != "" ] ; then SUCCESS=1 ; else COUNTER=$(( $COUNTER + 1 )) ; sleep 5s ; fi ; done ; [ $SUCCESS -eq 1 ]
 PYTHONVERSION="$( echo "${PYTHONRAWDATA}" | awk '{print $3}' | awk -F- '{print $1}' )"
 [ "${PYTHONVERSION}" != "" ]
 
@@ -23,7 +23,7 @@ LOCALCACHEFILENAME="${LOCALCACHEDIRECTORY}/${FILENAME}"
 if [ ! -f "${LOCALCACHEFILENAME}" ] ; then
   rm -f "${LOCALCACHEFILENAME}"
   mkdir -p "${LOCALCACHEDIRECTORY}"
-  MAXRETRIES=30 ; COUNTER=0 ; SUCCESS=0 ; while [ $SUCCESS -eq 0 ] && [ $COUNTER -lt $MAXRETRIES ] ; do echo "Retry #$COUNTER" ; if timeout --kill-after=5s 900s wget -4 --quiet --no-verbose --retry-connrefused --waitretry=3 --tries=20 "${DOWNLOADURL}" -O "${LOCALCACHEFILENAME}" ; then SUCCESS=1 ; else COUNTER=$(( $COUNTER + 1 )) ; sleep 5s ; fi ; done ; [ $SUCCESS -eq 1 ]
+  MAXRETRIES=30 ; COUNTER=0 ; SUCCESS=0 ; while [ $SUCCESS -eq 0 ] && [ $COUNTER -lt $MAXRETRIES ] ; do echo "Retry #$COUNTER" ; if /helpers/wget-with-retries.sh "${DOWNLOADURL}" -O "${LOCALCACHEFILENAME}" ; then SUCCESS=1 ; else COUNTER=$(( $COUNTER + 1 )) ; sleep 5s ; fi ; done ; [ $SUCCESS -eq 1 ]
 fi
 
 $WINEATOMIC "$(winepath ${LOCALCACHEFILENAME})" /quiet InstallAllUsers=1 InstallLauncherAllUsers=1 Include_launcher=1 AssociateFiles=1 PrependPath=1 Include_doc=0 Shortcuts=0

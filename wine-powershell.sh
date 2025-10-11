@@ -25,7 +25,7 @@ checkLatestGithubVersion()
   SUCCESS=0
   while [ $SUCCESS -eq 0 ] && [ $COUNTER -lt $MAXRETRIES ] ; do
     echo "Retry #$COUNTER" >&2
-    CHECKLATESTVERSION_TAG="$(timeout --kill-after=5s 30s wget -4 --quiet --no-verbose --retry-connrefused --waitretry=3 --tries=20 "${CHECKLATESTVERSION_LATEST_URL}" -O - | grep -o "<title>Release $CHECKLATESTVERSION_REGEX" | grep -o "$CHECKLATESTVERSION_REGEX")"
+    CHECKLATESTVERSION_TAG="$(/helpers/wget-with-retries.sh "${CHECKLATESTVERSION_LATEST_URL}" - | grep -o "<title>Release $CHECKLATESTVERSION_REGEX" | grep -o "$CHECKLATESTVERSION_REGEX")"
     if [ "${CHECKLATESTVERSION_TAG}" != "" ] ; then
       SUCCESS=1
     else
@@ -47,7 +47,7 @@ LOCALCACHEFILENAME="${HELPERSCACHE}/${FILENAME}"
 if [ ! -f "${LOCALCACHEFILENAME}" ] ; then
   rm -f "${LOCALCACHEFILENAME}"
   mkdir -p "${HELPERSCACHE}"
-  MAXRETRIES=30 ; COUNTER=0 ; SUCCESS=0 ; while [ $SUCCESS -eq 0 ] && [ $COUNTER -lt $MAXRETRIES ] ; do echo "Retry #$COUNTER" ; if timeout --kill-after=5s 900s wget -4 --quiet --no-verbose --retry-connrefused --waitretry=3 --tries=20 "${DOWNLOADURL}" -O "${LOCALCACHEFILENAME}" ; then SUCCESS=1 ; else COUNTER=$(( $COUNTER + 1 )) ; sleep 5s ; fi ; done ; [ $SUCCESS -eq 1 ]
+  MAXRETRIES=30 ; COUNTER=0 ; SUCCESS=0 ; while [ $SUCCESS -eq 0 ] && [ $COUNTER -lt $MAXRETRIES ] ; do echo "Retry #$COUNTER" ; if /helpers/wget-with-retries.sh "${DOWNLOADURL}" -O "${LOCALCACHEFILENAME}" ; then SUCCESS=1 ; else COUNTER=$(( $COUNTER + 1 )) ; sleep 5s ; fi ; done ; [ $SUCCESS -eq 1 ]
 fi
 
 $WINEATOMIC msiexec.exe /i "$(winepath ${LOCALCACHEFILENAME})" /quiet

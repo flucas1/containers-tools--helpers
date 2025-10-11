@@ -16,7 +16,7 @@ install_dotnetsdk()
   PARTARCH="$1"
   DOTNETSDKVERSION="$2"
 
-  #MAXRETRIES=30 ; COUNTER=0 ; SUCCESS=0 ; while [ $SUCCESS -eq 0 ] && [ $COUNTER -lt $MAXRETRIES ] ; do echo "Retry #$COUNTER" ; if timeout --kill-after=5s 900s wget -4 --quiet --no-verbose --retry-connrefused --waitretry=3 --tries=20 https://dot.net/v1/dotnet-install.sh -O "/usr/bin/dotnet-install.sh" ; then SUCCESS=1 ; else COUNTER=$(( $COUNTER + 1 )) ; sleep 5s ; fi ; done ; [ $SUCCESS -eq 1 ]
+  #MAXRETRIES=30 ; COUNTER=0 ; SUCCESS=0 ; while [ $SUCCESS -eq 0 ] && [ $COUNTER -lt $MAXRETRIES ] ; do echo "Retry #$COUNTER" ; if /helpers/wget-with-retries.sh https://dot.net/v1/dotnet-install.sh -O "/usr/bin/dotnet-install.sh" ; then SUCCESS=1 ; else COUNTER=$(( $COUNTER + 1 )) ; sleep 5s ; fi ; done ; [ $SUCCESS -eq 1 ]
   #chmod +x /usr/bin/dotnet-install.sh
   #/usr/bin/dotnet-install.sh --channel ${DOTNETSDKVERSION} --install-dir /opt/dotnet --verbose
 
@@ -33,7 +33,7 @@ install_dotnetsdk()
     SUCCESS=0
     while [ $SUCCESS -eq 0 ] && [ $COUNTER -lt $MAXRETRIES ] ; do
       echo "Retry #$COUNTER" >&2
-      if timeout --kill-after=5s 900s wget -4 --quiet --no-verbose --retry-connrefused --waitretry=3 --tries=20 "${DOWNLOADURL}" -O "${LOCALCACHEFILENAME}" ; then
+      if /helpers/wget-with-retries.sh "${DOWNLOADURL}" -O "${LOCALCACHEFILENAME}" ; then
         SUCCESS=1
       else
         COUNTER=$(( $COUNTER + 1 ))
@@ -65,9 +65,7 @@ fetch_dotnetsdk_version()
   SUPPORT="$1"
   LINENUMBER="$2"
 
-  timeout --kill-after=5s 900s \
-    wget -4 --quiet --no-verbose --retry-connrefused --waitretry=3 --tries=20 \
-      https://dotnetcli.blob.core.windows.net/dotnet/release-metadata/releases-index.json -O - \
+  /helpers/wget-with-retries.sh https://dotnetcli.blob.core.windows.net/dotnet/release-metadata/releases-index.json - \
     | jq -r '.["releases-index"][] | select(."support-phase"=="'"${SUPPORT}"'") | ."latest-sdk"' \
     | sort --version-sort --reverse \
     | awk -v n=$LINENUMBER 'NR==n'
