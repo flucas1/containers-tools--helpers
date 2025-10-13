@@ -7,6 +7,7 @@ DOWNLOADURL="https://getcomposer.org/installer"
 TEMPINSTALLFILE=$(mktemp)
 
 /helpers/wget-with-retries.sh "${DOWNLOADURL}" "${TEMPINSTALLFILE}"
+[ -f "${TEMPINSTALLFILE}" ]
 
 php "$TEMPINSTALLFILE" --install-dir=/usr/local/bin --filename=composer
 

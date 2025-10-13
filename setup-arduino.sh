@@ -14,20 +14,7 @@ checkLatestGithubVersion()
   CHECKLATESTVERSION_REGEX="v\?[0-9][A-Za-z0-9\.-]*"
   CHECKLATESTVERSION_LATEST_URL="https://github.com/${PROJECT_OWNER}/${PROJECT_NAME}/releases/latest"
   
-  MAXRETRIES=30
-  COUNTER=0
-  SUCCESS=0
-  while [ $SUCCESS -eq 0 ] && [ $COUNTER -lt $MAXRETRIES ] ; do
-    echo "Retry #$COUNTER" >&2
-    CHECKLATESTVERSION_TAG="$(/helpers/wget-with-retries.sh "${CHECKLATESTVERSION_LATEST_URL}" - | grep -o "<title>Release $CHECKLATESTVERSION_REGEX" | grep -o "$CHECKLATESTVERSION_REGEX")"
-    if [ "${CHECKLATESTVERSION_TAG}" != "" ] ; then
-      SUCCESS=1
-    else
-      COUNTER=$(( $COUNTER + 1 ))
-      sleep 5s
-    fi
-  done
-  [ $SUCCESS -eq 1 ]
+  CHECKLATESTVERSION_TAG="$(/helpers/wget-with-retries.sh "${CHECKLATESTVERSION_LATEST_URL}" - | grep -o "<title>Release $CHECKLATESTVERSION_REGEX" | grep -o "$CHECKLATESTVERSION_REGEX")"
   
   echo "${CHECKLATESTVERSION_TAG}"
 }
@@ -48,21 +35,7 @@ fi
 DOWNLOADURL="https://github.com/arduino/arduino-cli/releases/download/v${ACLIVERSION}/${FILENAME}"
 LOCALCACHEFILENAME="${HELPERSCACHE}/${FILENAME}"
 if [ ! -f "${LOCALCACHEFILENAME}" ] ; then
-  rm -f "${LOCALCACHEFILENAME}"
-  mkdir -p "${HELPERSCACHE}"
-  MAXRETRIES=30
-  COUNTER=0
-  SUCCESS=0
-  while [ $SUCCESS -eq 0 ] && [ $COUNTER -lt $MAXRETRIES ] ; do
-    echo "Retry #$COUNTER" >&2
-    if /helpers/wget-with-retries.sh "${DOWNLOADURL}" "${LOCALCACHEFILENAME}" ; then
-      SUCCESS=1
-    else
-      COUNTER=$(( $COUNTER + 1 ))
-      sleep 5s
-    fi
-  done
-  [ $SUCCESS -eq 1 ]
+  /helpers/wget-with-retries.sh "${DOWNLOADURL}" "${LOCALCACHEFILENAME}"
 fi
 [ -f "${LOCALCACHEFILENAME}" ]
 
