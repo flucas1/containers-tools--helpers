@@ -6,19 +6,7 @@ set -x
 DOWNLOADURL="https://getcomposer.org/installer"
 TEMPINSTALLFILE=$(mktemp)
 
-MAXRETRIES=30
-COUNTER=0
-SUCCESS=0
-while [ $SUCCESS -eq 0 ] && [ $COUNTER -lt $MAXRETRIES ] ; do
-  echo "Retry #$COUNTER" >&2
-  if /helpers/wget-with-retries.sh "${DOWNLOADURL}" "${TEMPINSTALLFILE}" ; then
-    SUCCESS=1
-  else
-    COUNTER=$(( $COUNTER + 1 ))
-    sleep 5s
-  fi
-done
-[ $SUCCESS -eq 1 ]
+/helpers/wget-with-retries.sh "${DOWNLOADURL}" "${TEMPINSTALLFILE}"
 
 php "$TEMPINSTALLFILE" --install-dir=/usr/local/bin --filename=composer
 

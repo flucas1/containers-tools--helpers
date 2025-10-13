@@ -14,19 +14,7 @@ if [ "${ARCHITECTURE}" = "amd64" ] ; then RUNTIME="linux-x64" ; else if [ "${ARC
 LOCALCACHEFILENAME="/opt/vsdbg-${RUNTIME}.tar.gz"
 DOWNLOADURL="https://${HOST}/vsdbg-${TARGET}/vsdbg-${RUNTIME}.tar.gz"
 if [ ! -f "${LOCALCACHEFILENAME}" ] ; then
-  MAXRETRIES=30
-  COUNTER=0
-  SUCCESS=0
-  while [ $SUCCESS -eq 0 ] && [ $COUNTER -lt $MAXRETRIES ] ; do
-    echo "Retry #$COUNTER" >&2
-    if /helpers/wget-with-retries.sh "${DOWNLOADURL}" "${LOCALCACHEFILENAME}" ; then
-      SUCCESS=1
-    else
-      COUNTER=$(( $COUNTER + 1 ))
-      sleep 5s
-    fi
-  done
-[ $SUCCESS -eq 1 ]
+  /helpers/wget-with-retries.sh "${DOWNLOADURL}" "${LOCALCACHEFILENAME}"
 fi
 [ -f "${LOCALCACHEFILENAME}" ]
 
