@@ -46,6 +46,6 @@ install_avaloniatemplates()
 
 install_wasmtoolsmultiple
 
-install_avaloniatemplates
+#install_avaloniatemplates
 
 #/opt/dotnet/dotnet tool install --global dotnet-outdated-tool

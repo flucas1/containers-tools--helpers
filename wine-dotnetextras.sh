@@ -48,7 +48,7 @@ install_avaloniatemplates()
 
 install_wasmtoolsmultiple
 
-install_avaloniatemplates
+#install_avaloniatemplates
 
 #$WINEATOMIC "C:\\Program Files\\dotnet\\dotnet.exe" tool install --global dotnet-outdated-tool
 
