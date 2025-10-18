@@ -109,13 +109,12 @@ if [ "${ARCHITECTURE}" = "amd64" ] ; then PARTARCH="x64" ; else if [ "${ARCHITEC
 if [ "${DESIREDVERSION}" = "preview" ] ; then
   DOTNETASPVERSION="$(getversion_dotnetasp ${PARTARCH} preview 1)"
   install_dotnetasp "${PARTARCH}" "${DOTNETASPVERSION}"
-elif [ "${DESIREDVERSION}" = "newest" ] ; then
+elif [ "${DESIREDVERSION}" = "newest" ] || [ "${DESIREDVERSION}" = "" ] ; then
   DOTNETASPVERSION="$(getversion_dotnetasp ${PARTARCH} active 1)"
   install_dotnetasp "${PARTARCH}" "${DOTNETASPVERSION}"
 elif [ "${DESIREDVERSION}" = "previous" ] ; then
   DOTNETASPVERSION="$(getversion_dotnetasp ${PARTARCH} active 2)"
   install_dotnetasp "${PARTARCH}" "${DOTNETASPVERSION}"
 else
-  DOTNETASPVERSION="$(getversion_dotnetasp ${PARTARCH} force ${DESIREDVERSION})"
-  install_dotnetasp "${PARTARCH}" "${DOTNETASPVERSION}"
+  install_dotnetsdk "${PARTARCH}" "${DESIREDVERSION}"
 fi
