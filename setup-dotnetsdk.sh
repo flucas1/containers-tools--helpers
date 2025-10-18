@@ -120,6 +120,5 @@ elif [ "${DESIREDVERSION}" = "previous" ] ; then
   DOTNETSDKVERSION="$(getversion_dotnetsdk ${PARTARCH} active 2)"
   install_dotnetsdk "${PARTARCH}" "${DOTNETSDKVERSION}"
 else
-  DOTNETSDKVERSION="$(getversion_dotnetsdk ${PARTARCH} force ${DESIREDVERSION})"
-  install_dotnetsdk "${PARTARCH}" "${DOTNETSDKVERSION}"
+  install_dotnetsdk "${PARTARCH}" "${DESIREDVERSION}"
 fi
