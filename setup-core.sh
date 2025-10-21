@@ -20,6 +20,7 @@ ${HELPERSPATH}/apt-retry-install.sh git
 ${HELPERSPATH}/apt-retry-install.sh unison
 ${HELPERSPATH}/apt-retry-install.sh ssh
 ${HELPERSPATH}/apt-retry-install.sh jq
+${HELPERSPATH}/apt-retry-install.sh yq
 ${HELPERSPATH}/apt-retry-install.sh rsync
 ${HELPERSPATH}/apt-retry-install.sh sshpass
 ${HELPERSPATH}/apt-retry-install.sh man-db

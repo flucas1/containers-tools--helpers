@@ -52,6 +52,8 @@ arduino-cli version
 CONFIG_DIR="/etc/arduino-cli"
 mkdir -p "${CONFIG_DIR}"
 arduino-cli config init --config-file "${CONFIG_DIR}/arduino-cli.yaml"
+yq -i '.network.insecure_skip_verify = true' "${CONFIG_DIR}/arduino-cli.yaml"
+
 PATH_BOARDS="/opt/arduino/boards"
 mkdir -p "${PATH_BOARDS}"
 arduino-cli config set directories.data "${PATH_BOARDS}" --config-file "${CONFIG_DIR}/arduino-cli.yaml"
