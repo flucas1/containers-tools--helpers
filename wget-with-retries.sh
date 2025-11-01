@@ -8,7 +8,7 @@ DOWNLOADFILE="$2"
 
 MAXRETRIES=30 ; COUNTER=0 ; SUCCESS=0
 while [ $SUCCESS -eq 0 ] && [ $COUNTER -lt $MAXRETRIES ] ; do
-  echo "Retry #$COUNTER"
+  echo "Retry #$COUNTER" >&2
   if timeout --kill-after=5s 900s wget -4 --quiet --no-verbose --retry-connrefused --waitretry=1 --tries=10 "$DOWNLOADURL" -O "$DOWNLOADFILE" ; then
     SUCCESS=1
   else

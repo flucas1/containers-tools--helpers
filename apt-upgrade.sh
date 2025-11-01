@@ -9,7 +9,7 @@ ${HELPERSPATH}/apt-retry-install.sh aptitude
 
 MAXRETRIES=30 ; COUNTER=0 ; SUCCESS=0
 while [ $SUCCESS -eq 0 ] && [ $COUNTER -lt $MAXRETRIES ] ; do
-  echo "Retry #$COUNTER"
+  echo "Retry #$COUNTER" >&2
   if timeout --kill-after=5s 900s aptitude safe-upgrade -y ; then
     SUCCESS=1
   else
@@ -23,7 +23,7 @@ done
 
 MAXRETRIES=30 ; COUNTER=0 ; SUCCESS=0
 while [ $SUCCESS -eq 0 ] && [ $COUNTER -lt $MAXRETRIES ] ; do
-  echo "Retry #$COUNTER"
+  echo "Retry #$COUNTER" >&2
   if timeout --kill-after=5s 900s aptitude full-upgrade --without-recommends --allow-new-upgrades --allow-new-installs ; then
     SUCCESS=1
   else
