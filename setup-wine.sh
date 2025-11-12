@@ -67,7 +67,11 @@ ${HELPERSPATH}/apt-retry-install.sh ${FINALPACKAGES}
 if [ "${WINEVERSION}" = "" ] ; then
   DEBIANSUFFIX=""
 else
-  DEBIANSUFFIX="=${WINEVERSION}*"
+  if [ "${WINEGRAPE}" = "" ] ; then
+    DEBIANSUFFIX="=$(apt-cache policy wine | grep -Eo "$(echo $WINEVERSION | sed 's/\./\\./g')[^ ]*" | head -n 1)"
+  else
+    DEBIANSUFFIX="=$(apt-cache policy wine-${WINEGRAPE} | grep -Eo "$(echo $WINEVERSION | sed 's/\./\\./g')[^ ]*" | head -n 1)"
+  fi
 fi
 
 if [ "${WINEGRAPE}" = "" ] ; then
