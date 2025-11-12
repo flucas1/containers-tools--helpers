@@ -64,17 +64,13 @@ for TESTPACKAGE in $(echo "${REFERENCEPACKAGES}"); do
 done
 ${HELPERSPATH}/apt-retry-install.sh ${FINALPACKAGES}
 
-if [ "${WINEVERSION}" = "" ] ; then
-  DEBIANSUFFIX=""
-else
-  if [ "${WINEGRAPE}" = "" ] ; then
-    DEBIANSUFFIX="=$(apt-cache policy wine | grep -Eo "$(echo $WINEVERSION | sed 's/\./\\./g')[^ ]*" | head -n 1)"
-  else
-    DEBIANSUFFIX="=$(apt-cache policy wine-${WINEGRAPE} | grep -Eo "$(echo $WINEVERSION | sed 's/\./\\./g')[^ ]*" | head -n 1)"
-  fi
-fi
-
 if [ "${WINEGRAPE}" = "" ] ; then
+  if [ "${WINEVERSION}" = "" ] ; then
+    DEBIANSUFFIX=""
+  else
+    DEBIANSUFFIX="=$(apt-cache policy wine | grep -Eo "$(echo $WINEVERSION | sed 's/\./\\./g')[^ ]*" | head -n 1)"
+  fi
+
   FINALPACKAGES=""
   FINALPACKAGES="${FINALPACKAGES} libwine${DEBIANSUFFIX}"
   FINALPACKAGES="${FINALPACKAGES} wine${DEBIANSUFFIX}"
@@ -95,6 +91,12 @@ else
   printf "Types: deb\nURIs: https://dl.winehq.org/wine-builds/debian\nSuites: $(lsb_release -c -s)\nComponents: main\nArchitectures: amd64 i386\nSigned-By: /etc/apt/keyrings/winehq.asc\n" > /etc/apt/sources.list.d/winehq.sources
   /helpers/wget-with-retries.sh https://dl.winehq.org/wine-builds/winehq.key /etc/apt/keyrings/winehq.asc
   ${HELPERSPATH}/apt-update.sh
+
+  if [ "${WINEVERSION}" = "" ] ; then
+    DEBIANSUFFIX=""
+  else
+    DEBIANSUFFIX="=$(apt-cache policy wine | grep -Eo "$(echo $WINEVERSION | sed 's/\./\\./g')[^ ]*" | head -n 1)"
+  fi
 
   if [ "${ARCHITECTURE}" = "amd64" ] ; then
     ${HELPERSPATH}/apt-retry-install.sh "wine-${WINEGRAPE}-amd64${DEBIANSUFFIX}"
