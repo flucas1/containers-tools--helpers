@@ -95,7 +95,7 @@ else
   if [ "${WINEVERSION}" = "" ] ; then
     DEBIANSUFFIX=""
   else
-    DEBIANSUFFIX="=$(apt-cache policy wine | grep -Eo "$(echo $WINEVERSION | sed 's/\./\\./g')[^ ]*" | head -n 1)"
+    DEBIANSUFFIX="=$(apt-cache policy wine-${WINEGRAPE} | grep -Eo "$(echo $WINEVERSION | sed 's/\./\\./g')[^ ]*" | head -n 1)"
   fi
 
   if [ "${ARCHITECTURE}" = "amd64" ] ; then
