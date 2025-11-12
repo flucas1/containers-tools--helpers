@@ -37,8 +37,9 @@ fi
 
 FAILED=0
 for TESTPACKAGE in $(echo "${PACKAGELIST}" | tr ',' ' '); do
-  if ! /usr/bin/dpkg -s "${TESTPACKAGE}" >/dev/null 2>&1 ; then
-    /usr/bin/apt-cache policy "${TESTPACKAGE}"
+  CLEANEDNAME="$(echo "$TESTPACKAGE" | awk -F= '{print $1}')"
+  if ! /usr/bin/dpkg -s "${CLEANEDNAME}" >/dev/null 2>&1 ; then
+    /usr/bin/apt-cache policy "${CLEANEDNAME}"
     FAILED=1
   fi
 done
