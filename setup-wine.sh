@@ -169,7 +169,7 @@ WINERC="$(echo ${WINECLEAN} | awk -F '-' '{print $2}')"
 
 WINEBRANCH="$(echo ${WINEMNR} | awk -F '.' '{print $1}').$(echo ${WINEMNR} | awk -F '.' '{print $2}')"
 if [ "${WINERC}" != "" ] ; then
-  WINEBRANCH = "${WINEBRANCH}-${WINERC}"
+  WINEBRANCH="${WINEBRANCH}-${WINERC}"
 fi
 [ "${WINEBRANCH}" != "" ]
 
