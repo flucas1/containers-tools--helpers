@@ -130,7 +130,7 @@ fi
 if [ "${ARCHITECTURE}" = "arm64" ] ; then
   MICRONUCLEUSPLATFORM="aarch64-linux-gnu"
 fi
-MICRONUCLEUSURL=$(cat $JSONTEMP | jq -r '.packages[] | .tools | to_entries[] | select(.value.name=="micronucleus" and .value.version=="2.5-azd1") | .value.systems[] | select(.host=="${MICRONUCLEUSPLATFORM}") | .url')
+MICRONUCLEUSURL=$(jq -r '.packages[] | .tools | to_entries[] | select(.value.name=="micronucleus" and .value.version=="2.5-azd1") | .value.systems[] | select(.host=="${MICRONUCLEUSPLATFORM}") | .url' $JSONTEMP)
 MICRONUCLEUSFILENAME=$(basename "${MICRONUCLEUSURL}")
 mkdir -p /opt/arduino/staging/packages
 MICRONUCLEUSLOCAL="/opt/arduino/staging/packages/${MICRONUCLEUSFILENAME}"
