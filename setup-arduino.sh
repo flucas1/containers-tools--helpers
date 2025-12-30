@@ -125,7 +125,7 @@ done
 JSONTEMP=$(mktemp)
 /helpers/wget-with-retries.sh "${BOARDS_URL}" "${JSONTEMP}"
 if [ "${ARCHITECTURE}" = "amd64" ] ; then
-  MICRONUCLEUSFILENAME="x86_64-linux-gnu"
+  MICRONUCLEUSPLATFORM="x86_64-linux-gnu"
 fi
 if [ "${ARCHITECTURE}" = "arm64" ] ; then
   MICRONUCLEUSPLATFORM="aarch64-linux-gnu"
