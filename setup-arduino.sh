@@ -122,7 +122,7 @@ fi
 done
 [ $SUCCESS -eq 1 ]
 
-JSONTEMP=$(mktemp)
+MICRONUCLEUSVERSION="2.5-azd1"
 MICRONUCLEUSPLATFORM=""
 if [ "${ARCHITECTURE}" = "amd64" ] ; then
   MICRONUCLEUSPLATFORM="x86_64-linux-gnu"
@@ -130,17 +130,24 @@ fi
 if [ "${ARCHITECTURE}" = "arm64" ] ; then
   MICRONUCLEUSPLATFORM="aarch64-linux-gnu"
 fi
-[ "${MICRONUCLEUSPLATFORM}" != "" ]
-/helpers/wget-with-retries.sh "${BOARDS_URL}" "${JSONTEMP}"
-[ -f "${JSONTEMP}" ]
-MICRONUCLEUSURL=$(jq -r '.packages[] | .tools | to_entries[] | select(.value.name=="micronucleus" and .value.version=="2.5-azd1") | .value.systems[] | select(.host=="'${MICRONUCLEUSPLATFORM}'") | .url' $JSONTEMP)
-[ "${MICRONUCLEUSURL}" != "" ]
-MICRONUCLEUSFILENAME=$(basename "${MICRONUCLEUSURL}")
-[ "${MICRONUCLEUSFILENAME}" != "" ]
 mkdir -p /opt/arduino/staging/packages
+
+MICRONUCLEUSFILENAME="micronucleus-cli-${MICRONUCLEUSVERSION}-${MICRONUCLEUSPLATFORM}.tar.bz2"
+MICRONUCLEUSURL="https://web.archive.org/web/20241214221237/https://azduino.com/bin/micronucleus/${MICRONUCLEUSFILENAME}"
 MICRONUCLEUSLOCAL="/opt/arduino/staging/packages/${MICRONUCLEUSFILENAME}"
 /helpers/wget-with-retries.sh "${MICRONUCLEUSURL}" "${MICRONUCLEUSLOCAL}"
-rm -f $JSONTEMP
+
+#JSONTEMP=$(mktemp)
+#[ "${MICRONUCLEUSPLATFORM}" != "" ]
+#/helpers/wget-with-retries.sh "${BOARDS_URL}" "${JSONTEMP}"
+#[ -f "${JSONTEMP}" ]
+#MICRONUCLEUSURL=$(jq -r '.packages[] | .tools | to_entries[] | select(.value.name=="micronucleus" and .value.version=="'${MICRONUCLEUSVERSION}'") | .value.systems[] | select(.host=="'${MICRONUCLEUSPLATFORM}'") | .url' $JSONTEMP)
+#[ "${MICRONUCLEUSURL}" != "" ]
+#MICRONUCLEUSFILENAME=$(basename "${MICRONUCLEUSURL}")
+#[ "${MICRONUCLEUSFILENAME}" != "" ]
+#MICRONUCLEUSLOCAL="/opt/arduino/staging/packages/${MICRONUCLEUSFILENAME}"
+#/helpers/wget-with-retries.sh "${MICRONUCLEUSURL}" "${MICRONUCLEUSLOCAL}"
+#rm -f $JSONTEMP
 
 MAXRETRIES=30
 COUNTER=0
