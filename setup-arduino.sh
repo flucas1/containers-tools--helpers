@@ -132,6 +132,7 @@ if [ "${ARCHITECTURE}" = "arm64" ] ; then
 fi
 MICRONUCLEUSURL=$(cat $JSONTEMP | jq -r '.packages[] | .tools | to_entries[] | select(.value.name=="micronucleus" and .value.version=="2.5-azd1") | .value.systems[] | select(.host=="${MICRONUCLEUSPLATFORM}") | .url')
 MICRONUCLEUSFILENAME=$(basename "${MICRONUCLEUSURL}")
+mkdir -p /opt/arduino/staging/packages
 MICRONUCLEUSLOCAL="/opt/arduino/staging/packages/${MICRONUCLEUSFILENAME}"
 /helpers/wget-with-retries.sh "${MICRONUCLEUSURL}" "${MICRONUCLEUSLOCAL}"
 rm -f $JSONTEMP
