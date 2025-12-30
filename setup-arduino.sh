@@ -122,6 +122,20 @@ fi
 done
 [ $SUCCESS -eq 1 ]
 
+JSONTEMP=$(mktemp)
+/helpers/wget-with-retries.sh "${BOARDS_URL}" "${JSONTEMP}"
+if [ "${ARCHITECTURE}" = "amd64" ] ; then
+  MICRONUCLEUSFILENAME="x86_64-linux-gnu"
+fi
+if [ "${ARCHITECTURE}" = "arm64" ] ; then
+  MICRONUCLEUSPLATFORM="aarch64-linux-gnu"
+fi
+MICRONUCLEUSURL=$(cat $JSONTEMP | jq -r '.packages[] | .tools | to_entries[] | select(.value.name=="micronucleus" and .value.version=="2.5-azd1") | .value.systems[] | select(.host=="${MICRONUCLEUSPLATFORM}") | .url')
+MICRONUCLEUSFILENAME=$(basename "${MICRONUCLEUSURL}")
+MICRONUCLEUSLOCAL="/opt/arduino/staging/packages/${MICRONUCLEUSFILENAME}"
+/helpers/wget-with-retries.sh "${MICRONUCLEUSURL}" "${MICRONUCLEUSLOCAL}"
+rm -f $JSONTEMP
+
 MAXRETRIES=30
 COUNTER=0
 SUCCESS=0
