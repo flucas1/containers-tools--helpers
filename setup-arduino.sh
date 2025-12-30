@@ -56,6 +56,11 @@ arduino-cli config init --config-file "${CONFIG_DIR}/arduino-cli.yaml"
 PATH_BOARDS="/opt/arduino/boards"
 mkdir -p "${PATH_BOARDS}"
 arduino-cli config set directories.data "${PATH_BOARDS}" --config-file "${CONFIG_DIR}/arduino-cli.yaml"
+
+PATH_STAGING="/opt/arduino/staging"
+mkdir -p "${PATH_STAGING}"
+arduino-cli config set directories.downloads "${PATH_STAGING}" --config-file "${CONFIG_DIR}/arduino-cli.yaml"
+
 arduino-cli core list --config-file "$CONFIG_DIR/arduino-cli.yaml"
 arduino-cli board listall --config-file "$CONFIG_DIR/arduino-cli.yaml"
 
@@ -130,11 +135,11 @@ fi
 if [ "${ARCHITECTURE}" = "arm64" ] ; then
   MICRONUCLEUSPLATFORM="aarch64-linux-gnu"
 fi
-mkdir -p /opt/arduino/staging/packages
+mkdir -p "${PATH_STAGING}/packages"
 
 MICRONUCLEUSFILENAME="micronucleus-cli-${MICRONUCLEUSVERSION}-${MICRONUCLEUSPLATFORM}.tar.bz2"
 MICRONUCLEUSURL="https://web.archive.org/web/20241214221237/https://azduino.com/bin/micronucleus/${MICRONUCLEUSFILENAME}"
-MICRONUCLEUSLOCAL="/opt/arduino/staging/packages/${MICRONUCLEUSFILENAME}"
+MICRONUCLEUSLOCAL="${PATH_STAGING}/packages/${MICRONUCLEUSFILENAME}"
 /helpers/wget-with-retries.sh "${MICRONUCLEUSURL}" "${MICRONUCLEUSLOCAL}"
 
 #JSONTEMP=$(mktemp)
@@ -145,7 +150,7 @@ MICRONUCLEUSLOCAL="/opt/arduino/staging/packages/${MICRONUCLEUSFILENAME}"
 #[ "${MICRONUCLEUSURL}" != "" ]
 #MICRONUCLEUSFILENAME=$(basename "${MICRONUCLEUSURL}")
 #[ "${MICRONUCLEUSFILENAME}" != "" ]
-#MICRONUCLEUSLOCAL="/opt/arduino/staging/packages/${MICRONUCLEUSFILENAME}"
+#MICRONUCLEUSLOCAL="${PATH_STAGING}/packages/${MICRONUCLEUSFILENAME}"
 #/helpers/wget-with-retries.sh "${MICRONUCLEUSURL}" "${MICRONUCLEUSLOCAL}"
 #rm -f $JSONTEMP
 
