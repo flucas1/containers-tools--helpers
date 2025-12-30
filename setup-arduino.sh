@@ -138,7 +138,7 @@ fi
 mkdir -p "${PATH_STAGING}/packages"
 
 MICRONUCLEUSFILENAME="micronucleus-cli-${MICRONUCLEUSVERSION}-${MICRONUCLEUSPLATFORM}.tar.bz2"
-MICRONUCLEUSURL="https://web.archive.org/web/20241214221237/https://azduino.com/bin/micronucleus/${MICRONUCLEUSFILENAME}"
+MICRONUCLEUSURL="https://web.archive.org/web/20241214221237_/https://azduino.com/bin/micronucleus/${MICRONUCLEUSFILENAME}"
 MICRONUCLEUSLOCAL="${PATH_STAGING}/packages/${MICRONUCLEUSFILENAME}"
 /helpers/wget-with-retries.sh "${MICRONUCLEUSURL}" "${MICRONUCLEUSLOCAL}"
 
