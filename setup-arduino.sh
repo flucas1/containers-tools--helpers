@@ -133,7 +133,7 @@ fi
 [ "${MICRONUCLEUSPLATFORM}" != "" ]
 /helpers/wget-with-retries.sh "${BOARDS_URL}" "${JSONTEMP}"
 [ -f "${JSONTEMP}" ]
-MICRONUCLEUSURL=$(jq -r '.packages[] | .tools | to_entries[] | select(.value.name=="micronucleus" and .value.version=="2.5-azd1") | .value.systems[] | select(.host=="${MICRONUCLEUSPLATFORM}") | .url' $JSONTEMP)
+MICRONUCLEUSURL=$(jq -r '.packages[] | .tools | to_entries[] | select(.value.name=="micronucleus" and .value.version=="2.5-azd1") | .value.systems[] | select(.host=="'${MICRONUCLEUSPLATFORM}'") | .url' $JSONTEMP)
 [ "${MICRONUCLEUSURL}" != "" ]
 MICRONUCLEUSFILENAME=$(basename "${MICRONUCLEUSURL}")
 [ "${MICRONUCLEUSFILENAME}" != "" ]
