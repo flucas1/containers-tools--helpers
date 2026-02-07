@@ -21,3 +21,5 @@ install_wix()
 }
 
 install_wix
+
+$WINEATOMIC wix --version
