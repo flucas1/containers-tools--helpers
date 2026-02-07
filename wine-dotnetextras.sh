@@ -50,5 +50,5 @@ install_wasmtoolsmultiple
 
 #install_avaloniatemplates
 
-#$WINEATOMIC "C:\\Program Files\\dotnet\\dotnet.exe" tool install --global dotnet-outdated-tool
+#timeout --kill-after=5s 900s $WINEATOMIC "C:\\Program Files\\dotnet\\dotnet.exe" tool install --global dotnet-outdated-tool
 
