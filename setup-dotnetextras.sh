@@ -44,8 +44,23 @@ install_avaloniatemplates()
   [ $SUCCESS -eq 1 ]
 }
 
+install_dotnetoutdatedtool()
+{
+  MAXRETRIES=30 ; COUNTER=0 ; SUCCESS=0
+  while [ $SUCCESS -eq 0 ] && [ $COUNTER -lt $MAXRETRIES ] ; do
+    echo "Retry #$COUNTER" >&2
+    if timeout --kill-after=5s 900s $WINEATOMIC /opt/dotnet/dotnet tool install --global dotnet-outdated-tool ; then
+      SUCCESS=1
+    else
+      COUNTER=$(( $COUNTER + 1 ))
+      sleep 5s
+    fi
+  done
+  [ $SUCCESS -eq 1 ]
+}
+
 install_wasmtoolsmultiple
 
 #install_avaloniatemplates
 
-#/opt/dotnet/dotnet tool install --global dotnet-outdated-tool
+#install_dotnetoutdatedtool
