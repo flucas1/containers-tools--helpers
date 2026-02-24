@@ -68,10 +68,22 @@ crx_download_url="${crx_download_url}&prodversion=${product_version}"
 crx_download_url="${crx_download_url}&acceptformat=${acceptformat}"
 crx_download_url="${crx_download_url}&x=id%3D${chrome_extension_id}%26uc"
 
-timeout --kill-after=5s 900s wget --no-iri --retry-connrefused --waitretry=3 --tries=20 \
+MAXRETRIES=30
+COUNTER=0
+SUCCESS=0
+while [ $SUCCESS -eq 0 ] && [ $COUNTER -lt $MAXRETRIES ] ; do
+echo "Retry #$COUNTER" >&2
+if timeout --kill-after=5s 900s wget -4 --quiet --no-verbose --retry-connrefused --waitretry=1 --tries=10 \
   --referer="https://chrome.google.com/webstore/detail/${chrome_extension_id}?hl=en" \
   --user-agent="Mozilla/5.0 (${platform_os}; ${platform_arch}) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/${product_version} Safari/537.36" \
-  -O "${output_filepath}.crx" "$crx_download_url"
+  -O "${output_filepath}.crx" "$crx_download_url" ; then
+  SUCCESS=1
+else
+  COUNTER=$(( $COUNTER + 1 ))
+  sleep 5s
+fi
+done
+[ $SUCCESS -eq 1 ]
 
 [ -f "${output_filepath}.crx" ]
 zip -FFv "${output_filepath}.crx" --out "${output_filepath}.zip"
