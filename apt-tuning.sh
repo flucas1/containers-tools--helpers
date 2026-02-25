@@ -252,8 +252,8 @@ Pin-Priority: 50
 #Pin: version 7.45.3-*
 #Pin-Priority: -1
 
-Package: buildah
-Pin: version 1.39.0+*
+Package: libzstd1
+Pin: version 1.5.7+dfsg-3+*
 Pin-Priority: -1
 
 DELIMITER_END_RAW_TEXT
