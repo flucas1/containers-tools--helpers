@@ -8,7 +8,7 @@ install_wasmtoolscurrent()
   MAXRETRIES=30 ; COUNTER=0 ; SUCCESS=0
   while [ $SUCCESS -eq 0 ] && [ $COUNTER -lt $MAXRETRIES ] ; do
     echo "Retry #$COUNTER" >&2
-    if timeout --kill-after=5s 900s /opt/dotnet/dotnet workload install wasm-tools ; then
+    if timeout --kill-after=5s 900s /usr/bin/ipv4 /opt/dotnet/dotnet workload install wasm-tools ; then
       SUCCESS=1
     else
       COUNTER=$(( $COUNTER + 1 ))
@@ -34,7 +34,7 @@ install_avaloniatemplates()
   MAXRETRIES=30 ; COUNTER=0 ; SUCCESS=0
   while [ $SUCCESS -eq 0 ] && [ $COUNTER -lt $MAXRETRIES ] ; do
     echo "Retry #$COUNTER" >&2
-    if timeout --kill-after=5s 900s /opt/dotnet/dotnet new install avalonia.templates ; then
+    if timeout --kill-after=5s 900s /usr/bin/ipv4 /opt/dotnet/dotnet new install avalonia.templates ; then
       SUCCESS=1
     else
       COUNTER=$(( $COUNTER + 1 ))
@@ -49,7 +49,7 @@ install_dotnetoutdatedtool()
   MAXRETRIES=30 ; COUNTER=0 ; SUCCESS=0
   while [ $SUCCESS -eq 0 ] && [ $COUNTER -lt $MAXRETRIES ] ; do
     echo "Retry #$COUNTER" >&2
-    if timeout --kill-after=5s 900s $WINEATOMIC /opt/dotnet/dotnet tool install --global dotnet-outdated-tool ; then
+    if timeout --kill-after=5s 900s /usr/bin/ipv4 /opt/dotnet/dotnet tool install --global dotnet-outdated-tool ; then
       SUCCESS=1
     else
       COUNTER=$(( $COUNTER + 1 ))
