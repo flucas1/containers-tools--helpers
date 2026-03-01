@@ -24,7 +24,7 @@ install_wix()
   MAXRETRIES=30 ; COUNTER=0 ; SUCCESS=0
   while [ $SUCCESS -eq 0 ] && [ $COUNTER -lt $MAXRETRIES ] ; do
     echo "Retry #$COUNTER" >&2
-    if timeout --kill-after=5s 900s $WINEATOMIC "$(winepath -w ${HOME})\\.dotnet\\tools\\wix.exe" extension add WixToolset.Msix ; then
+    if timeout --kill-after=5s 900s $WINEATOMIC "C:\\users\\$(whoami)\\.dotnet\\tools\\wix.exe" extension add WixToolset.Msix ; then
       SUCCESS=1
     else
       COUNTER=$(( $COUNTER + 1 ))
