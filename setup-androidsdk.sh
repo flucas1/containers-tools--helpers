@@ -5,12 +5,23 @@ set -x
 
 HELPERSPATH="/helpers"
 
-/helpers/apt-retry-install.sh google-android-cmdline-tools-latest-installer
+BUILDTOOLS="35.0.1"
+
+CMDLINETOOLS=$(
+    apt-cache showpkg google-android-cmdline-tools-latest-installer \
+    | awk '/Reverse Provides:/,/^$/' \
+    | grep google-android-cmdline-tools \
+    | sed -E 's/.*-([0-9.]+)-installer.*/\1/' \
+    | sort -V \
+    | tail -1
+)
+/helpers/apt-retry-install.sh google-android-cmdline-tools-${CMDLINETOOLS}-installer
+/helpers/apt-retry-install.sh google-android-build-tools-${BUILDTOOLS}-installer
 /helpers/apt-retry-install.sh google-android-platform-tools-installer
-/helpers/apt-retry-install.sh google-android-build-tools-35.0.1-installer
-ln -s $(ls -d /usr/lib/android-sdk/cmdline-tools/*/ | head -n1) /usr/lib/android-sdk/cmdline-tools/latest
-yes | /usr/lib/android-sdk/cmdline-tools/latest/bin/sdkmanager --licenses
-/usr/lib/android-sdk/cmdline-tools/latest/bin/sdkmanager --list
-/usr/lib/android-sdk/cmdline-tools/latest/bin/sdkmanager "platforms;android-35"
-/usr/lib/android-sdk/cmdline-tools/latest/bin/sdkmanager "platform-tools"
-/usr/lib/android-sdk/cmdline-tools/latest/bin/sdkmanager --list
+
+yes | /usr/lib/android-sdk/cmdline-tools/${CMDLINETOOLS}/bin/sdkmanager --licenses
+
+/usr/lib/android-sdk/cmdline-tools/${CMDLINETOOLS}/bin/sdkmanager --list
+/usr/lib/android-sdk/cmdline-tools/${CMDLINETOOLS}/bin/sdkmanager "platforms;android-35"
+/usr/lib/android-sdk/cmdline-tools/${CMDLINETOOLS}/bin/sdkmanager "platform-tools"
+/usr/lib/android-sdk/cmdline-tools/${CMDLINETOOLS}/bin/sdkmanager --list
