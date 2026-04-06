@@ -40,8 +40,10 @@ ${HELPERSPATH}/apt-retry-install.sh gpg
 ${HELPERSPATH}/apt-retry-install.sh gnupg
 
 ${HELPERSPATH}/apt-retry-install.sh force-ip-protocol
-sed -i "s|^LIB=/usr/lib/\*/\$LIBNAME|LIB=/usr/lib/$(dpkg-architecture -qDEB_HOST_MULTIARCH)/\$LIBNAME|" /usr/bin/ipv4
-sed -i "s|^LIB=/usr/lib/\*/\$LIBNAME|LIB=/usr/lib/$(dpkg-architecture -qDEB_HOST_MULTIARCH)/\$LIBNAME|" /usr/bin/ipv6
+sed -i "s|^LIB=/usr/lib/\*/\$LIBNAME|LIB=/usr/lib/\$(dpkg-architecture -qDEB_HOST_MULTIARCH)/\$LIBNAME|" /usr/bin/ipv4
+cat /usr/bin/ipv4
+sed -i "s|^LIB=/usr/lib/\*/\$LIBNAME|LIB=/usr/lib/\$(dpkg-architecture -qDEB_HOST_MULTIARCH)/\$LIBNAME|" /usr/bin/ipv6
+cat /usr/bin/ipv6
 
 ${HELPERSPATH}/apt-retry-install.sh rclone
 
