@@ -15,7 +15,7 @@ CMDLINETOOLS=$(
 )
 
 if [ "${CMDLINETOOLS}" != "" ] ; then
-  BUILDTOOLS="35.0.1"
+  BUILDTOOLS="36.0.0"
 
   /helpers/apt-retry-install.sh google-android-cmdline-tools-${CMDLINETOOLS}-installer
   /helpers/apt-retry-install.sh google-android-build-tools-${BUILDTOOLS}-installer
