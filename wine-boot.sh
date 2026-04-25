@@ -37,7 +37,7 @@ $WINEATOMIC uninstaller --list
 WINVER="$($WINEATOMIC wine reg query "HKCU\\Software\\Wine" /v Version)"
 echo "the first saved WINVER is ${WINVER}"
 
-$WINEATOMIC reg add "HKCU\\Software\\Wine" /v Version /d "${WINVER}" /f
+$WINEATOMIC reg add "HKCU\\Software\\Wine" /v Version /t REG_SZ /d "${WINVER}" /f
 
 WINVER="$($WINEATOMIC wine reg query "HKCU\\Software\\Wine" /v Version)"
 echo "the second saved WINVER is ${WINVER}"
