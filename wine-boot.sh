@@ -37,7 +37,7 @@ $WINEATOMIC uninstaller --list
 WINVER="$(WINEDEBUG="-all" unbuffer $WINEATOMIC winecfg /v)"
 echo "the first saved WINVER is ${WINVER}"
 
-WINEDEBUG="-all" unbuffer $WINEATOMIC winecfg /v "${WINVER}"
+$WINEATOMIC winecfg /v "${WINVER}" | cat
 
 WINVER="$(WINEDEBUG="-all" unbuffer $WINEATOMIC winecfg /v)"
 echo "the second saved WINVER is ${WINVER}"
