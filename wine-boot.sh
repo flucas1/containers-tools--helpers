@@ -34,10 +34,10 @@ $WINEATOMIC reg delete "HKLM\\System\\CurrentControlSet\\Services\\winebth" /f
 $WINEATOMIC uninstaller --list
 #wine winecfg
 
-WINVER="$(WINEDEBUG="fixme-all" unbuffer $WINEATOMIC winecfg /v)"
+WINVER="$(WINEDEBUG="-all" unbuffer $WINEATOMIC winecfg /v)"
 echo "the first saved WINVER is ${WINVER}"
 
-WINEDEBUG="fixme-all" unbuffer $WINEATOMIC winecfg /v "${WINVER}"
+WINEDEBUG="-all" unbuffer $WINEATOMIC winecfg /v "${WINVER}"
 
-WINVER="$(WINEDEBUG="fixme-all" unbuffer $WINEATOMIC winecfg /v)"
+WINVER="$(WINEDEBUG="-all" unbuffer $WINEATOMIC winecfg /v)"
 echo "the second saved WINVER is ${WINVER}"
