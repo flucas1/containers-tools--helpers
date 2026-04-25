@@ -51,6 +51,7 @@ ${HELPERSPATH}/apt-retry-install.sh coreutils
 ${HELPERSPATH}/apt-retry-install.sh moreutils
 ${HELPERSPATH}/apt-retry-install.sh dpkg-dev
 ${HELPERSPATH}/apt-retry-install.sh util-linux
+${HELPERSPATH}/apt-retry-install.sh expect
 
 ${HELPERSPATH}/apt-try-remove.sh popularity-contest
 
