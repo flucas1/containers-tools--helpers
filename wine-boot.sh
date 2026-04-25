@@ -34,10 +34,10 @@ $WINEATOMIC reg add "HKCU\\Software\\Microsoft\\Avalon.Graphics" /v DisableHWAcc
 $WINEATOMIC uninstaller --list
 #wine winecfg
 
-WINVER="$($WINEATOMIC winecfg /v)"
+WINVER="$($WINEATOMIC wine reg query "HKCU\\Software\\Wine" /v Version)"
 echo "the first saved WINVER is ${WINVER}"
 
-$WINEATOMIC winecfg /v "${WINVER}" | cat
+$WINEATOMIC reg add "HKCU\\Software\\Wine" /v Version /d "${WINVER}" /f
 
-WINVER="$($WINEATOMIC winecfg /v)"
+WINVER="$($WINEATOMIC wine reg query "HKCU\\Software\\Wine" /v Version)"
 echo "the second saved WINVER is ${WINVER}"
