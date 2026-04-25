@@ -87,10 +87,10 @@ install_dotnetoutdatedtool()
   [ $SUCCESS -eq 1 ]
 }
 
-DOTNET_GENERATE_ASPNET_CERTIFICATE=false install_wasmtoolsmultiple
+install_wasmtoolsmultiple
 
-DOTNET_GENERATE_ASPNET_CERTIFICATE=false install_androidmultiple
+install_androidmultiple
 
-#DOTNET_GENERATE_ASPNET_CERTIFICATE=false install_avaloniatemplates
+#install_avaloniatemplates
 
-#DOTNET_GENERATE_ASPNET_CERTIFICATE=false install_dotnetoutdatedtool
+#install_dotnetoutdatedtool
