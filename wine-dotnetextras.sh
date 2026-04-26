@@ -10,7 +10,7 @@ install_wasmtoolscurrent()
   MAXRETRIES=30 ; COUNTER=0 ; SUCCESS=0
   while [ $SUCCESS -eq 0 ] && [ $COUNTER -lt $MAXRETRIES ] ; do
     echo "Retry #$COUNTER" >&2
-    if DOTNET_GENERATE_ASPNET_CERTIFICATE=false timeout --kill-after=5s 900s /usr/bin/ipv4 $WINEATOMIC "C:\\Program Files\\dotnet\\dotnet.exe" workload install wasm-tools ; then
+    if timeout --kill-after=5s 900s /usr/bin/ipv4 $WINEATOMIC "C:\\Program Files\\dotnet\\dotnet.exe" workload install wasm-tools ; then
       SUCCESS=1
     else
       COUNTER=$(( $COUNTER + 1 ))
@@ -22,10 +22,10 @@ install_wasmtoolscurrent()
 
 install_wasmtoolsmultiple()
 {
-  DOTNETSDKS="$(DOTNET_GENERATE_ASPNET_CERTIFICATE=false $WINEATOMIC "C:\\Program Files\\dotnet\\dotnet.exe" --list-sdks | awk '{print $1}')"
+  DOTNETSDKS="$($WINEATOMIC "C:\\Program Files\\dotnet\\dotnet.exe" --list-sdks | awk '{print $1}')"
   for DOTNETSDKVERSION in $DOTNETSDKS ; do
     rm -f ./global.json
-    DOTNET_GENERATE_ASPNET_CERTIFICATE=false $WINEATOMIC "C:\\Program Files\\dotnet\\dotnet.exe" new globaljson --sdk-version $DOTNETSDKVERSION --output ".\\"
+    $WINEATOMIC "C:\\Program Files\\dotnet\\dotnet.exe" new globaljson --sdk-version $DOTNETSDKVERSION --output ".\\"
     install_wasmtoolscurrent $DOTNETSDKVERSION
     rm -f ./global.json
   done
@@ -36,7 +36,7 @@ install_androidcurrent()
   MAXRETRIES=30 ; COUNTER=0 ; SUCCESS=0
   while [ $SUCCESS -eq 0 ] && [ $COUNTER -lt $MAXRETRIES ] ; do
     echo "Retry #$COUNTER" >&2
-    if DOTNET_GENERATE_ASPNET_CERTIFICATE=false timeout --kill-after=5s 900s /usr/bin/ipv4 $WINEATOMIC "C:\\Program Files\\dotnet\\dotnet.exe" workload install android ; then
+    if timeout --kill-after=5s 900s /usr/bin/ipv4 $WINEATOMIC "C:\\Program Files\\dotnet\\dotnet.exe" workload install android ; then
       SUCCESS=1
     else
       COUNTER=$(( $COUNTER + 1 ))
@@ -48,10 +48,10 @@ install_androidcurrent()
 
 install_androidmultiple()
 {
-  DOTNETSDKS="$(DOTNET_GENERATE_ASPNET_CERTIFICATE=false $WINEATOMIC "C:\\Program Files\\dotnet\\dotnet.exe" --list-sdks | awk '{print $1}')"
+  DOTNETSDKS="$($WINEATOMIC "C:\\Program Files\\dotnet\\dotnet.exe" --list-sdks | awk '{print $1}')"
   for DOTNETSDKVERSION in $DOTNETSDKS ; do
     rm -f ./global.json
-    DOTNET_GENERATE_ASPNET_CERTIFICATE=false $WINEATOMIC "C:\\Program Files\\dotnet\\dotnet.exe" new globaljson --sdk-version $DOTNETSDKVERSION --output ".\\"
+    $WINEATOMIC "C:\\Program Files\\dotnet\\dotnet.exe" new globaljson --sdk-version $DOTNETSDKVERSION --output ".\\"
     install_androidcurrent $DOTNETSDKVERSION
     rm -f ./global.json
   done
@@ -62,7 +62,7 @@ install_avaloniatemplates()
   MAXRETRIES=30 ; COUNTER=0 ; SUCCESS=0
   while [ $SUCCESS -eq 0 ] && [ $COUNTER -lt $MAXRETRIES ] ; do
     echo "Retry #$COUNTER" >&2
-    if DOTNET_GENERATE_ASPNET_CERTIFICATE=false timeout --kill-after=5s 900s /usr/bin/ipv4 $WINEATOMIC "C:\\Program Files\\dotnet\\dotnet.exe" new install avalonia.templates ; then
+    if timeout --kill-after=5s 900s /usr/bin/ipv4 $WINEATOMIC "C:\\Program Files\\dotnet\\dotnet.exe" new install avalonia.templates ; then
       SUCCESS=1
     else
       COUNTER=$(( $COUNTER + 1 ))
@@ -77,7 +77,7 @@ install_dotnetoutdatedtool()
   MAXRETRIES=30 ; COUNTER=0 ; SUCCESS=0
   while [ $SUCCESS -eq 0 ] && [ $COUNTER -lt $MAXRETRIES ] ; do
     echo "Retry #$COUNTER" >&2
-    if DOTNET_GENERATE_ASPNET_CERTIFICATE=false timeout --kill-after=5s 900s /usr/bin/ipv4 $WINEATOMIC "C:\\Program Files\\dotnet\\dotnet.exe" tool install --global dotnet-outdated-tool ; then
+    if timeout --kill-after=5s 900s /usr/bin/ipv4 $WINEATOMIC "C:\\Program Files\\dotnet\\dotnet.exe" tool install --global dotnet-outdated-tool ; then
       SUCCESS=1
     else
       COUNTER=$(( $COUNTER + 1 ))
