@@ -41,7 +41,8 @@ def main():
         dotnetenv = os.environ.copy()
         dotnetenv["NO_COLOR"]="true"
         dotnetenv["DOTNET_NOLOGO"]="true"
-        dotnetenv["DOTNET_CLI_TELEMETRY_OPTOUT"]="1"
+        dotnetenv["DOTNET_CLI_TELEMETRY_OPTOUT"]="true"
+        dotnetenv["DOTNET_GENERATE_ASPNET_CERTIFICATE"]="false"
         dotnetenv["DOTNET_CLI_FORCE_UTF8_ENCODING"]="true"
         dotnetenv["DOTNET_SYSTEM_NET_DISABLEIPV6"]="true"
         
