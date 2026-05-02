@@ -13,7 +13,7 @@ ARCHITECTURE="$(dpkg --print-architecture)" ; if [ "${ARCHITECTURE}" = "amd64" ]
 [ "${PARTARCH}" != "" ]
 LSBRELEASE="$(lsb_release -c | cut -f2)"
 PYTHONRAWDATA="$(/helpers/wget-with-retries.sh "https://qa.debian.org/madison.php?package=python3&table=debian&s=${LSBRELEASE}&text=on" -)"
-PYTHONVERSION="$( echo "${PYTHONRAWDATA}" | awk '{print $3}' | awk -F- '{print $1}' )"
+PYTHONVERSION="$(echo "${PYTHONRAWDATA}" | awk '{print $3}' | awk -F- '{print $1}' | head -n 1)"
 [ "${PYTHONVERSION}" != "" ]
 
 FILENAME="python-$PYTHONVERSION-${PARTARCH}.exe"
