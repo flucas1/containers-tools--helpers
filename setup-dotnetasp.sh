@@ -21,10 +21,14 @@ install_dotnetasp()
   #chmod +x /usr/bin/dotnet-install.sh
   #/usr/bin/dotnet-install.sh --channel ${DOTNETASPVERSION} --install-dir "${TARGETPATH}" --verbose --runtime aspnetcore
 
-  mkdir -p "${HELPERSCACHE}"
   FILENAME="aspnetcore-runtime-${DOTNETASPVERSION}-linux-${PARTARCH}.tar.gz"
   DOWNLOADURL="https://dotnetcli.blob.core.windows.net/dotnet/aspnetcore/Runtime/${DOTNETASPVERSION}/${FILENAME}"
-  LOCALCACHEFILENAME="${HELPERSCACHE}/${FILENAME}"
+  LOCALCACHEDIRECTORY="${DOTNETCACHEPATH}"
+  if [ -z "${LOCALCACHEDIRECTORY}" ] ; then
+    LOCALCACHEDIRECTORY="/tmp/dotnetcache"
+  fi
+  mkdir -p "${LOCALCACHEDIRECTORY}"
+  LOCALCACHEFILENAME="${LOCALCACHEDIRECTORY}/${FILENAME}"
   #if [ ! tar -tzf "${LOCALCACHEFILENAME}" > /dev/null ] ; then
   #  rm -f "${LOCALCACHEFILENAME}"
   #fi

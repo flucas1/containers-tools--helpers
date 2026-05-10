@@ -21,10 +21,14 @@ install_dotnetsdk()
   #chmod +x /usr/bin/dotnet-install.sh
   #/usr/bin/dotnet-install.sh --channel ${DOTNETSDKVERSION} --install-dir /opt/dotnet --verbose
 
-  mkdir -p "${HELPERSCACHE}"
   FILENAME="dotnet-sdk-${DOTNETSDKVERSION}-linux-${PARTARCH}.tar.gz"
   DOWNLOADURL="https://dotnetcli.blob.core.windows.net/dotnet/Sdk/${DOTNETSDKVERSION}/${FILENAME}"
-  LOCALCACHEFILENAME="${HELPERSCACHE}/${FILENAME}"
+  LOCALCACHEDIRECTORY="${DOTNETCACHEPATH}"
+  if [ -z "${LOCALCACHEDIRECTORY}" ] ; then
+    LOCALCACHEDIRECTORY="/tmp/dotnetcache"
+  fi
+  mkdir -p "${LOCALCACHEDIRECTORY}"
+  LOCALCACHEFILENAME="${LOCALCACHEDIRECTORY}/${FILENAME}"
   #if [ ! tar -tzf "${LOCALCACHEFILENAME}" > /dev/null ] ; then
   #  rm -f "${LOCALCACHEFILENAME}"
   #fi
