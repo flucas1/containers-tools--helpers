@@ -3,7 +3,10 @@
 set -e
 set -x
 
+HELPERSCACHE="/helperscache"
 WINEATOMIC="/wine-atomic.sh"
+DIRECTINSTALL="${1}"
+ARG_CACHEPATH="${2}"
 
 #https://learn.microsoft.com/en-us/visualstudio/debugger/remote-debugging-csharp?view=vs-2022
 #https://visualstudio.microsoft.com/downloads/?cid=learn-onpage-download-cta#remote-tools-for-visual-studio-2022

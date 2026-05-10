@@ -5,23 +5,28 @@ set -x
 
 HELPERSCACHE="/helperscache"
 WINEATOMIC="/wine-atomic.sh"
-DIRECTINSTALL="$1"
-
-DESIREDVERSION="$2"
+DIRECTINSTALL="${1}"
+DESIREDVERSION="${2}"
 if [ "${DESIREDVERSION}" = "" ] ; then
   DESIREDVERSION="newest"
 fi
+ARG_CACHEPATH="${3}"
 
 install_dotnetsdk()
 {
   PARTARCH="$1"
   DOTNETSDKVERSION="$2"
+  DOTNETCACHEPATH="$3"
   
   # follow "channel-version" and "releases.json" from previous json into https://dotnetcli.blob.core.windows.net/dotnet/release-metadata/8.0/releases.json and select right link
-  mkdir -p "${HELPERSCACHE}"
   FILENAME="dotnet-sdk-${DOTNETSDKVERSION}-win-${PARTARCH}.exe"
   DOWNLOADURL="https://dotnetcli.blob.core.windows.net/dotnet/Sdk/${DOTNETSDKVERSION}/${FILENAME}"
-  LOCALCACHEFILENAME="${HELPERSCACHE}/${FILENAME}"
+  LOCALCACHEDIRECTORY="${DOTNETCACHEPATH}"
+  if [ -z "${LOCALCACHEDIRECTORY}" ] ; then
+    LOCALCACHEDIRECTORY="/tmp/dotnetcache"
+  fi
+  mkdir -p "${LOCALCACHEDIRECTORY}"
+  LOCALCACHEFILENAME="${LOCALCACHEDIRECTORY}/${FILENAME}"
   if [ ! -f "${LOCALCACHEFILENAME}" ] ; then
     /helpers/wget-with-retries.sh "${DOWNLOADURL}" "${LOCALCACHEFILENAME}"
   fi
@@ -96,13 +101,13 @@ if [ "${ARCHITECTURE}" = "amd64" ] ; then PARTARCH="x64" ; else if [ "${ARCHITEC
 
 if [ "${DESIREDVERSION}" = "preview" ] ; then
   DOTNETSDKVERSION="$(getversion_dotnetsdk ${PARTARCH} preview 1)"
-  install_dotnetsdk "${PARTARCH}" "${DOTNETSDKVERSION}"
+  install_dotnetsdk "${PARTARCH}" "${DOTNETSDKVERSION}" "${ARG_CACHEPATH}"
 elif [ "${DESIREDVERSION}" = "newest" ] || [ "${DESIREDVERSION}" = "" ] ; then
   DOTNETSDKVERSION="$(getversion_dotnetsdk ${PARTARCH} active 1)"
-  install_dotnetsdk "${PARTARCH}" "${DOTNETSDKVERSION}"
+  install_dotnetsdk "${PARTARCH}" "${DOTNETSDKVERSION}" "${ARG_CACHEPATH}"
 elif [ "${DESIREDVERSION}" = "previous" ] ; then
   DOTNETSDKVERSION="$(getversion_dotnetsdk ${PARTARCH} active 2)"
-  install_dotnetsdk "${PARTARCH}" "${DOTNETSDKVERSION}"
+  install_dotnetsdk "${PARTARCH}" "${DOTNETSDKVERSION}" "${ARG_CACHEPATH}"
 else
-  install_dotnetsdk "${PARTARCH}" "${DESIREDVERSION}"
+  install_dotnetsdk "${PARTARCH}" "${DESIREDVERSION}" "${ARG_CACHEPATH}"
 fi

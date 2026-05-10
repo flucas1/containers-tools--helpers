@@ -24,8 +24,8 @@ DOWNLOADURL="https://${HOST}/vsdbg-${TARGET}/vsdbg-${RUNTIME}.tar.gz"
 LOCALCACHEDIRECTORY="${ARG_CACHEPATH}"
 if [ -z "${LOCALCACHEDIRECTORY}" ] ; then
   LOCALCACHEDIRECTORY="/tmp/dotnetcache"
-  mkdir -p "${LOCALCACHEDIRECTORY}"
 fi
+mkdir -p "${LOCALCACHEDIRECTORY}"
 LOCALCACHEFILENAME="${LOCALCACHEDIRECTORY}/"
 if [ ! -f "${LOCALCACHEFILENAME}" ] ; then
   /helpers/wget-with-retries.sh "${DOWNLOADURL}" "${LOCALCACHEFILENAME}"

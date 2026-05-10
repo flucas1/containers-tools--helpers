@@ -5,8 +5,8 @@ set -x
 
 HELPERSCACHE="/helperscache"
 WINEATOMIC="/wine-atomic.sh"
-DIRECTINSTALL="$1"
-ARG_CACHEPATH="$2"
+DIRECTINSTALL="${1}"
+ARG_CACHEPATH="${2}"
 
 $WINEATOMIC reg add "HKCU\\SYSTEM\\CurrentControlSet\\Control\\FileSystem" /v LongPathsEnabled /t REG_DWORD /d 1 /f
 
@@ -22,8 +22,8 @@ DOWNLOADURL="https://www.python.org/ftp/python/$PYTHONVERSION/${FILENAME}"
 LOCALCACHEDIRECTORY="${ARG_CACHEPATH}"
 if [ -z "${LOCALCACHEDIRECTORY}" ] ; then
   LOCALCACHEDIRECTORY="/tmp/pythoncache"
-  mkdir -p "${LOCALCACHEDIRECTORY}"
 fi
+mkdir -p "${LOCALCACHEDIRECTORY}"
 LOCALCACHEFILENAME="${LOCALCACHEDIRECTORY}/${FILENAME}"
 if [ ! -f "${LOCALCACHEFILENAME}" ] ; then
   rm -f "${LOCALCACHEFILENAME}"
