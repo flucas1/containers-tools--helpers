@@ -18,7 +18,7 @@ PYTHONVERSION="$(echo "${PYTHONRAWDATA}" | awk '{print $3}' | awk -F- '{print $1
 
 FILENAME="python-$PYTHONVERSION-${PARTARCH}.exe"
 DOWNLOADURL="https://www.python.org/ftp/python/$PYTHONVERSION/${FILENAME}"
-LOCALCACHEDIRECTORY="/home/wineuser/.cache/pythoncache/"
+LOCALCACHEDIRECTORY="$2"
 LOCALCACHEFILENAME="${LOCALCACHEDIRECTORY}/${FILENAME}"
 if [ ! -f "${LOCALCACHEFILENAME}" ] ; then
   rm -f "${LOCALCACHEFILENAME}"
