@@ -5,16 +5,17 @@ set -x
 
 HELPERSPATH="/helpers"
 HELPERSCACHE="/helperscache"
-
-DESIREDVERSION="$1"
+DESIREDVERSION="${1}"
 if [ "${DESIREDVERSION}" = "" ] ; then
   DESIREDVERSION="newest"
 fi
+ARG_CACHEPATH="${2}"
 
 install_dotnetruntime()
 {
   PARTARCH="$1"
   DOTNETRUNTIMEVERSION="$2"
+  DOTNETCACHEPATH="$3"
 
   #/helpers/wget-with-retries.sh https://dot.net/v1/dotnet-install.sh "/usr/bin/dotnet-install.sh"
   #chmod +x /usr/bin/dotnet-install.sh
@@ -108,13 +109,13 @@ if [ "${ARCHITECTURE}" = "amd64" ] ; then PARTARCH="x64" ; else if [ "${ARCHITEC
 
 if [ "${DESIREDVERSION}" = "preview" ] ; then
   DOTNETRUNTIMEVERSION="$(getversion_dotnetruntime ${PARTARCH} preview 1)"
-  install_dotnetruntime "${PARTARCH}" "${DOTNETRUNTIMEVERSION}"
+  install_dotnetruntime "${PARTARCH}" "${DOTNETRUNTIMEVERSION}" "${ARG_CACHEPATH}"
 elif [ "${DESIREDVERSION}" = "newest" ] || [ "${DESIREDVERSION}" = "" ] ; then
   DOTNETRUNTIMEVERSION="$(getversion_dotnetruntime ${PARTARCH} active 1)"
-  install_dotnetruntime "${PARTARCH}" "${DOTNETRUNTIMEVERSION}"
+  install_dotnetruntime "${PARTARCH}" "${DOTNETRUNTIMEVERSION}" "${ARG_CACHEPATH}"
 elif [ "${DESIREDVERSION}" = "previous" ] ; then
   DOTNETRUNTIMEVERSION="$(getversion_dotnetruntime ${PARTARCH} active 2)"
-  install_dotnetruntime "${PARTARCH}" "${DOTNETRUNTIMEVERSION}"
+  install_dotnetruntime "${PARTARCH}" "${DOTNETRUNTIMEVERSION}" "${ARG_CACHEPATH}"
 else
-  install_dotnetsdk "${PARTARCH}" "${DESIREDVERSION}"
+  install_dotnetsdk "${PARTARCH}" "${DESIREDVERSION}" "${ARG_CACHEPATH}"
 fi
