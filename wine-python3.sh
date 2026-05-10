@@ -6,6 +6,7 @@ set -x
 HELPERSCACHE="/helperscache"
 WINEATOMIC="/wine-atomic.sh"
 DIRECTINSTALL="$1"
+ARG_CACHEPATH="$2"
 
 $WINEATOMIC reg add "HKCU\\SYSTEM\\CurrentControlSet\\Control\\FileSystem" /v LongPathsEnabled /t REG_DWORD /d 1 /f
 
@@ -18,7 +19,11 @@ PYTHONVERSION="$(echo "${PYTHONRAWDATA}" | awk '{print $3}' | awk -F- '{print $1
 
 FILENAME="python-$PYTHONVERSION-${PARTARCH}.exe"
 DOWNLOADURL="https://www.python.org/ftp/python/$PYTHONVERSION/${FILENAME}"
-LOCALCACHEDIRECTORY="$2"
+LOCALCACHEDIRECTORY="${ARG_CACHEPATH}"
+if [ -z "${LOCALCACHEDIRECTORY}" ] ; then
+  LOCALCACHEDIRECTORY="/tmp/pythoncache"
+  mkdir -p "${LOCALCACHEDIRECTORY}"
+fi
 LOCALCACHEFILENAME="${LOCALCACHEDIRECTORY}/${FILENAME}"
 if [ ! -f "${LOCALCACHEFILENAME}" ] ; then
   rm -f "${LOCALCACHEFILENAME}"

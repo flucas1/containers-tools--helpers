@@ -3,7 +3,9 @@
 set -e
 set -x
 
+HELPERSPATH="/helpers"
 HELPERSCACHE="/helperscache"
+ARG_CACHEPATH="${1}"
 
 rm -f /opt/getvsdbg.sh
 /helpers/wget-with-retries.sh https://aka.ms/getvsdbgsh /opt/getvsdbg.sh
@@ -19,7 +21,11 @@ if [ "${ARCHITECTURE}" = "amd64" ] ; then RUNTIME="linux-x64" ; else if [ "${ARC
 
 FILENAME="vsdbg-${VERSION}-${RUNTIME}.tar.gz"
 DOWNLOADURL="https://${HOST}/vsdbg-${TARGET}/vsdbg-${RUNTIME}.tar.gz"
-LOCALCACHEDIRECTORY="$1"
+LOCALCACHEDIRECTORY="${ARG_CACHEPATH}"
+if [ -z "${LOCALCACHEDIRECTORY}" ] ; then
+  LOCALCACHEDIRECTORY="/tmp/dotnetcache"
+  mkdir -p "${LOCALCACHEDIRECTORY}"
+fi
 LOCALCACHEFILENAME="${LOCALCACHEDIRECTORY}/"
 if [ ! -f "${LOCALCACHEFILENAME}" ] ; then
   /helpers/wget-with-retries.sh "${DOWNLOADURL}" "${LOCALCACHEFILENAME}"
