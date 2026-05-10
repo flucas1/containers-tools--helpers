@@ -3,6 +3,7 @@
 set -e
 set -x
 
+rm -f /opt/getvsdbg.sh
 /helpers/wget-with-retries.sh https://aka.ms/getvsdbgsh /opt/getvsdbg.sh
 
 HOST=$(grep "azurefd.net/vsdbg" /opt/getvsdbg.sh | sed 's/^[[:space:]]*//' | awk -F'=' '{print $2}' | tr -d '"' | awk -F'/' '{print $3}')
