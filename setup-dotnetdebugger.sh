@@ -12,7 +12,7 @@ TARGET=$(echo "${VERSION}" | tr '.' '-')
 ARCHITECTURE="$(dpkg --print-architecture)"
 if [ "${ARCHITECTURE}" = "amd64" ] ; then RUNTIME="linux-x64" ; else if [ "${ARCHITECTURE}" = "arm64" ] ; then RUNTIME="linux-arm64" ; fi ; fi
 
-LOCALCACHEFILENAME="/opt/vsdbg-${RUNTIME}.tar.gz"
+LOCALCACHEFILENAME="/opt/vsdbg-${VERSION}-${RUNTIME}.tar.gz"
 DOWNLOADURL="https://${HOST}/vsdbg-${TARGET}/vsdbg-${RUNTIME}.tar.gz"
 if [ ! -f "${LOCALCACHEFILENAME}" ] ; then
   /helpers/wget-with-retries.sh "${DOWNLOADURL}" "${LOCALCACHEFILENAME}"
@@ -20,9 +20,9 @@ fi
 [ -f "${LOCALCACHEFILENAME}" ]
 
 #/usr/bin/sh /opt/getvsdbg.sh -v latest -l /opt/vsdbg
-/usr/bin/sh /opt/getvsdbg.sh -v latest -l /opt/vsdbg -o -e "/opt/vsdbg-${RUNTIME}.tar.gz"
+/usr/bin/sh /opt/getvsdbg.sh -v latest -l /opt/vsdbg -o -e "${LOCALCACHEFILENAME}"
 
-rm -f "/opt/vsdbg-${RUNTIME}.tar.gz"
+rm -f "${LOCALCACHEFILENAME}"
 rm -f /opt/getvsdbg.sh
 
 /opt/vsdbg/vsdbg --help
