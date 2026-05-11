@@ -48,7 +48,6 @@ ${HELPERSPATH}/apt-retry-install.sh texinfo
 ${HELPERSPATH}/apt-retry-install.sh cm-super
 ${HELPERSPATH}/apt-retry-install.sh lmodern
 ${HELPERSPATH}/apt-retry-install.sh latex-cjk-all
-${HELPERSPATH}/apt-retry-install.sh dvidvi
 ${HELPERSPATH}/apt-retry-install.sh dvipng
 ${HELPERSPATH}/apt-retry-install.sh fonts-unfonts-core
 ${HELPERSPATH}/apt-retry-install.sh fonts-lato
