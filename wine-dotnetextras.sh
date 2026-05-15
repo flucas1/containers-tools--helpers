@@ -93,4 +93,4 @@ install_androidmultiple
 
 #install_avaloniatemplates
 
-#install_dotnetoutdatedtool
+install_dotnetoutdatedtool
