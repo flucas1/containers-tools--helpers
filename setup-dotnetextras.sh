@@ -70,12 +70,13 @@ install_avaloniatemplates()
   [ $SUCCESS -eq 1 ]
 }
 
-install_dotnetoutdatedtool()
+install_generictool()
 {
+  DOTNETTOOLNAME="${1}"
   MAXRETRIES=30 ; COUNTER=0 ; SUCCESS=0
   while [ $SUCCESS -eq 0 ] && [ $COUNTER -lt $MAXRETRIES ] ; do
     echo "Retry #$COUNTER" >&2
-    if timeout --kill-after=5s 900s /usr/bin/ipv4 /opt/dotnet/dotnet tool install --global dotnet-outdated-tool ; then
+    if timeout --kill-after=5s 900s /usr/bin/ipv4 /opt/dotnet/dotnet tool install --global "${DOTNETTOOLNAME}" ; then
       SUCCESS=1
     else
       COUNTER=$(( $COUNTER + 1 ))
@@ -91,4 +92,5 @@ install_androidmultiple
 
 #install_avaloniatemplates
 
-install_dotnetoutdatedtool
+install_generictool dotnet-outdated-tool
+install_generictool dotnet-ef
