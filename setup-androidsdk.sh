@@ -15,9 +15,12 @@ CMDLINETOOLS=$(
 )
 
 if [ "${CMDLINETOOLS}" != "" ] ; then
-  BUILDTOOLS="36.0.0"
-  #Should be 37 to be aligned with line below
-  #.NET11 sets 37 as baseline
+  BUILDTOOLS=$(
+      apt-cache pkgnames google-android-build-tools- \
+      | sed -nE 's/^google-android-build-tools-([0-9.]+)-installer$/\1/p' \
+      | sort -V \
+      | tail -1
+  )
 
   /helpers/apt-retry-install.sh google-android-cmdline-tools-${CMDLINETOOLS}-installer
   /helpers/apt-retry-install.sh google-android-build-tools-${BUILDTOOLS}-installer
@@ -25,6 +28,7 @@ if [ "${CMDLINETOOLS}" != "" ] ; then
 
   yes | /usr/lib/android-sdk/cmdline-tools/${CMDLINETOOLS}/bin/sdkmanager --licenses
 
+  #.NET11 sets 37 as baseline
   /usr/lib/android-sdk/cmdline-tools/${CMDLINETOOLS}/bin/sdkmanager --list
   /usr/lib/android-sdk/cmdline-tools/${CMDLINETOOLS}/bin/sdkmanager "platforms;android-37"
   /usr/lib/android-sdk/cmdline-tools/${CMDLINETOOLS}/bin/sdkmanager "platform-tools"
