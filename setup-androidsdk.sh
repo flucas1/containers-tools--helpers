@@ -28,9 +28,10 @@ if [ "${CMDLINETOOLS}" != "" ] ; then
 
   yes | /usr/lib/android-sdk/cmdline-tools/${CMDLINETOOLS}/bin/sdkmanager --licenses
 
-  #.NET11 sets 37 as baseline
   /usr/lib/android-sdk/cmdline-tools/${CMDLINETOOLS}/bin/sdkmanager --list
-  /usr/lib/android-sdk/cmdline-tools/${CMDLINETOOLS}/bin/sdkmanager "platforms;android-37"
+  #.NET11 sets 37 as baseline
+  PLATFORMANDROIDLEVEL="37.0"
+  /usr/lib/android-sdk/cmdline-tools/${CMDLINETOOLS}/bin/sdkmanager "platforms;android-${PLATFORMANDROIDLEVEL}"
   /usr/lib/android-sdk/cmdline-tools/${CMDLINETOOLS}/bin/sdkmanager "platform-tools"
   /usr/lib/android-sdk/cmdline-tools/${CMDLINETOOLS}/bin/sdkmanager --list
 fi
