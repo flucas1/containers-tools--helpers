@@ -3,7 +3,7 @@
 set -e
 set -x
 
-cat > /tmp/DigiCert_SHA2_Assured_ID_Code_Signing_CA.crt << DELIMITER_END_RAW_TEXT
+cat > /usr/local/share/ca-certificates/DigiCert_SHA2_Assured_ID_Code_Signing_CA.crt << DELIMITER_END_RAW_TEXT
 -----BEGIN CERTIFICATE-----
 MIIE/jCCA+agAwIBAgIQCDZl3ED5ayay3q38bUvFbTANBgkqhkiG9w0BAQsFADBl
 MQswCQYDVQQGEwJVUzEVMBMGA1UEChMMRGlnaUNlcnQgSW5jMRkwFwYDVQQLExB3
@@ -35,4 +35,5 @@ xOsxaN53sv53DXyswrAsAWIVKlecpWQSnLhfyQ2wtn/+ZsTokeavELsIvFC8NmQg
 -----END CERTIFICATE-----
 DELIMITER_END_RAW_TEXT
 
-$WINEATOMIC certutil.exe -addstore -f CA /tmp/DigiCert_SHA2_Assured_ID_Code_Signing_CA.crt
+update-ca-certificates
+
