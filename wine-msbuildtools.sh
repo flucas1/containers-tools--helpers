@@ -8,8 +8,9 @@ DIRECTINSTALL="$1"
 
 if [ "${DIRECTINSTALL}" = "yes" ] ; then
   VISUALSTUDIOVERSION="18"
-  /helpers/wget-with-retries.sh "https://aka.ms/vs/${VISUALSTUDIOVERSION}/release/vs_BuildTools.exe" ./msbuildtools-installer.exe
-  $WINEATOMIC ./msbuildtools-installer.exe --noUpdateInstaller --quiet --wait --norestart --nocache --channelId "VisualStudio.${VISUALSTUDIOVERSION}.Release" --channelUri "https://aka.ms/vs/${VISUALSTUDIOVERSION}/release/channel" --productId "Microsoft.VisualStudio.Product.BuildTools" --add "Microsoft.VisualStudio.Workload.VCTools" --includeRecommended
+  VISUALSTUDIOCHANNEL="Insiders"
+  /helpers/wget-with-retries.sh "https://aka.ms/vs/${VISUALSTUDIOVERSION}/${VISUALSTUDIOCHANNEL}/vs_BuildTools.exe" ./msbuildtools-installer.exe
+  $WINEATOMIC ./msbuildtools-installer.exe --noUpdateInstaller --quiet --wait --norestart --nocache --channelId "VisualStudio.${VISUALSTUDIOVERSION}.${VISUALSTUDIOCHANNEL}" --channelUri "https://aka.ms/vs/${VISUALSTUDIOVERSION}/${VISUALSTUDIOCHANNEL}/channel" --productId "Microsoft.VisualStudio.Product.BuildTools" --add "Microsoft.VisualStudio.Workload.VCTools" --includeRecommended
   rm -f ./msbuildtools-installer.exe
 else
   winetricks vstools2019
