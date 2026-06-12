@@ -11,30 +11,30 @@ if [ "${DIRECTINSTALL}" = "yes" ] ; then
   $WINEATOMIC reg delete "HKLM\\Software\\Wow6432Node\\Microsoft\\NET Framework Setup\\NDP" /f || true
   $WINEATOMIC reg delete "HKLM\\Software\\Wow6432Node\\Microsoft\\.NETFramework" /f || true
 
-  WINVER="$(WINEDEBUG="-all" unbuffer $WINEATOMIC winecfg /v)"
+  WINVER="$(${HELPERSPATH}/wine-getver.sh)"
 
-  #$WINEATOMIC winecfg /v winxp | cat
+  #${HELPERSPATH}/wine-setver.sh winxp
   #$WINEATOMIC /home/wineuser/.cache/winetricks/dotnet20sp2/NetFx20SP2_x64.exe /q /norestart
 
-  #$WINEATOMIC winecfg /v winxp | cat
+  #${HELPERSPATH}/wine-setver.sh winxp
   #$WINEATOMIC /home/wineuser/.cache/winetricks/dotnet35sp1/dotnetfx35.exe /q /norestart
 
   #$WINEATOMIC cmd /u /c "C:\\Windows\\Microsoft.NET\\Framework\\v2.0.50727\\ngen.exe update" || true
   #$WINEATOMIC cmd /u /c "C:\\Windows\\Microsoft.NET\\Framework64\\v2.0.50727\\ngen.exe update" || true
 
-  $WINEATOMIC winecfg /v winxp | cat
+  ${HELPERSPATH}/wine-setver.sh winxp
   $WINEATOMIC /home/wineuser/.cache/winetricks/dotnet40/dotNetFx40_Full_x86_x64.exe /q /norestart
 
-  #$WINEATOMIC winecfg /v win7 | cat
+  #${HELPERSPATH}/wine-setver.sh win7
   #$WINEATOMIC /home/wineuser/.cache/winetricks/dotnet472/NDP472-KB4054530-x86-x64-AllOS-ENU.exe /q /norestart
 
-  #$WINEATOMIC winecfg /v win7 | cat
+  #${HELPERSPATH}/wine-setver.sh win7
   #$WINEATOMIC /home/wineuser/.cache/winetricks/dotnet48/ndp48-x86-x64-allos-enu.exe /q /norestart
 
-  $WINEATOMIC winecfg /v win10 | cat
+  ${HELPERSPATH}/wine-setver.sh win10
   $WINEATOMIC /home/wineuser/.cache/winetricks/dotnet481/NDP481-x86-x64-AllOS-ENU.exe /q /norestart
 
-  $WINEATOMIC winecfg /v "${WINVER}" | cat
+  ${HELPERSPATH}/wine-setver.sh "${WINVER}"
 
   #arm64 selector
 
