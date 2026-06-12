@@ -34,13 +34,13 @@ if [ "${DIRECTINSTALL}" = "yes" ] ; then
   #$WINEATOMIC /home/wineuser/.cache/winetricks/dotnet462/NDP462-KB3151800-x86-x64-AllOS-ENU.exe /q /norestart
   #winetricks --optout --force -q winver= > /dev/null
 
-  #winetricks --optout --force -q win7 > /dev/null
-  #$WINEATOMIC /home/wineuser/.cache/winetricks/dotnet472/NDP472-KB4054530-x86-x64-AllOS-ENU.exe /q /norestart
-  #winetricks --optout --force -q winver= > /dev/null
-
-  winetricks --optout --force -q win10 > /dev/null
-  $WINEATOMIC /home/wineuser/.cache/winetricks/dotnet481/NDP481-x86-x64-AllOS-ENU.exe /q /norestart
+  winetricks --optout --force -q win7 > /dev/null
+  $WINEATOMIC /home/wineuser/.cache/winetricks/dotnet472/NDP472-KB4054530-x86-x64-AllOS-ENU.exe /q /norestart
   winetricks --optout --force -q winver= > /dev/null
+
+  #winetricks --optout --force -q win10 > /dev/null
+  #$WINEATOMIC /home/wineuser/.cache/winetricks/dotnet481/NDP481-x86-x64-AllOS-ENU.exe /q /norestart
+  #winetricks --optout --force -q winver= > /dev/null
 
   #arm64 selector
 
@@ -56,7 +56,7 @@ else
   #winetricks dotnet40
   #winetricks dotnet452
   #winetricks dotnet462
-  #winetricks dotnet472
-  winetricks dotnet48
+  winetricks dotnet472
+  #winetricks dotnet48
   #winetricks dotnet481
 fi
