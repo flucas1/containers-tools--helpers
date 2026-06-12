@@ -38,8 +38,6 @@ if [ ! -f "${LOCALCACHEFILENAME}" ] ; then
 fi
 [ -f "${LOCALCACHEFILENAME}" ]
 
-winetricks --optout --force -q win10 > /dev/null
 $WINEATOMIC msiexec.exe /i "$(winepath ${LOCALCACHEFILENAME})" /quiet
-winetricks --optout --force -q winver= > /dev/null
 
 #pwsh -Command "$PSVersionTable.PSVersion"
