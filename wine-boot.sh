@@ -34,7 +34,6 @@ $WINEATOMIC reg add "HKLM\\SYSTEM\\CurrentControlSet\\Control\\SecurityProviders
 $WINEATOMIC reg delete "HKLM\\System\\CurrentControlSet\\Services\\winebth" /f
 
 $WINEATOMIC uninstaller --list
-#wine winecfg
 
 WINVER="$(${HELPERSPATH}/wine-getver.sh)"
 echo "the first saved WINVER is ${WINVER}"
