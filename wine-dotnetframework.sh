@@ -12,35 +12,27 @@ if [ "${DIRECTINSTALL}" = "yes" ] ; then
   $WINEATOMIC reg delete "HKLM\\Software\\Wow6432Node\\Microsoft\\.NETFramework" /f || true
 
   #winetricks --optout --force -q winxp > /dev/null
-  #$WINEATOMIC /home/wineuser/.cache/winetricks/dotnet20sp2/NetFx20SP2_x64.exe /q
+  #$WINEATOMIC /home/wineuser/.cache/winetricks/dotnet20sp2/NetFx20SP2_x64.exe /q /norestart
   #winetricks --optout --force -q winver= > /dev/null
 
   #winetricks --optout --force -q winxp > /dev/null
-  #$WINEATOMIC /home/wineuser/.cache/winetricks/dotnet35sp1/dotnetfx35.exe /q
+  #$WINEATOMIC /home/wineuser/.cache/winetricks/dotnet35sp1/dotnetfx35.exe /q /norestart
   #winetricks --optout --force -q winver= > /dev/null
 
   #$WINEATOMIC cmd /u /c "C:\\Windows\\Microsoft.NET\\Framework\\v2.0.50727\\ngen.exe update" || true
   #$WINEATOMIC cmd /u /c "C:\\Windows\\Microsoft.NET\\Framework64\\v2.0.50727\\ngen.exe update" || true
 
   winetricks --optout --force -q winxp > /dev/null
-  $WINEATOMIC /home/wineuser/.cache/winetricks/dotnet40/dotNetFx40_Full_x86_x64.exe /q
+  $WINEATOMIC /home/wineuser/.cache/winetricks/dotnet40/dotNetFx40_Full_x86_x64.exe /q /norestart
   winetricks --optout --force -q winver= > /dev/null
 
   #winetricks --optout --force -q win7 > /dev/null
-  #$WINEATOMIC /home/wineuser/.cache/winetricks/dotnet452/NDP452-KB2901907-x86-x64-AllOS-ENU.exe /q
-  #winetricks --optout --force -q winver= > /dev/null
-
-  #winetricks --optout --force -q win7 > /dev/null
-  #$WINEATOMIC /home/wineuser/.cache/winetricks/dotnet462/NDP462-KB3151800-x86-x64-AllOS-ENU.exe /q /norestart
+  #$WINEATOMIC /home/wineuser/.cache/winetricks/dotnet472/NDP472-KB4054530-x86-x64-AllOS-ENU.exe /q /norestart
   #winetricks --optout --force -q winver= > /dev/null
 
   winetricks --optout --force -q win7 > /dev/null
-  $WINEATOMIC /home/wineuser/.cache/winetricks/dotnet472/NDP472-KB4054530-x86-x64-AllOS-ENU.exe /q /norestart
+  $WINEATOMIC /home/wineuser/.cache/winetricks/dotnet48/ndp48-x86-x64-allos-enu.exe /q /norestart
   winetricks --optout --force -q winver= > /dev/null
-
-  #winetricks --optout --force -q win7 > /dev/null
-  #$WINEATOMIC /home/wineuser/.cache/winetricks/dotnet48/ndp48-x86-x64-allos-enu.exe /q /norestart
-  #winetricks --optout --force -q winver= > /dev/null
 
   #winetricks --optout --force -q win10 > /dev/null
   #$WINEATOMIC /home/wineuser/.cache/winetricks/dotnet481/NDP481-x86-x64-AllOS-ENU.exe /q /norestart
