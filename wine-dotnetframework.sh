@@ -8,6 +8,8 @@ DIRECTINSTALL="$1"
 
 if [ "${DIRECTINSTALL}" = "yes" ] ; then
   winetricks remove_mono
+  $WINEATOMIC reg delete "HKLM\\Software\\Wow6432Node\\Microsoft\\NET Framework Setup\\NDP" /f
+  $WINEATOMIC reg delete "HKLM\\Software\\Wow6432Node\\Microsoft\\.NETFramework" /f
 
   winetricks --optout --force -q winxp > /dev/null
   $WINEATOMIC /home/wineuser/.cache/winetricks/dotnet20sp2/NetFx20SP2_x64.exe /q
