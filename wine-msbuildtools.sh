@@ -16,6 +16,10 @@ else
   winetricks vstools2019
 fi
 
+# Ensure Win11 SDK is installed because sometimes vs buildtools just decide not to lol
+# wget https://download.microsoft.com/download/f/6/7/f673df4b-4df9-4e1c-b6ce-2e6b4236c802/windowssdk/winsdksetup.exe
+# winsdksetup.exe /features + /quiet /norestart
+
 #https://github.com/mstorsjo/msvc-wine
 
 #$WINEATOMIC vc.exe --version
