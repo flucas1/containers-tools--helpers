@@ -26,17 +26,17 @@ if [ "${DIRECTINSTALL}" = "yes" ] ; then
   $WINEATOMIC /home/wineuser/.cache/winetricks/dotnet40/dotNetFx40_Full_x86_x64.exe /q
   winetricks --optout --force -q winver= > /dev/null
 
-  winetricks --optout --force -q win7 > /dev/null
-  $WINEATOMIC /home/wineuser/.cache/winetricks/dotnet452/NDP452-KB2901907-x86-x64-AllOS-ENU.ex /q
-  winetricks --optout --force -q winver= > /dev/null
+  #winetricks --optout --force -q win7 > /dev/null
+  #$WINEATOMIC /home/wineuser/.cache/winetricks/dotnet452/NDP452-KB2901907-x86-x64-AllOS-ENU.ex /q
+  #winetricks --optout --force -q winver= > /dev/null
 
-  winetricks --optout --force -q win7 > /dev/null
-  $WINEATOMIC /home/wineuser/.cache/winetricks/dotnet462/NDP462-KB3151800-x86-x64-AllOS-ENU.exe /q /norestart
-  winetricks --optout --force -q winver= > /dev/null
+  #winetricks --optout --force -q win7 > /dev/null
+  #$WINEATOMIC /home/wineuser/.cache/winetricks/dotnet462/NDP462-KB3151800-x86-x64-AllOS-ENU.exe /q /norestart
+  #winetricks --optout --force -q winver= > /dev/null
 
-  winetricks --optout --force -q win7 > /dev/null
-  $WINEATOMIC /home/wineuser/.cache/winetricks/dotnet472/NDP472-KB4054530-x86-x64-AllOS-ENU.exe /q /norestart
-  winetricks --optout --force -q winver= > /dev/null
+  #winetricks --optout --force -q win7 > /dev/null
+  #$WINEATOMIC /home/wineuser/.cache/winetricks/dotnet472/NDP472-KB4054530-x86-x64-AllOS-ENU.exe /q /norestart
+  #winetricks --optout --force -q winver= > /dev/null
 
   winetricks --optout --force -q win10 > /dev/null
   $WINEATOMIC /home/wineuser/.cache/winetricks/dotnet481/NDP481-x86-x64-AllOS-ENU.exe /q /norestart
@@ -51,12 +51,12 @@ if [ "${DIRECTINSTALL}" = "yes" ] ; then
   $WINEATOMIC cmd /u /c "C:\\Windows\\Microsoft.NET\\Framework64\\v4.0.30319\\ngen.exe update"
 else
   winetricks remove_mono
-  winetricks dotnet20sp2
-  winetricks dotnet35sp1
-  winetricks dotnet40
-  winetricks dotnet452
-  winetricks dotnet462
-  winetricks dotnet472
+  #winetricks dotnet20sp2
+  #winetricks dotnet35sp1
+  #winetricks dotnet40
+  #winetricks dotnet452
+  #winetricks dotnet462
+  #winetricks dotnet472
   winetricks dotnet48
   #winetricks dotnet481
 fi
