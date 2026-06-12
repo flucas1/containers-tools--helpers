@@ -19,8 +19,8 @@ if [ "${DIRECTINSTALL}" = "yes" ] ; then
   #$WINEATOMIC /home/wineuser/.cache/winetricks/dotnet35sp1/dotnetfx35.exe /q
   #winetricks --optout --force -q winver= > /dev/null
 
-  #$WINEATOMIC cmd /u /c "C:\\Windows\\Microsoft.NET\\Framework\\v2.0.50727\\ngen.exe update"
-  #$WINEATOMIC cmd /u /c "C:\\Windows\\Microsoft.NET\\Framework64\\v2.0.50727\\ngen.exe update"
+  #$WINEATOMIC cmd /u /c "C:\\Windows\\Microsoft.NET\\Framework\\v2.0.50727\\ngen.exe update" || true
+  #$WINEATOMIC cmd /u /c "C:\\Windows\\Microsoft.NET\\Framework64\\v2.0.50727\\ngen.exe update" || true
 
   winetricks --optout --force -q winxp > /dev/null
   $WINEATOMIC /home/wineuser/.cache/winetricks/dotnet40/dotNetFx40_Full_x86_x64.exe /q
@@ -47,8 +47,8 @@ if [ "${DIRECTINSTALL}" = "yes" ] ; then
   $WINEATOMIC reg add "HKLM\\Software\\Microsoft\\.NETFramework" /v OnlyUseLatestCLR /t REG_DWORD /d 1 /f
   $WINEATOMIC reg add "HKLM\\Software\\wow6432node\\Microsoft\\.NETFramework" /v OnlyUseLatestCLR /t REG_DWORD /d 1 /f
 
-  $WINEATOMIC cmd /u /c "C:\\Windows\\Microsoft.NET\\Framework\\v4.0.30319\\ngen.exe update"
-  $WINEATOMIC cmd /u /c "C:\\Windows\\Microsoft.NET\\Framework64\\v4.0.30319\\ngen.exe update"
+  $WINEATOMIC cmd /u /c "C:\\Windows\\Microsoft.NET\\Framework\\v4.0.30319\\ngen.exe update" || true
+  $WINEATOMIC cmd /u /c "C:\\Windows\\Microsoft.NET\\Framework64\\v4.0.30319\\ngen.exe update" || true
 else
   winetricks remove_mono
   #winetricks dotnet20sp2
