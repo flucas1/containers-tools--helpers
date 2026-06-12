@@ -27,7 +27,7 @@ if [ "${DIRECTINSTALL}" = "yes" ] ; then
   winetricks --optout --force -q winver= > /dev/null
 
   #winetricks --optout --force -q win7 > /dev/null
-  #$WINEATOMIC /home/wineuser/.cache/winetricks/dotnet452/NDP452-KB2901907-x86-x64-AllOS-ENU.ex /q
+  #$WINEATOMIC /home/wineuser/.cache/winetricks/dotnet452/NDP452-KB2901907-x86-x64-AllOS-ENU.exe /q
   #winetricks --optout --force -q winver= > /dev/null
 
   #winetricks --optout --force -q win7 > /dev/null
