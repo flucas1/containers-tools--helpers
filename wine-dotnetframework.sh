@@ -48,6 +48,7 @@ if [ "${DIRECTINSTALL}" = "yes" ] ; then
   $WINEATOMIC cmd /u /c "C:\\Windows\\Microsoft.NET\\Framework\\v4.0.30319\\ngen.exe update"
   $WINEATOMIC cmd /u /c "C:\\Windows\\Microsoft.NET\\Framework64\\v4.0.30319\\ngen.exe update"
 else
+  winetricks remove_mono
   winetricks dotnet20sp2
   winetricks dotnet35sp1
   winetricks dotnet40
