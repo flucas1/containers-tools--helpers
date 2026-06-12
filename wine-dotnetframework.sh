@@ -11,16 +11,16 @@ if [ "${DIRECTINSTALL}" = "yes" ] ; then
   $WINEATOMIC reg delete "HKLM\\Software\\Wow6432Node\\Microsoft\\NET Framework Setup\\NDP" /f || true
   $WINEATOMIC reg delete "HKLM\\Software\\Wow6432Node\\Microsoft\\.NETFramework" /f || true
 
-  winetricks --optout --force -q winxp > /dev/null
-  $WINEATOMIC /home/wineuser/.cache/winetricks/dotnet20sp2/NetFx20SP2_x64.exe /q
-  winetricks --optout --force -q winver= > /dev/null
+  #winetricks --optout --force -q winxp > /dev/null
+  #$WINEATOMIC /home/wineuser/.cache/winetricks/dotnet20sp2/NetFx20SP2_x64.exe /q
+  #winetricks --optout --force -q winver= > /dev/null
 
-  winetricks --optout --force -q winxp > /dev/null
-  $WINEATOMIC /home/wineuser/.cache/winetricks/dotnet35sp1/dotnetfx35.exe /q
-  winetricks --optout --force -q winver= > /dev/null
+  #winetricks --optout --force -q winxp > /dev/null
+  #$WINEATOMIC /home/wineuser/.cache/winetricks/dotnet35sp1/dotnetfx35.exe /q
+  #winetricks --optout --force -q winver= > /dev/null
 
-  $WINEATOMIC cmd /u /c "C:\\Windows\\Microsoft.NET\\Framework\\v2.0.50727\\ngen.exe update"
-  $WINEATOMIC cmd /u /c "C:\\Windows\\Microsoft.NET\\Framework64\\v2.0.50727\\ngen.exe update"
+  #$WINEATOMIC cmd /u /c "C:\\Windows\\Microsoft.NET\\Framework\\v2.0.50727\\ngen.exe update"
+  #$WINEATOMIC cmd /u /c "C:\\Windows\\Microsoft.NET\\Framework64\\v2.0.50727\\ngen.exe update"
 
   winetricks --optout --force -q winxp > /dev/null
   $WINEATOMIC /home/wineuser/.cache/winetricks/dotnet40/dotNetFx40_Full_x86_x64.exe /q
