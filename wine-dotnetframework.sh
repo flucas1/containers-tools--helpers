@@ -25,11 +25,8 @@ if [ "${DIRECTINSTALL}" = "yes" ] ; then
   ${HELPERSPATH}/wine-setver.sh winxp
   $WINEATOMIC /home/wineuser/.cache/winetricks/dotnet40/dotNetFx40_Full_x86_x64.exe /q /norestart
 
-  #${HELPERSPATH}/wine-setver.sh win7
-  #$WINEATOMIC /home/wineuser/.cache/winetricks/dotnet472/NDP472-KB4054530-x86-x64-AllOS-ENU.exe /q /norestart
-
-  #${HELPERSPATH}/wine-setver.sh win7
-  #$WINEATOMIC /home/wineuser/.cache/winetricks/dotnet48/ndp48-x86-x64-allos-enu.exe /q /norestart
+  ${HELPERSPATH}/wine-setver.sh win7
+  $WINEATOMIC /home/wineuser/.cache/winetricks/dotnet48/ndp48-x86-x64-allos-enu.exe /q /norestart
 
   ${HELPERSPATH}/wine-setver.sh win10
   $WINEATOMIC /home/wineuser/.cache/winetricks/dotnet481/NDP481-x86-x64-AllOS-ENU.exe /q /norestart
