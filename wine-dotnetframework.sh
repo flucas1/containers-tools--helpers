@@ -3,6 +3,7 @@
 set -e
 set -x
 
+HELPERSPATH="/helpers"
 WINEATOMIC="/wine-atomic.sh"
 DIRECTINSTALL="$1"
 

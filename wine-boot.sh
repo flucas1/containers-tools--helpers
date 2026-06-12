@@ -3,6 +3,7 @@
 set -e
 set -x
 
+HELPERSPATH="/helpers"
 WINEATOMIC="/wine-atomic.sh"
 
 #https://github.com/Winetricks/winetricks/issues/1525
