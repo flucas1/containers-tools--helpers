@@ -37,12 +37,10 @@ if [ "${DIRECTINSTALL}" = "yes" ] ; then
   winetricks --optout --force -q winver= > /dev/null
 
   winetricks --optout --force -q win10 > /dev/null
-  $WINEATOMIC /home/wineuser/.cache/winetricks/dotnet48/ndp48-x86-x64-allos-enu.exe /q /norestart
+  $WINEATOMIC /home/wineuser/.cache/winetricks/dotnet481/NDP481-x86-x64-AllOS-ENU.exe /q /norestart
   winetricks --optout --force -q winver= > /dev/null
 
-  #winetricks --optout --force -q win11 > /dev/null
-  #64 bits and arm64 selector
-  #winetricks --optout --force -q winver= > /dev/null
+  #arm64 selector
 
   $WINEATOMIC reg add "HKLM\\Software\\Microsoft\\.NETFramework" /v OnlyUseLatestCLR /t REG_DWORD /d 1 /f
   $WINEATOMIC reg add "HKLM\\Software\\wow6432node\\Microsoft\\.NETFramework" /v OnlyUseLatestCLR /t REG_DWORD /d 1 /f
