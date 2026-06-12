@@ -13,10 +13,10 @@ if [ "${DIRECTINSTALL}" = "yes" ] ; then
 
   WINVER="$(WINEDEBUG="-all" unbuffer $WINEATOMIC winecfg /v)"
 
-  #winetricks --optout --force -q winxp > /dev/null
+  #$WINEATOMIC winecfg /v winxp | cat
   #$WINEATOMIC /home/wineuser/.cache/winetricks/dotnet20sp2/NetFx20SP2_x64.exe /q /norestart
 
-  #winetricks --optout --force -q winxp > /dev/null
+  #$WINEATOMIC winecfg /v winxp | cat
   #$WINEATOMIC /home/wineuser/.cache/winetricks/dotnet35sp1/dotnetfx35.exe /q /norestart
 
   #$WINEATOMIC cmd /u /c "C:\\Windows\\Microsoft.NET\\Framework\\v2.0.50727\\ngen.exe update" || true
@@ -25,10 +25,10 @@ if [ "${DIRECTINSTALL}" = "yes" ] ; then
   $WINEATOMIC winecfg /v winxp | cat
   $WINEATOMIC /home/wineuser/.cache/winetricks/dotnet40/dotNetFx40_Full_x86_x64.exe /q /norestart
 
-  #winetricks --optout --force -q win7 > /dev/null
+  #$WINEATOMIC winecfg /v win7 | cat
   #$WINEATOMIC /home/wineuser/.cache/winetricks/dotnet472/NDP472-KB4054530-x86-x64-AllOS-ENU.exe /q /norestart
 
-  #winetricks --optout --force -q win7 > /dev/null
+  #$WINEATOMIC winecfg /v win7 | cat
   #$WINEATOMIC /home/wineuser/.cache/winetricks/dotnet48/ndp48-x86-x64-allos-enu.exe /q /norestart
 
   $WINEATOMIC winecfg /v win10 | cat
