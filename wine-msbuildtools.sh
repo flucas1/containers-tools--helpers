@@ -13,7 +13,7 @@ if [ "${DIRECTINSTALL}" = "yes" ] ; then
 
   /helpers/wget-with-retries.sh "https://aka.ms/vs/${VISUALSTUDIOCHANNEL}/installer" ./vs_installer.zip
   mkdir -p "$WINEPREFIX/drive_c/Program Files (x86)/Microsoft Visual Studio/Installer"
-  unzip vs_installer.zip "Contents/*" -d "$WINEPREFIX/drive_c/Program Files (x86)/Microsoft Visual Studio/Installer" 
+  unzip ./vs_installer.zip "Contents/*" -d "$WINEPREFIX/drive_c/Program Files (x86)/Microsoft Visual Studio/Installer" 
   rm -f ./vs_installer.zip
 
   $WINEATOMIC ./vs_buildtools.exe --noUpdateInstaller --layout C:\\VSLayout --lang en-US --quiet --wait --norestart --add Microsoft.VisualStudio.Workload.VCTools
