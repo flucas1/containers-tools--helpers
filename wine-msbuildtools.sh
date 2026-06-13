@@ -17,7 +17,8 @@ if [ "${DIRECTINSTALL}" = "yes" ] ; then
   #unzip vs_installer.zip "Contents/*" -d "$WINEPREFIX/drive_c/Program Files (x86)/Microsoft Visual Studio/Installer" 
   #rm -f ./vs_installer.zip
 
-  $WINEATOMIC ./vs_buildtools.exe --noUpdateInstaller --layout C:\\VSLayout --lang en-US --quiet --wait --norestart --add Microsoft.VisualStudio.Workload.VCTools
+  # --noUpdateInstaller 
+  $WINEATOMIC ./vs_buildtools.exe --layout C:\\VSLayout --lang en-US --quiet --wait --norestart --add Microsoft.VisualStudio.Workload.VCTools
   $WINEATOMIC C:\\VSLayout\\vs_setup.exe --noWeb --quiet --wait --norestart
   $WINEATOMIC cmd /c rmdir /s /q C:\\VSLayout
 
