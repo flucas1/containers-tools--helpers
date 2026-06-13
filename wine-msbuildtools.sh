@@ -9,9 +9,17 @@ DIRECTINSTALL="$1"
 if [ "${DIRECTINSTALL}" = "yes" ] ; then
   VISUALSTUDIOVERSION="18"
   VISUALSTUDIOCHANNEL="Insiders"
-  /helpers/wget-with-retries.sh "https://aka.ms/vs/${VISUALSTUDIOVERSION}/${VISUALSTUDIOCHANNEL}/vs_BuildTools.exe" ./msbuildtools-installer.exe
-  $WINEATOMIC ./msbuildtools-installer.exe --noUpdateInstaller --quiet --wait --norestart --nocache --channelId "VisualStudio.${VISUALSTUDIOVERSION}.${VISUALSTUDIOCHANNEL}" --channelUri "https://aka.ms/vs/${VISUALSTUDIOVERSION}/${VISUALSTUDIOCHANNEL}/channel" --productId "Microsoft.VisualStudio.Product.BuildTools" --add "Microsoft.VisualStudio.Workload.VCTools" --includeRecommended
-  rm -f ./msbuildtools-installer.exe
+
+  /helpers/wget-with-retries.sh "https://aka.ms/vs/${VISUALSTUDIOVERSION}/${VISUALSTUDIOCHANNEL}/vs_BuildTools.exe" ./vs_buildtools.exe
+  /helpers/wget-with-retries.sh "https://aka.ms/vs/${VISUALSTUDIOVERSION}/${VISUALSTUDIOCHANNEL}/installer" ./vs_installer.zip
+
+  mkdir -p "$WINEPREFIX/drive_c/Program Files (x86)/Microsoft Visual Studio/Installer"
+  unzip vs_installer.zip "Contents/*" -d "$WINEPREFIX/drive_c/Program Files (x86)/Microsoft Visual Studio/Installer"
+
+  $WINEATOMIC ./vs_buildtools.exe --noUpdateInstaller --quiet --wait --norestart --includeRecommended --includeOptional --add "Microsoft.VisualStudio.Workload.VCTools"
+
+  rm -f ./vs_buildtools.exe
+  rm -f ./vs_installer.zip
 else
   winetricks vstools2019
 fi
