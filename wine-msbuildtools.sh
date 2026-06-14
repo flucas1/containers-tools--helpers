@@ -8,8 +8,8 @@ WINEATOMIC="/wine-atomic.sh"
 DIRECTINSTALL="$1"
 
 if [ "${DIRECTINSTALL}" = "yes" ] ; then
-  VISUALSTUDIOVERSION="18"
-  VISUALSTUDIOCHANNEL="Insiders"
+  VISUALSTUDIOVERSION="17"
+  VISUALSTUDIOCHANNEL="Release"
 
   /helpers/wget-with-retries.sh "https://aka.ms/vs/${VISUALSTUDIOVERSION}/${VISUALSTUDIOCHANNEL}/vs_BuildTools.exe" ./vs_buildtools.exe
   #/helpers/wget-with-retries.sh "https://aka.ms/vs/${VISUALSTUDIOVERSION}/${VISUALSTUDIOCHANNEL}/installer" ./vs_installer.zip
