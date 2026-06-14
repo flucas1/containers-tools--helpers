@@ -11,6 +11,9 @@ if [ "${DIRECTINSTALL}" = "yes" ] ; then
   VISUALSTUDIOVERSION="18"
   VISUALSTUDIOCHANNEL="Insiders"
 
+  winetricks arial
+  winetricks d3dcompiler_47
+
   WINVER="$(${HELPERSPATH}/wine-getver.sh)"
   ${HELPERSPATH}/wine-setver.sh win11
 
