@@ -8,14 +8,17 @@ WINEATOMIC="/wine-atomic.sh"
 DIRECTINSTALL="$1"
 
 if [ "${DIRECTINSTALL}" = "yes" ] ; then
-  VISUALSTUDIOVERSION="17"
-  VISUALSTUDIOCHANNEL="Release"
+  VISUALSTUDIOVERSION="18"
+  VISUALSTUDIOCHANNEL="Insiders"
 
   /helpers/wget-with-retries.sh "https://aka.ms/vs/${VISUALSTUDIOVERSION}/${VISUALSTUDIOCHANNEL}/vs_BuildTools.exe" ./vs_buildtools.exe
-  #/helpers/wget-with-retries.sh "https://aka.ms/vs/${VISUALSTUDIOVERSION}/${VISUALSTUDIOCHANNEL}/installer" ./vs_installer.zip
-  #mkdir -p "$WINEPREFIX/drive_c/Program Files (x86)/Microsoft Visual Studio/Installer"
-  #unzip ./vs_installer.zip "Contents/*" -d "$WINEPREFIX/drive_c/Program Files (x86)/Microsoft Visual Studio/Installer" 
-  #rm -f ./vs_installer.zip
+  /helpers/wget-with-retries.sh "https://aka.ms/vs/${VISUALSTUDIOVERSION}/${VISUALSTUDIOCHANNEL}/installer" ./vs_installer.zip
+  mkdir -p "$WINEPREFIX/drive_c/Program Files (x86)/Microsoft Visual Studio/Installer"
+  mkdir -p "/tmp/vs_installer/"
+  unzip ./vs_installer.zip -d "/tmp/vs_installer/"
+  cp -r /tmp/vs_installer/Contents/. "$WINEPREFIX/drive_c/Program Files (x86)/Microsoft Visual Studio/Installer/"
+  rm -rf "/tmp/vs_installer/"
+  rm -f ./vs_installer.zip
   $WINEATOMIC ./vs_buildtools.exe --quiet --wait --layout C:\\VSLayout --lang en-US --add Microsoft.VisualStudio.Workload.VCTools
   rm -f ./vs_buildtools.exe
 
