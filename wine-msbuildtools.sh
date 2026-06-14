@@ -24,7 +24,7 @@ if [ "${DIRECTINSTALL}" = "yes" ] ; then
   cp -r /tmp/vs_installer/Contents/. "$WINEPREFIX/drive_c/Program Files (x86)/Microsoft Visual Studio/Installer/"
   rm -rf "/tmp/vs_installer/"
   
-  $WINEATOMIC ./vs_buildtools.exe --quiet --wait --layout C:\\VSLayout --lang en-US --add Microsoft.VisualStudio.Workload.VCTools
+  $WINEATOMIC ./vs_buildtools.exe --quiet --wait --noUpdateInstaller --layout C:\\VSLayout --lang en-US --add Microsoft.VisualStudio.Workload.VCTools
 
   $WINEATOMIC C:\\VSLayout\\vs_setup.exe --quiet --wait --noUpdateInstaller --noWeb --norestart || true
   
