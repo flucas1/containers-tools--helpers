@@ -16,25 +16,15 @@ if [ "${DIRECTINSTALL}" = "yes" ] ; then
   #mkdir -p "$WINEPREFIX/drive_c/Program Files (x86)/Microsoft Visual Studio/Installer"
   #unzip ./vs_installer.zip "Contents/*" -d "$WINEPREFIX/drive_c/Program Files (x86)/Microsoft Visual Studio/Installer" 
   #rm -f ./vs_installer.zip
-  #$WINEATOMIC ./vs_buildtools.exe --noUpdateInstaller --layout C:\\VSLayout --lang en-US --quiet --wait --norestart --add Microsoft.VisualStudio.Workload.VCTools
-  #$WINEATOMIC C:\\VSLayout\\vs_setup.exe --noWeb --quiet --wait --norestart
-  #$WINEATOMIC cmd /c rmdir /s /q C:\\VSLayout
-  $WINEATOMIC ./vs_buildtools.exe install --includeRecommended --quiet --channelId VisualStudio.16.Release --channelUri "https://aka.ms/vs/16/release/channel" --productId "Microsoft.VisualStudio.Product.BuildTools" --add "Microsoft.VisualStudio.Workload.VCTools"
+  $WINEATOMIC ./vs_buildtools.exe --quiet --wait --layout C:\\VSLayout --lang en-US --add Microsoft.VisualStudio.Workload.VCTools
   rm -f ./vs_buildtools.exe
-  
-  #VISUALSTUDIOTEMPDIR="/tmp/msvc-wine/"
-  #/helpers/wget-with-retries.sh "https://raw.githubusercontent.com/mstorsjo/msvc-wine/refs/heads/master/vsdownload.py" ./vsdownload.py
-  #/helpers/wget-with-retries.sh "https://raw.githubusercontent.com/mstorsjo/msvc-wine/refs/heads/master/install.sh" ./vsinstall.sh 
-  #${HELPERSPATH}/apt-retry-install.sh msitools
-  #${HELPERSPATH}/apt-retry-install.sh gcab
-  #${HELPERSPATH}/apt-retry-install.sh winbind
-  #mkdir -p "${VISUALSTUDIOTEMPDIR}"
-  #/usr/bin/python3 ./vsdownload.py --print-version
-  #/usr/bin/python3 ./vsdownload.py --accept-license --preview --dest "${VISUALSTUDIOTEMPDIR}"
-  #/usr/bin/sh ./vsinstall.sh "${VISUALSTUDIOTEMPDIR}"
-  #rm -rf "${VISUALSTUDIOTEMPDIR}"
-  #rm -f ./vsinstall.sh
-  #rm -f ./vsdownload.py
+
+  WINVER="$(${HELPERSPATH}/wine-getver.sh)"
+  ${HELPERSPATH}/wine-setver.sh win11
+  $WINEATOMIC C:\\VSLayout\\vs_setup.exe --quiet --wait --noUpdateInstaller --noWeb --norestart || true
+  ${HELPERSPATH}/wine-setver.sh "${WINVER}"
+
+  $WINEATOMIC cmd /c rmdir /s /q C:\\VSLayout
 else
   winetricks vstools2019
 fi

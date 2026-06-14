@@ -24,6 +24,8 @@ fi
 timeout 60s $WINEBOOTBINARY --init
 
 $WINEATOMIC reg add "HKCU\\Software\\Wine\\Drivers" /v Graphics /t REG_SZ /d null /f
+$WINEATOMIC reg add "HKCU\\Software\\Wine\\X11 Driver" /v UseXRandR /t REG_SZ /d Y /f
+$WINEATOMIC reg add "HKCU\\Software\\Wine\\X11 Driver" /v UseXVidMode /t REG_SZ /d N /f
 $WINEATOMIC reg add "HKLM\\Software\\Microsoft\\Windows NT\\CurrentVersion\\AeDebug" /v Auto /t REG_DWORD /d 1 /f
 $WINEATOMIC reg add "HKLM\\Software\\Microsoft\\Windows NT\\CurrentVersion\\AeDebug" /v Debugger /t REG_SZ /d "winedbg --auto %ld %ld" /f
 $WINEATOMIC reg add "HKCU\\Software\\Wine\\WineDbg" /v BreakOnFirstChance /t REG_DWORD /d 0 /f
