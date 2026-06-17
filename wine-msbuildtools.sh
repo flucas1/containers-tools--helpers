@@ -11,7 +11,7 @@ if [ "${DIRECTINSTALL}" = "yes" ] ; then
   rm -f /tmp/vsdownload.py
   /helpers/wget-with-retries.sh "https://raw.githubusercontent.com/mstorsjo/msvc-wine/refs/heads/master/vsdownload.py" /tmp/vsdownload.py
   chmod +x /tmp/vsdownload.py
-  
+
   VISUALSTUDIOVERSION="$(/tmp/vsdownload.py --help | grep -oP '(?<=defaults to )\d+')"
 
   mkdir -p /tmp/msvc
@@ -20,8 +20,10 @@ if [ "${DIRECTINSTALL}" = "yes" ] ; then
   mkdir -p "${VISUALSTUDIOFOLDER}"
   /tmp/vsdownload.py --major "${VISUALSTUDIOVERSION}" --cache /tmp/msvc --dest "${VISUALSTUDIOFOLDER}" --only-host --accept-license
 
-  rmdir -rf /tmp/msvc
+  rm -rf /tmp/msvc
   rm -f /tmp/vsdownload.py
+
+  #$WINEATOMIC "$(winepath "${VISUALSTUDIOFOLDER}...")" /version
 
   #WINVER="$(${HELPERSPATH}/wine-getver.sh)"
   #${HELPERSPATH}/wine-setver.sh win11
