@@ -20,10 +20,10 @@ if [ "${DIRECTINSTALL}" = "yes" ] ; then
   /tmp/vsdownload.py --major "${VISUALSTUDIOVERSION}" --save-manifest /tmp/vsmanifest.xml --accept-license
   
   mkdir -p /tmp/msvc
-  /tmp/vsdownload.py --major "${VISUALSTUDIOVERSION}" --manifest /tmp/vsmanifest.xml --cache /tmp/msvc --only-download --accept-license
+  /tmp/vsdownload.py --major "${VISUALSTUDIOVERSION}" --manifest /tmp/vsmanifest.xml --cache /tmp/msvc --only-download --only-host --accept-license
   VISUALSTUDIOFOLDER="${WINEPREFIX}/drive_c/Program Files/Microsoft Visual Studio/${VISUALSTUDIOVERSION}/Release/"
   mkdir -p "${VISUALSTUDIOFOLDER}"
-  /tmp/vsdownload.py --major "${VISUALSTUDIOVERSION}" --manifest /tmp/vsmanifest.xml --cache /tmp/msvc --dest "${VISUALSTUDIOFOLDER}" --accept-license
+  /tmp/vsdownload.py --major "${VISUALSTUDIOVERSION}" --manifest /tmp/vsmanifest.xml --cache /tmp/msvc --dest "${VISUALSTUDIOFOLDER}" --only-host --accept-license
 
   rmdir -rf /tmp/msvc
   rm -f /tmp/vsmanifest.xml
