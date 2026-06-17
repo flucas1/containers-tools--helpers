@@ -9,7 +9,7 @@ DIRECTINSTALL="$1"
 
 if [ "${DIRECTINSTALL}" = "yes" ] ; then
   rm -f /tmp/vsdownload.py
-  /helpers/wget-with-retries.sh "https://raw.githubusercontent.com/mstorsjo/msvc-wine/refs/heads/master/vsdownload.py" -O /tmp/vsdownload.py
+  /helpers/wget-with-retries.sh "https://raw.githubusercontent.com/mstorsjo/msvc-wine/refs/heads/master/vsdownload.py" /tmp/vsdownload.py
   chmod +x /tmp/vsdownload.py
   
   VISUALSTUDIOVERSION="$(/tmp/vsdownload.py --help | grep -oP '(?<=defaults to )\d+')"
