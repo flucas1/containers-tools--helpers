@@ -8,8 +8,6 @@ WINEATOMIC="/wine-atomic.sh"
 DIRECTINSTALL="$1"
 
 if [ "${DIRECTINSTALL}" = "yes" ] ; then
-  ${HELPERSPATH}/apt-retry-install.sh msitools
-  
   rm -f /tmp/vsdownload.py
   /helpers/wget-with-retries.sh "https://raw.githubusercontent.com/mstorsjo/msvc-wine/refs/heads/master/vsdownload.py" -O /tmp/vsdownload.py
   chmod +x /tmp/vsdownload.py

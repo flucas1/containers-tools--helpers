@@ -43,6 +43,7 @@ ${HELPERSPATH}/apt-retry-install.sh acl
 ${HELPERSPATH}/apt-retry-install.sh pci.ids
 ${HELPERSPATH}/apt-retry-install.sh libsnmp-base
 ${HELPERSPATH}/apt-retry-install.sh libsane-common
+${HELPERSPATH}/apt-retry-install.sh msitools
 
 REFERENCEPACKAGES="libavahi-client3 libjbig0 libmount1 libudev1 libcurl3t64-gnutls libgd3 libgphoto2-6t64 libsane1 libpci3 libsnmp40t64"
 FINALPACKAGES=""
