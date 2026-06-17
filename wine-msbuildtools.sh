@@ -13,18 +13,14 @@ if [ "${DIRECTINSTALL}" = "yes" ] ; then
   chmod +x /tmp/vsdownload.py
   
   VISUALSTUDIOVERSION="$(/tmp/vsdownload.py --help | grep -oP '(?<=defaults to )\d+')"
-  
-  rm -f /tmp/vsmanifest.xml
-  /tmp/vsdownload.py --major "${VISUALSTUDIOVERSION}" --save-manifest /tmp/vsmanifest.xml --accept-license
-  
+
   mkdir -p /tmp/msvc
-  /tmp/vsdownload.py --major "${VISUALSTUDIOVERSION}" --manifest /tmp/vsmanifest.xml --cache /tmp/msvc --only-download --only-host --accept-license
-  VISUALSTUDIOFOLDER="${WINEPREFIX}/drive_c/Program Files/Microsoft Visual Studio/${VISUALSTUDIOVERSION}/Release/"
+  /tmp/vsdownload.py --major "${VISUALSTUDIOVERSION}" --cache /tmp/msvc --only-download --only-host --accept-license
+  VISUALSTUDIOFOLDER="${WINEPREFIX}/drive_c/Program Files/Microsoft Visual Studio/${VISUALSTUDIOVERSION}/BuildTools/"
   mkdir -p "${VISUALSTUDIOFOLDER}"
-  /tmp/vsdownload.py --major "${VISUALSTUDIOVERSION}" --manifest /tmp/vsmanifest.xml --cache /tmp/msvc --dest "${VISUALSTUDIOFOLDER}" --only-host --accept-license
+  /tmp/vsdownload.py --major "${VISUALSTUDIOVERSION}" --cache /tmp/msvc --dest "${VISUALSTUDIOFOLDER}" --only-host --accept-license
 
   rmdir -rf /tmp/msvc
-  rm -f /tmp/vsmanifest.xml
   rm -f /tmp/vsdownload.py
 
   #WINVER="$(${HELPERSPATH}/wine-getver.sh)"
