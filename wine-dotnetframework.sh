@@ -14,14 +14,35 @@ if [ "${DIRECTINSTALL}" = "yes" ] ; then
 
   WINVER="$(${HELPERSPATH}/wine-getver.sh)"
 
-  #${HELPERSPATH}/wine-setver.sh winxp
-  #$WINEATOMIC /home/wineuser/.cache/winetricks/dotnet20sp2/NetFx20SP2_x64.exe /q /norestart
+  ${HELPERSPATH}/wine-setver.sh winxp
+  $WINEATOMIC /home/wineuser/.cache/winetricks/dotnet20sp2/NetFx20SP2_x64.exe /q /norestart || true
 
-  #${HELPERSPATH}/wine-setver.sh winxp
-  #$WINEATOMIC /home/wineuser/.cache/winetricks/dotnet35sp1/dotnetfx35.exe /q /norestart
+  ${HELPERSPATH}/wine-setver.sh winxp
+  $WINEATOMIC /home/wineuser/.cache/winetricks/dotnet35sp1/dotnetfx35.exe /q /norestart || true
 
-  #$WINEATOMIC cmd /u /c "C:\\Windows\\Microsoft.NET\\Framework\\v2.0.50727\\ngen.exe update" || true
-  #$WINEATOMIC cmd /u /c "C:\\Windows\\Microsoft.NET\\Framework64\\v2.0.50727\\ngen.exe update" || true
+  MAXRETRIES=30 ; COUNTER=0 ; SUCCESS=0
+  while [ $SUCCESS -eq 0 ] && [ $COUNTER -lt $MAXRETRIES ] ; do
+    echo "Retry #$COUNTER" >&2
+    if timeout --kill-after=5s 900s $WINEATOMIC cmd /u /c "C:\\Windows\\Microsoft.NET\\Framework\\v2.0.50727\\ngen.exe update" ; then
+      SUCCESS=1
+    else
+      COUNTER=$(( $COUNTER + 1 ))
+      sleep 5s
+    fi
+  done
+  [ $SUCCESS -eq 1 ]
+
+  MAXRETRIES=30 ; COUNTER=0 ; SUCCESS=0
+  while [ $SUCCESS -eq 0 ] && [ $COUNTER -lt $MAXRETRIES ] ; do
+    echo "Retry #$COUNTER" >&2
+    if timeout --kill-after=5s 900s $WINEATOMIC cmd /u /c "C:\\Windows\\Microsoft.NET\\Framework64\\v2.0.50727\\ngen.exe update" ; then
+      SUCCESS=1
+    else
+      COUNTER=$(( $COUNTER + 1 ))
+      sleep 5s
+    fi
+  done
+  [ $SUCCESS -eq 1 ]
 
   ${HELPERSPATH}/wine-setver.sh winxp
   $WINEATOMIC /home/wineuser/.cache/winetricks/dotnet40/dotNetFx40_Full_x86_x64.exe /q /norestart
@@ -33,11 +54,6 @@ if [ "${DIRECTINSTALL}" = "yes" ] ; then
   $WINEATOMIC /home/wineuser/.cache/winetricks/dotnet481/NDP481-x86-x64-AllOS-ENU.exe /q /norestart
 
   ${HELPERSPATH}/wine-setver.sh "${WINVER}"
-
-  #arm64 selector
-
-  $WINEATOMIC reg add "HKLM\\Software\\Microsoft\\.NETFramework" /v OnlyUseLatestCLR /t REG_DWORD /d 1 /f
-  $WINEATOMIC reg add "HKLM\\Software\\wow6432node\\Microsoft\\.NETFramework" /v OnlyUseLatestCLR /t REG_DWORD /d 1 /f
 
   MAXRETRIES=30 ; COUNTER=0 ; SUCCESS=0
   while [ $SUCCESS -eq 0 ] && [ $COUNTER -lt $MAXRETRIES ] ; do
@@ -62,6 +78,9 @@ if [ "${DIRECTINSTALL}" = "yes" ] ; then
     fi
   done
   [ $SUCCESS -eq 1 ]
+
+  #$WINEATOMIC reg add "HKLM\\Software\\Microsoft\\.NETFramework" /v OnlyUseLatestCLR /t REG_DWORD /d 1 /f
+  #$WINEATOMIC reg add "HKLM\\Software\\wow6432node\\Microsoft\\.NETFramework" /v OnlyUseLatestCLR /t REG_DWORD /d 1 /f
 else
   winetricks remove_mono
   #winetricks dotnet20sp2
