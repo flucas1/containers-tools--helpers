@@ -15,10 +15,10 @@ if [ "${DIRECTINSTALL}" = "yes" ] ; then
   WINVER="$(${HELPERSPATH}/wine-getver.sh)"
 
   ${HELPERSPATH}/wine-setver.sh winxp64
-  WINEDLLOVERRIDES="ngen.exe=d" $WINEATOMIC /home/wineuser/.cache/winetricks/dotnet20sp2/NetFx20SP2_x64.exe /q /norestart || true
+  $WINEATOMIC /home/wineuser/.cache/winetricks/dotnet20sp2/NetFx20SP2_x64.exe /q /norestart || true
 
   ${HELPERSPATH}/wine-setver.sh winxp64
-  WINEDLLOVERRIDES="ngen.exe=d" $WINEATOMIC /home/wineuser/.cache/winetricks/dotnet35sp1/dotnetfx35.exe /q /norestart || true
+  $WINEATOMIC /home/wineuser/.cache/winetricks/dotnet35sp1/dotnetfx35.exe /q /norestart || true
 
   #MAXRETRIES=30 ; COUNTER=0 ; SUCCESS=0
   #while [ $SUCCESS -eq 0 ] && [ $COUNTER -lt $MAXRETRIES ] ; do
