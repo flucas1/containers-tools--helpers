@@ -38,6 +38,7 @@ if [ "${DIRECTINSTALL}" = "yes" ] ; then
   #rm -f ./vs_buildtools.exe
   #${HELPERSPATH}/wine-setver.sh "${WINVER}"
 
+  $WINEATOMIC cmd /c "C:\\Program Files (x86)\\Microsoft Visual Studio\\Installer\\vswhere.exe" -latest -prerelease -property installationPath || true
   $WINEATOMIC cmd /c "C:\\Program Files\\Microsoft Visual Studio\\18\\BuildTools\\VC\\Auxiliary\\Build\\vcvars64.bat" || true
 else
   winetricks vstools2019
