@@ -9,40 +9,40 @@ DIRECTINSTALL="$1"
 
 if [ "${DIRECTINSTALL}" = "yes" ] ; then
   winetricks remove_mono
-  $WINEATOMIC reg delete "HKLM\\Software\\Wow6432Node\\Microsoft\\NET Framework Setup\\NDP" /f || true
-  $WINEATOMIC reg delete "HKLM\\Software\\Wow6432Node\\Microsoft\\.NETFramework" /f || true
+  #$WINEATOMIC reg delete "HKLM\\Software\\Wow6432Node\\Microsoft\\NET Framework Setup\\NDP" /f || true
+  #$WINEATOMIC reg delete "HKLM\\Software\\Wow6432Node\\Microsoft\\.NETFramework" /f || true
 
   WINVER="$(${HELPERSPATH}/wine-getver.sh)"
 
   ${HELPERSPATH}/wine-setver.sh winxp64
-  $WINEATOMIC /home/wineuser/.cache/winetricks/dotnet20sp2/NetFx20SP2_x64.exe /q /norestart || true
+  WINEDLLOVERRIDES="ngen.exe=d" $WINEATOMIC /home/wineuser/.cache/winetricks/dotnet20sp2/NetFx20SP2_x64.exe /q /norestart || true
 
   ${HELPERSPATH}/wine-setver.sh winxp64
-  $WINEATOMIC /home/wineuser/.cache/winetricks/dotnet35sp1/dotnetfx35.exe /q /norestart || true
+  WINEDLLOVERRIDES="ngen.exe=d" $WINEATOMIC /home/wineuser/.cache/winetricks/dotnet35sp1/dotnetfx35.exe /q /norestart || true
 
-  MAXRETRIES=30 ; COUNTER=0 ; SUCCESS=0
-  while [ $SUCCESS -eq 0 ] && [ $COUNTER -lt $MAXRETRIES ] ; do
-    echo "Retry #$COUNTER" >&2
-    if timeout --kill-after=5s 900s $WINEATOMIC cmd /u /c "C:\\Windows\\Microsoft.NET\\Framework\\v2.0.50727\\ngen.exe update" ; then
-      SUCCESS=1
-    else
-      COUNTER=$(( $COUNTER + 1 ))
-      sleep 5s
-    fi
-  done
-  [ $SUCCESS -eq 1 ]
+  #MAXRETRIES=30 ; COUNTER=0 ; SUCCESS=0
+  #while [ $SUCCESS -eq 0 ] && [ $COUNTER -lt $MAXRETRIES ] ; do
+  #  echo "Retry #$COUNTER" >&2
+  #  if timeout --kill-after=5s 900s $WINEATOMIC cmd /u /c "C:\\Windows\\Microsoft.NET\\Framework\\v2.0.50727\\ngen.exe update" ; then
+  #    SUCCESS=1
+  #  else
+  #    COUNTER=$(( $COUNTER + 1 ))
+  #    sleep 5s
+  #  fi
+  #done
+  #[ $SUCCESS -eq 1 ]
 
-  MAXRETRIES=30 ; COUNTER=0 ; SUCCESS=0
-  while [ $SUCCESS -eq 0 ] && [ $COUNTER -lt $MAXRETRIES ] ; do
-    echo "Retry #$COUNTER" >&2
-    if timeout --kill-after=5s 900s $WINEATOMIC cmd /u /c "C:\\Windows\\Microsoft.NET\\Framework64\\v2.0.50727\\ngen.exe update" ; then
-      SUCCESS=1
-    else
-      COUNTER=$(( $COUNTER + 1 ))
-      sleep 5s
-    fi
-  done
-  [ $SUCCESS -eq 1 ]
+  #MAXRETRIES=30 ; COUNTER=0 ; SUCCESS=0
+  #while [ $SUCCESS -eq 0 ] && [ $COUNTER -lt $MAXRETRIES ] ; do
+  #  echo "Retry #$COUNTER" >&2
+  #  if timeout --kill-after=5s 900s $WINEATOMIC cmd /u /c "C:\\Windows\\Microsoft.NET\\Framework64\\v2.0.50727\\ngen.exe update" ; then
+  #    SUCCESS=1
+  #  else
+  #    COUNTER=$(( $COUNTER + 1 ))
+  #    sleep 5s
+  #  fi
+  #done
+  #[ $SUCCESS -eq 1 ]
 
   ${HELPERSPATH}/wine-setver.sh winxp
   $WINEATOMIC /home/wineuser/.cache/winetricks/dotnet40/dotNetFx40_Full_x86_x64.exe /q /norestart
