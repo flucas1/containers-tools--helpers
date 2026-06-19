@@ -21,7 +21,7 @@ if [ "${DIRECTINSTALL}" = "yes" ] ; then
   rm -f /tmp/vsdownload.py
 
   rm -f /tmp/vs_installer.zip
-  /helpers/wget-with-retries.sh "https://aka.ms/vs/${VISUALSTUDIOVERSION}/Release/installer" /tmp/vs_installer.zip
+  /helpers/wget-with-retries.sh "https://aka.ms/vs/${VISUALSTUDIOVERSION}/Stable/installer" /tmp/vs_installer.zip
   mkdir -p "/tmp/vs_installer/"
   unzip /tmp/vs_installer.zip -d "/tmp/vs_installer/"
   rm -f /tmp/vs_installer.zip
