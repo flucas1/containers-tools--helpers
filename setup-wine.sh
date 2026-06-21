@@ -90,7 +90,7 @@ else
   
   mkdir -p /etc/apt/sources.list.d
   printf "Types: deb\nURIs: https://dl.winehq.org/wine-builds/debian\nSuites: $(lsb_release -c -s)\nComponents: main\nArchitectures: amd64 i386\nSigned-By: /etc/apt/keyrings/winehq.asc\n" > /etc/apt/sources.list.d/winehq.sources
-  /helpers/wget-with-retries.sh https://dl.winehq.org/wine-builds/winehq.key /etc/apt/keyrings/winehq.asc
+  ${HELPERSPATH}/wget-with-retries.sh https://dl.winehq.org/wine-builds/winehq.key /etc/apt/keyrings/winehq.asc
   ${HELPERSPATH}/apt-update.sh
 
   if [ "${WINEVERSION}" = "" ] ; then
@@ -152,7 +152,7 @@ if [ "${WINEGRAPE}" = "" ] ; then
 else
   WINETRICKSBIN="/usr/bin/winetricks"
   rm -f "${WINETRICKSBIN}"
-  /helpers/wget-with-retries.sh https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks "${WINETRICKSBIN}"
+  ${HELPERSPATH}/wget-with-retries.sh https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks "${WINETRICKSBIN}"
   chmod +x "${WINETRICKSBIN}"
 fi
 winetricks --version
@@ -174,33 +174,33 @@ if [ "${WINERC}" != "" ] ; then
 fi
 [ "${WINEBRANCH}" != "" ]
 
-#MONOVERSION="$(/helpers/wget-with-retries.sh https://dl.winehq.org/wine/wine-mono/ - | xmlstarlet fo -R 2>/dev/null | xmlstarlet sel -t -v "//_:td[@class='indexcolname']/_:a" 2>/dev/null | tr -d "/" | grep -v - | tail -n +2 | sort -n | tail -n 1)"
-MONOVERSION="$(/helpers/wget-with-retries.sh "https://gitlab.winehq.org/wine/wine/-/raw/wine-${WINEBRANCH}/dlls/appwiz.cpl/addons.c" - | grep "#define MONO_VERSION" | awk '{print $3}' | tr -d '"')"
+#MONOVERSION="$(${HELPERSPATH}/wget-with-retries.sh https://dl.winehq.org/wine/wine-mono/ - | xmlstarlet fo -R 2>/dev/null | xmlstarlet sel -t -v "//_:td[@class='indexcolname']/_:a" 2>/dev/null | tr -d "/" | grep -v - | tail -n +2 | sort -n | tail -n 1)"
+MONOVERSION="$(${HELPERSPATH}/wget-with-retries.sh "https://gitlab.winehq.org/wine/wine/-/raw/wine-${WINEBRANCH}/dlls/appwiz.cpl/addons.c" - | grep "#define MONO_VERSION" | awk '{print $3}' | tr -d '"')"
 [ "${MONOVERSION}" != "" ]
 mkdir -p /usr/share/wine/mono/
 if [ "${ARCHITECTURE}" = "amd64" ] ; then
   LOCALFILENAME="/usr/share/wine/mono/wine-mono-${MONOVERSION}-x86.msi"
   if [ ! -f "${LOCALFILENAME}" ] ; then
-    /helpers/wget-with-retries.sh https://dl.winehq.org/wine/wine-mono/${MONOVERSION}/wine-mono-${MONOVERSION}-x86.msi ${LOCALFILENAME}
+    ${HELPERSPATH}/wget-with-retries.sh https://dl.winehq.org/wine/wine-mono/${MONOVERSION}/wine-mono-${MONOVERSION}-x86.msi ${LOCALFILENAME}
   fi
 fi
 if [ "${ARCHITECTURE}" = "arm64" ] ; then
   echo "dummy mono ${MONOVERSION}"
 fi
 
-#GECKOVERSION="$(/helpers/wget-with-retries.sh https://dl.winehq.org/wine/wine-gecko/ - | xmlstarlet fo -R 2>/dev/null | xmlstarlet sel -t -v "//_:td[@class='indexcolname']/_:a" 2>/dev/null | tr -d "/" | grep -v - | tail -n +2 | sort -n | tail -n 1)"
-GECKOVERSION="$(/helpers/wget-with-retries.sh "https://gitlab.winehq.org/wine/wine/-/raw/wine-${WINEBRANCH}/dlls/appwiz.cpl/addons.c" - | grep "#define GECKO_VERSION" | awk '{print $3}' | tr -d '"')"
+#GECKOVERSION="$(${HELPERSPATH}/wget-with-retries.sh https://dl.winehq.org/wine/wine-gecko/ - | xmlstarlet fo -R 2>/dev/null | xmlstarlet sel -t -v "//_:td[@class='indexcolname']/_:a" 2>/dev/null | tr -d "/" | grep -v - | tail -n +2 | sort -n | tail -n 1)"
+GECKOVERSION="$(${HELPERSPATH}/wget-with-retries.sh "https://gitlab.winehq.org/wine/wine/-/raw/wine-${WINEBRANCH}/dlls/appwiz.cpl/addons.c" - | grep "#define GECKO_VERSION" | awk '{print $3}' | tr -d '"')"
 [ "${GECKOVERSION}" != "" ]
 mkdir -p /usr/share/wine/gecko/
 if [ "${ARCHITECTURE}" = "amd64" ] ; then
   LOCALFILENAME="/usr/share/wine/gecko/wine-gecko-${GECKOVERSION}-x86.msi"
   if [ ! -f "${LOCALFILENAME}" ] ; then
-    /helpers/wget-with-retries.sh https://dl.winehq.org/wine/wine-gecko/${GECKOVERSION}/wine-gecko-${GECKOVERSION}-x86.msi ${LOCALFILENAME}
+    ${HELPERSPATH}/wget-with-retries.sh https://dl.winehq.org/wine/wine-gecko/${GECKOVERSION}/wine-gecko-${GECKOVERSION}-x86.msi ${LOCALFILENAME}
   fi
   
   LOCALFILENAME="/usr/share/wine/gecko/wine-gecko-${GECKOVERSION}-x86_64.msi"
   if [ ! -f "${LOCALFILENAME}" ] ; then
-    /helpers/wget-with-retries.sh https://dl.winehq.org/wine/wine-gecko/${GECKOVERSION}/wine-gecko-${GECKOVERSION}-x86_64.msi ${LOCALFILENAME}
+    ${HELPERSPATH}/wget-with-retries.sh https://dl.winehq.org/wine/wine-gecko/${GECKOVERSION}/wine-gecko-${GECKOVERSION}-x86_64.msi ${LOCALFILENAME}
   fi
 fi
 if [ "${ARCHITECTURE}" = "arm64" ] ; then

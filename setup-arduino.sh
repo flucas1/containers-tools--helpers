@@ -14,7 +14,7 @@ checkLatestGithubVersion()
   CHECKLATESTVERSION_REGEX="v\?[0-9][A-Za-z0-9\.-]*"
   CHECKLATESTVERSION_LATEST_URL="https://github.com/${PROJECT_OWNER}/${PROJECT_NAME}/releases/latest"
   
-  CHECKLATESTVERSION_TAG="$(/helpers/wget-with-retries.sh "${CHECKLATESTVERSION_LATEST_URL}" - | grep -o "<title>Release $CHECKLATESTVERSION_REGEX" | grep -o "$CHECKLATESTVERSION_REGEX")"
+  CHECKLATESTVERSION_TAG="$(${HELPERSPATH}/wget-with-retries.sh "${CHECKLATESTVERSION_LATEST_URL}" - | grep -o "<title>Release $CHECKLATESTVERSION_REGEX" | grep -o "$CHECKLATESTVERSION_REGEX")"
   
   echo "${CHECKLATESTVERSION_TAG}"
 }
@@ -35,7 +35,7 @@ fi
 DOWNLOADURL="https://github.com/arduino/arduino-cli/releases/download/v${ACLIVERSION}/${FILENAME}"
 LOCALCACHEFILENAME="${HELPERSCACHE}/${FILENAME}"
 if [ ! -f "${LOCALCACHEFILENAME}" ] ; then
-  /helpers/wget-with-retries.sh "${DOWNLOADURL}" "${LOCALCACHEFILENAME}"
+  ${HELPERSPATH}/wget-with-retries.sh "${DOWNLOADURL}" "${LOCALCACHEFILENAME}"
 fi
 [ -f "${LOCALCACHEFILENAME}" ]
 
@@ -144,7 +144,7 @@ ${HELPERSPATH}/wget-with-retries.sh "${MICRONUCLEUSURL}" "${MICRONUCLEUSLOCAL}"
 
 #JSONTEMP=$(mktemp)
 #[ "${MICRONUCLEUSPLATFORM}" != "" ]
-#/helpers/wget-with-retries.sh "${BOARDS_URL}" "${JSONTEMP}"
+#${HELPERSPATH}/wget-with-retries.sh "${BOARDS_URL}" "${JSONTEMP}"
 #[ -f "${JSONTEMP}" ]
 #MICRONUCLEUSURL=$(jq -r '.packages[] | .tools | to_entries[] | select(.value.name=="micronucleus" and .value.version=="'${MICRONUCLEUSVERSION}'") | .value.systems[] | select(.host=="'${MICRONUCLEUSPLATFORM}'") | .url' $JSONTEMP)
 #[ "${MICRONUCLEUSURL}" != "" ]

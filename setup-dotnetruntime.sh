@@ -17,7 +17,7 @@ install_dotnetruntime()
   DOTNETRUNTIMEVERSION="$2"
   DOTNETCACHEPATH="$3"
 
-  #/helpers/wget-with-retries.sh https://dot.net/v1/dotnet-install.sh "/usr/bin/dotnet-install.sh"
+  #${HELPERSPATH}/wget-with-retries.sh https://dot.net/v1/dotnet-install.sh "/usr/bin/dotnet-install.sh"
   #chmod +x /usr/bin/dotnet-install.sh
   #/usr/bin/dotnet-install.sh --channel ${DOTNETRUNTIMEVERSION} --install-dir "${TARGETPATH}" --verbose --runtime dotnet
 
@@ -33,7 +33,7 @@ install_dotnetruntime()
   #  rm -f "${LOCALCACHEFILENAME}"
   #fi
   if [ ! -f "${LOCALCACHEFILENAME}" ] ; then
-    /helpers/wget-with-retries.sh "${DOWNLOADURL}" "${LOCALCACHEFILENAME}"
+    ${HELPERSPATH}/wget-with-retries.sh "${DOWNLOADURL}" "${LOCALCACHEFILENAME}"
   fi
   [ -f "${LOCALCACHEFILENAME}" ]
 
@@ -54,7 +54,7 @@ fetch_dotnetruntime_version()
   SUPPORT="$1"
   LINENUMBER="$2"
 
-  /helpers/wget-with-retries.sh https://dotnetcli.blob.core.windows.net/dotnet/release-metadata/releases-index.json - \
+  ${HELPERSPATH}/wget-with-retries.sh https://dotnetcli.blob.core.windows.net/dotnet/release-metadata/releases-index.json - \
     | jq -r '.["releases-index"][] | select(."support-phase"=="'"${SUPPORT}"'") | ."latest-runtime"' \
     | sort --version-sort --reverse \
     | awk -v n=$LINENUMBER 'NR==n'

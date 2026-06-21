@@ -22,9 +22,9 @@ if [ "${CMDLINETOOLS}" != "" ] ; then
       | tail -1
   )
 
-  /helpers/apt-retry-install.sh google-android-cmdline-tools-${CMDLINETOOLS}-installer
-  /helpers/apt-retry-install.sh google-android-build-tools-${BUILDTOOLS}-installer
-  /helpers/apt-retry-install.sh google-android-platform-tools-installer
+  ${HELPERSPATH}/apt-retry-install.sh google-android-cmdline-tools-${CMDLINETOOLS}-installer
+  ${HELPERSPATH}/apt-retry-install.sh google-android-build-tools-${BUILDTOOLS}-installer
+  ${HELPERSPATH}/apt-retry-install.sh google-android-platform-tools-installer
 
   yes | /usr/lib/android-sdk/cmdline-tools/${CMDLINETOOLS}/bin/sdkmanager --licenses
 

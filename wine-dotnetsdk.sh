@@ -3,6 +3,7 @@
 set -e
 set -x
 
+HELPERSPATH="/helpers"
 HELPERSCACHE="/helperscache"
 WINEATOMIC="/wine-atomic.sh"
 DIRECTINSTALL="${1}"
@@ -28,7 +29,7 @@ install_dotnetsdk()
   mkdir -p "${LOCALCACHEDIRECTORY}"
   LOCALCACHEFILENAME="${LOCALCACHEDIRECTORY}/${FILENAME}"
   if [ ! -f "${LOCALCACHEFILENAME}" ] ; then
-    /helpers/wget-with-retries.sh "${DOWNLOADURL}" "${LOCALCACHEFILENAME}"
+    ${HELPERSPATH}/wget-with-retries.sh "${DOWNLOADURL}" "${LOCALCACHEFILENAME}"
   fi
   [ -f "${LOCALCACHEFILENAME}" ]
   $WINEATOMIC "$(winepath ${LOCALCACHEFILENAME})" /install /quiet /norestart
@@ -45,7 +46,7 @@ fetch_dotnetsdk_version()
   SUPPORT="$1"
   LINENUMBER="$2"
 
-  /helpers/wget-with-retries.sh https://dotnetcli.blob.core.windows.net/dotnet/release-metadata/releases-index.json - \
+  ${HELPERSPATH}/wget-with-retries.sh https://dotnetcli.blob.core.windows.net/dotnet/release-metadata/releases-index.json - \
     | jq -r '.["releases-index"][] | select(."support-phase"=="'"${SUPPORT}"'") | ."latest-sdk"' \
     | sort --version-sort --reverse \
     | awk -v n=$LINENUMBER 'NR==n'

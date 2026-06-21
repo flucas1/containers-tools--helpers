@@ -8,7 +8,7 @@ HELPERSCACHE="/helperscache"
 ARG_CACHEPATH="${1}"
 
 rm -f /opt/getvsdbg.sh
-/helpers/wget-with-retries.sh https://aka.ms/getvsdbgsh /opt/getvsdbg.sh
+${HELPERSPATH}/wget-with-retries.sh https://aka.ms/getvsdbgsh /opt/getvsdbg.sh
 
 HOST=$(grep "azurefd.net/vsdbg" /opt/getvsdbg.sh | sed 's/^[[:space:]]*//' | awk -F'=' '{print $2}' | tr -d '"' | awk -F'/' '{print $3}')
 [ "${HOST}" != "" ]
@@ -28,7 +28,7 @@ fi
 mkdir -p "${LOCALCACHEDIRECTORY}"
 LOCALCACHEFILENAME="${LOCALCACHEDIRECTORY}/${FILENAME}"
 if [ ! -f "${LOCALCACHEFILENAME}" ] ; then
-  /helpers/wget-with-retries.sh "${DOWNLOADURL}" "${LOCALCACHEFILENAME}"
+  ${HELPERSPATH}/wget-with-retries.sh "${DOWNLOADURL}" "${LOCALCACHEFILENAME}"
 fi
 [ -f "${LOCALCACHEFILENAME}" ]
 
