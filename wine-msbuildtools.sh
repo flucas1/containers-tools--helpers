@@ -9,7 +9,7 @@ DIRECTINSTALL="$1"
 
 if [ "${DIRECTINSTALL}" = "yes" ] ; then
   rm -f /tmp/vsdownload.py
-  /helpers/wget-with-retries.sh "https://raw.githubusercontent.com/mstorsjo/msvc-wine/refs/heads/master/vsdownload.py" /tmp/vsdownload.py
+  ${HELPERSPATH}/wget-with-retries.sh "https://raw.githubusercontent.com/mstorsjo/msvc-wine/refs/heads/master/vsdownload.py" /tmp/vsdownload.py
   chmod +x /tmp/vsdownload.py
   VISUALSTUDIOVERSION="$(/tmp/vsdownload.py --help | grep -oP '(?<=defaults to )\d+')"
   mkdir -p /tmp/msvc
@@ -21,7 +21,7 @@ if [ "${DIRECTINSTALL}" = "yes" ] ; then
   rm -f /tmp/vsdownload.py
 
   rm -f /tmp/vs_installer.zip
-  /helpers/wget-with-retries.sh "https://aka.ms/vs/${VISUALSTUDIOVERSION}/Stable/installer" /tmp/vs_installer.zip
+  ${HELPERSPATH}/wget-with-retries.sh "https://aka.ms/vs/${VISUALSTUDIOVERSION}/Stable/installer" /tmp/vs_installer.zip
   mkdir -p "/tmp/vs_installer/"
   unzip /tmp/vs_installer.zip -d "/tmp/vs_installer/"
   rm -f /tmp/vs_installer.zip
@@ -31,7 +31,7 @@ if [ "${DIRECTINSTALL}" = "yes" ] ; then
 
   #WINVER="$(${HELPERSPATH}/wine-getver.sh)"
   #${HELPERSPATH}/wine-setver.sh win11
-  #/helpers/wget-with-retries.sh "https://aka.ms/vs/${VISUALSTUDIOVERSION}/${VISUALSTUDIOCHANNEL}/vs_BuildTools.exe" ./vs_buildtools.exe
+  #${HELPERSPATH}/wget-with-retries.sh "https://aka.ms/vs/${VISUALSTUDIOVERSION}/${VISUALSTUDIOCHANNEL}/vs_BuildTools.exe" ./vs_buildtools.exe
   #$WINEATOMIC ./vs_buildtools.exe --quiet --wait --noUpdateInstaller --layout C:\\VSLayout --lang en-US --add Microsoft.VisualStudio.Workload.VCTools || true
   #$WINEATOMIC C:\\VSLayout\\vs_setup.exe --quiet --wait --noUpdateInstaller --noWeb --norestart || true
   #$WINEATOMIC cmd /c rmdir /s /q C:\\VSLayout

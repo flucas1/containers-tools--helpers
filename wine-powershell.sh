@@ -3,6 +3,7 @@
 set -e
 set -x
 
+HELPERSPATH="/helpers"
 HELPERSCACHE="/helperscache"
 WINEATOMIC="/wine-atomic.sh"
 DIRECTINSTALL="$1"
@@ -20,7 +21,7 @@ checkLatestGithubVersion()
   CHECKLATESTVERSION_REGEX="v\?[0-9][A-Za-z0-9\.-]*"
   CHECKLATESTVERSION_LATEST_URL="https://github.com/${PROJECT_OWNER}/${PROJECT_NAME}/releases/latest"
   
-  CHECKLATESTVERSION_TAG="$(/helpers/wget-with-retries.sh "${CHECKLATESTVERSION_LATEST_URL}" - | grep -o "<title>Release $CHECKLATESTVERSION_REGEX" | grep -o "$CHECKLATESTVERSION_REGEX")"
+  CHECKLATESTVERSION_TAG="$(${HELPERSPATH}/wget-with-retries.sh "${CHECKLATESTVERSION_LATEST_URL}" - | grep -o "<title>Release $CHECKLATESTVERSION_REGEX" | grep -o "$CHECKLATESTVERSION_REGEX")"
   
   echo "${CHECKLATESTVERSION_TAG}"
 }
@@ -34,7 +35,7 @@ LOCALCACHEFILENAME="${HELPERSCACHE}/${FILENAME}"
 if [ ! -f "${LOCALCACHEFILENAME}" ] ; then
   rm -f "${LOCALCACHEFILENAME}"
   mkdir -p "${HELPERSCACHE}"
-  /helpers/wget-with-retries.sh "${DOWNLOADURL}" "${LOCALCACHEFILENAME}"
+  ${HELPERSPATH}/wget-with-retries.sh "${DOWNLOADURL}" "${LOCALCACHEFILENAME}"
 fi
 [ -f "${LOCALCACHEFILENAME}" ]
 

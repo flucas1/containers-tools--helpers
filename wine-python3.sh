@@ -3,6 +3,7 @@
 set -e
 set -x
 
+HELPERSPATH="/helpers"
 HELPERSCACHE="/helperscache"
 WINEATOMIC="/wine-atomic.sh"
 DIRECTINSTALL="${1}"
@@ -13,7 +14,7 @@ $WINEATOMIC reg add "HKCU\\SYSTEM\\CurrentControlSet\\Control\\FileSystem" /v Lo
 ARCHITECTURE="$(dpkg --print-architecture)" ; if [ "${ARCHITECTURE}" = "amd64" ] ; then PARTARCH="amd64" ; else if [ "${ARCHITECTURE}" = "arm64" ] ; then PARTARCH="arm64" ; fi ; fi
 [ "${PARTARCH}" != "" ]
 LSBRELEASE="$(lsb_release -c | cut -f2)"
-PYTHONRAWDATA="$(/helpers/wget-with-retries.sh "https://qa.debian.org/madison.php?package=python3&table=debian&s=${LSBRELEASE}&text=on" -)"
+PYTHONRAWDATA="$(${HELPERSPATH}/wget-with-retries.sh "https://qa.debian.org/madison.php?package=python3&table=debian&s=${LSBRELEASE}&text=on" -)"
 PYTHONVERSION="$(echo "${PYTHONRAWDATA}" | awk '{print $3}' | awk -F- '{print $1}' | head -n 1)"
 [ "${PYTHONVERSION}" != "" ]
 
@@ -28,7 +29,7 @@ LOCALCACHEFILENAME="${LOCALCACHEDIRECTORY}/${FILENAME}"
 if [ ! -f "${LOCALCACHEFILENAME}" ] ; then
   rm -f "${LOCALCACHEFILENAME}"
   mkdir -p "${LOCALCACHEDIRECTORY}"
-  /helpers/wget-with-retries.sh "${DOWNLOADURL}" "${LOCALCACHEFILENAME}"
+  ${HELPERSPATH}/wget-with-retries.sh "${DOWNLOADURL}" "${LOCALCACHEFILENAME}"
 fi
 [ -f "${LOCALCACHEFILENAME}" ]
 
