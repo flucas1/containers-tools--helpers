@@ -1,3 +1,10 @@
+#!/usr/bin/env sh
+
+set -e
+set -x
+
+HELPERSPATH="/helpers"
+
 mkdir -p /opt/ltp
 
 /helpers/pip-retry-install.sh language-tool-python
