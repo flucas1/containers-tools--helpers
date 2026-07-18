@@ -126,5 +126,4 @@ ${HELPERSPATH}/apt-retry-install.sh jbig2
 #${HELPERSPATH}/apt-retry-install.sh python3-dev
 #${HELPERSPATH}/pip-retry-install.sh pymupdf
 
-# so sticking to pip 1.25.2
-${HELPERSPATH}/pip-retry-install.sh pymupdf==1.25.2
+${HELPERSPATH}/pip-retry-install.sh pymupdf
