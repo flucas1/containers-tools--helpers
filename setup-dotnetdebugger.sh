@@ -10,7 +10,7 @@ ARG_CACHEPATH="${1}"
 rm -f /opt/getvsdbg.sh
 ${HELPERSPATH}/wget-with-retries.sh https://aka.ms/getvsdbgsh /opt/getvsdbg.sh
 
-HOST=$(grep "__MetaBaseUrl=" /opt/getvsdbg.sh | head -n 1 | awk -F'=' '{print $2}' | tr -d '"')
+HOST=$(grep "__RetainedDownloadBaseUrl=" /opt/getvsdbg.sh | head -n 1 | awk -F'=' '{print $2}' | tr -d '"')
 [ "${HOST}" != "" ]
 VERSION=$(grep "__VsDbgVersion=" /opt/getvsdbg.sh | sed 's/^[[:space:]]*//' | awk -F'=' '{print $2}' | tr -d '"' | grep -E '^[0-9.]+$' | sort -Vr | head -n 1)
 [ "${VERSION}" != "" ]
