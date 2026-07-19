@@ -5,6 +5,7 @@ set -x
 
 HELPERSPATH="/helpers"
 HELPERSCACHE="/helperscache"
+ARG_CACHEPATH="${1}"
 
 checkLatestGithubVersion()
 {
@@ -33,7 +34,12 @@ fi
 [ "${FILENAME}" != "" ]
 
 DOWNLOADURL="https://github.com/arduino/arduino-cli/releases/download/v${ACLIVERSION}/${FILENAME}"
-LOCALCACHEFILENAME="${HELPERSCACHE}/${FILENAME}"
+LOCALCACHEDIRECTORY="${ARG_CACHEPATH}"
+if [ -z "${LOCALCACHEDIRECTORY}" ] ; then
+  LOCALCACHEDIRECTORY="/tmp/micronucleus"
+fi
+mkdir -p "${LOCALCACHEDIRECTORY}"
+LOCALCACHEFILENAME="${LOCALCACHEDIRECTORY}/${FILENAME}"
 if [ ! -f "${LOCALCACHEFILENAME}" ] ; then
   ${HELPERSPATH}/wget-with-retries.sh "${DOWNLOADURL}" "${LOCALCACHEFILENAME}"
 fi
