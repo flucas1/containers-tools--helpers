@@ -20,7 +20,8 @@ ARCHITECTURE="$(dpkg --print-architecture)"
 if [ "${ARCHITECTURE}" = "amd64" ] ; then RUNTIME="linux-x64" ; else if [ "${ARCHITECTURE}" = "arm64" ] ; then RUNTIME="linux-arm64" ; fi ; fi
 
 FILENAME="vsdbg-${VERSION}-${RUNTIME}.tar.gz"
-DOWNLOADURL="https://${HOST}/vsdbg-${TARGET}-${RUNTIME}.tar.gz"
+#DOWNLOADURL="https://${HOST}/vsdbg-${TARGET}-${RUNTIME}.tar.gz"
+DOWNLOADURL="https://${HOST}/vsdbg-${RUNTIME}.tar.gz"
 LOCALCACHEDIRECTORY="${ARG_CACHEPATH}"
 if [ -z "${LOCALCACHEDIRECTORY}" ] ; then
   LOCALCACHEDIRECTORY="/tmp/dotnetcache"
