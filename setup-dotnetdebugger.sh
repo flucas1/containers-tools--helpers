@@ -10,8 +10,8 @@ ARG_CACHEPATH="${1}"
 rm -f /opt/getvsdbg.sh
 ${HELPERSPATH}/wget-with-retries.sh https://aka.ms/getvsdbgsh /opt/getvsdbg.sh
 
-HOST=$(grep "__RetainedDownloadBaseUrl=" /opt/getvsdbg.sh | head -n 1 | awk -F'=' '{print $2}' | tr -d '"')
-[ "${HOST}" != "" ]
+BASEURL=$(grep "__MetaBaseUrl=" /opt/getvsdbg.sh | head -n 1 | awk -F'=' '{print $2}' | tr -d '"')
+[ "${BASEURL}" != "" ]
 VERSION=$(grep "__VsDbgVersion=" /opt/getvsdbg.sh | sed 's/^[[:space:]]*//' | awk -F'=' '{print $2}' | tr -d '"' | grep -E '^[0-9.]+$' | sort -Vr | head -n 1)
 [ "${VERSION}" != "" ]
 TARGET=$(echo "${VERSION}" | tr '.' '-')
@@ -20,8 +20,8 @@ ARCHITECTURE="$(dpkg --print-architecture)"
 if [ "${ARCHITECTURE}" = "amd64" ] ; then RUNTIME="linux-x64" ; else if [ "${ARCHITECTURE}" = "arm64" ] ; then RUNTIME="linux-arm64" ; fi ; fi
 
 FILENAME="vsdbg-${VERSION}-${RUNTIME}.tar.gz"
-#DOWNLOADURL="https://${HOST}/vsdbg-${TARGET}-${RUNTIME}.tar.gz"
-DOWNLOADURL="https://${HOST}/vsdbg-${RUNTIME}.tar.gz"
+#DOWNLOADURL="${BASEURL}/vsdbg-${TARGET}-${RUNTIME}.tar.gz"
+DOWNLOADURL="${BASEURL}/vsdbg-${RUNTIME}.tar.gz"
 LOCALCACHEDIRECTORY="${ARG_CACHEPATH}"
 if [ -z "${LOCALCACHEDIRECTORY}" ] ; then
   LOCALCACHEDIRECTORY="/tmp/dotnetcache"
