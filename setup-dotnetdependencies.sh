@@ -12,7 +12,7 @@ ${HELPERSPATH}/apt-retry-install.sh libssl3t64
 ${HELPERSPATH}/apt-retry-install.sh libstdc++6
 ${HELPERSPATH}/apt-retry-install.sh tzdata
 ${HELPERSPATH}/apt-retry-install.sh zlib1g
-${HELPERSPATH}/apt-retry-install.sh libgdiplus
+#${HELPERSPATH}/apt-retry-install.sh libgdiplus
 ${HELPERSPATH}/apt-retry-install.sh libfreetype6
 ${HELPERSPATH}/apt-retry-install.sh libfontconfig1
 ${HELPERSPATH}/apt-retry-install.sh wget
