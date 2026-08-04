@@ -10,7 +10,12 @@ ${HELPERSPATH}/apt-retry-install.sh aptitude
 MAXRETRIES=30 ; COUNTER=0 ; SUCCESS=0
 while [ $SUCCESS -eq 0 ] && [ $COUNTER -lt $MAXRETRIES ] ; do
   echo "Retry #$COUNTER" >&2
-  if timeout --kill-after=5s 900s aptitude safe-upgrade -y ; then
+  if [ $((COUNTER % 2)) -eq 1 ]; then
+    APT_OPTS='-o Acquire::http::Proxy-Auto-Detect=""'
+  else
+    APT_OPTS=""
+  fi
+  if timeout --kill-after=5s 900s aptitude $APT_OPTS safe-upgrade -y ; then
     SUCCESS=1
   else
     COUNTER=$(( $COUNTER + 1 ))
@@ -24,7 +29,12 @@ done
 MAXRETRIES=30 ; COUNTER=0 ; SUCCESS=0
 while [ $SUCCESS -eq 0 ] && [ $COUNTER -lt $MAXRETRIES ] ; do
   echo "Retry #$COUNTER" >&2
-  if timeout --kill-after=5s 900s aptitude full-upgrade --without-recommends --allow-new-upgrades --allow-new-installs ; then
+  if [ $((COUNTER % 2)) -eq 1 ]; then
+    APT_OPTS='-o Acquire::http::Proxy-Auto-Detect=""'
+  else
+    APT_OPTS=""
+  fi
+  if timeout --kill-after=5s 900s aptitude $APT_OPTS full-upgrade --without-recommends --allow-new-upgrades --allow-new-installs ; then
     SUCCESS=1
   else
     COUNTER=$(( $COUNTER + 1 ))
