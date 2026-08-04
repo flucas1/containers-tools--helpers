@@ -9,6 +9,10 @@ dpkg --configure -a
 
 APTARGUMENTS="-q=1 -y"
 
+if [ "${DISABLEAPTPROXYAUTODETECT}" = "true" ]; then
+  APTARGUMENTS="-o Acquire::http::Proxy-Auto-Detect='' ${APTARGUMENTS}"
+fi
+
 if [ -f /usr/bin/aptitude ] ; then
   APTBINARY="/usr/bin/aptitude"
   APTARGUMENTS="--without-recommends --allow-new-upgrades --allow-new-installs ${APTARGUMENTS}"

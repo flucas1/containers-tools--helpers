@@ -10,7 +10,12 @@ HELPERSPATH="/helpers"
 MAXRETRIES=30 ; COUNTER=0 ; SUCCESS=0
 while [ $SUCCESS -eq 0 ] && [ $COUNTER -lt $MAXRETRIES ] ; do
   echo "Retry #$COUNTER" >&2
-  if timeout --kill-after=5s 1500s ${HELPERSPATH}/apt-force-install.sh ${PACKAGELIST} ; then
+  if [ $((COUNTER % 2)) -eq 1 ]; then
+    DISABLEAPTPROXYAUTODETECT="true"
+  else
+    DISABLEAPTPROXYAUTODETECT="false"
+  fi
+  if DISABLEAPTPROXYAUTODETECT="${DISABLEAPTPROXYAUTODETECT}" timeout --kill-after=5s 1500s ${HELPERSPATH}/apt-force-install.sh ${PACKAGELIST} ; then
     SUCCESS=1
   else
     COUNTER=$(( $COUNTER + 1 ))
