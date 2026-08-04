@@ -10,7 +10,7 @@ dpkg --configure -a
 APTARGUMENTS="-q=1 -y"
 
 if [ "${DISABLEAPTPROXYAUTODETECT}" = "true" ]; then
-  APTARGUMENTS="-o Acquire::http::Proxy-Auto-Detect=/usr/bin/true ${APTARGUMENTS}"
+  APTARGUMENTS="-o Acquire::http::Proxy-Auto-Detect=${HELPERSPATH}/echo-DIRECT.sh ${APTARGUMENTS}"
 fi
 
 if [ -f /usr/bin/aptitude ] ; then
