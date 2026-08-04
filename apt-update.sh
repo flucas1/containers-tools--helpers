@@ -9,7 +9,7 @@ MAXRETRIES=30 ; COUNTER=0 ; SUCCESS=0
 while [ $SUCCESS -eq 0 ] && [ $COUNTER -lt $MAXRETRIES ] ; do
   echo "Retry #$COUNTER" >&2
   if [ $((COUNTER % 2)) -eq 1 ]; then
-    APT_OPTS="-o Acquire::http::Proxy-Auto-Detect='/usr/bin/true'"
+    APT_OPTS="-o Acquire::http::Proxy-Auto-Detect=/usr/bin/true"
   else
     APT_OPTS=""
   fi
