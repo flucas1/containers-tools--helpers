@@ -3,6 +3,8 @@
 set -e
 set -x
 
+HELPERSPATH="/helpers"
+
 PACKAGELIST="$*"
 
 dpkg --configure -a
