@@ -10,6 +10,7 @@ printf "APT::Acquire::Pipeline-Depth \"0\";" > /etc/apt/apt.conf.d/80-pipeline
 printf "APT::Acquire::http::timeout \"5\";" > /etc/apt/apt.conf.d/80-timeout
 printf "APT::Update::Error-Mode \"any\";" > /etc/apt/apt.conf.d/80-errormode
 printf "Dpkg::Use-Pty \"0\";" > /etc/apt/apt.conf.d/80-usepty
+sed -i "s/^Acquire::http::Proxy-Auto-Detect /#Acquire::http::Proxy-Auto-Detect /" /etc/apt/apt.conf.d/auto-apt-proxy.conf
 
 #rm -rf /var/cache/apt/archives/partial
 #mkdir -p /var/cache/apt/archives/partial
