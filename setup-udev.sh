@@ -7,14 +7,17 @@ HELPERSPATH="/helpers"
 
 create_dev()
 {
-    dev=$1
-    type=$2
-    major=$3
-    minor=$4
+  dev=$1
+  type=$2
+  major=$3
+  minor=$4
 
+  if [ -e "$dev" ]; then
     rm -f "$dev"
-    mkdir -p "$(dirname "$dev")"
-    mknod "$dev" "$type" "$major" "$minor"
+  fi
+
+  mkdir -p "$(dirname "$dev")"
+  mknod "$dev" "$type" "$major" "$minor"
 }
 
 create_dev /dev/snd/seq        c 116 1
