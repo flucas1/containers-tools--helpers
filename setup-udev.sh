@@ -5,7 +5,8 @@ set -x
 
 HELPERSPATH="/helpers"
 
-mount -t tmpfs tmpfs /tmp/dummy-dev
+tmpdir=$(mktemp -d /tmp/dummy-dev.XXXXXX)
+mount -t tmpfs tmpfs "$tmpdir"
 
 create_dev()
 {
