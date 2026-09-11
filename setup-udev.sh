@@ -5,9 +5,6 @@ set -x
 
 HELPERSPATH="/helpers"
 
-tmpdir=$(mktemp -d /tmp/dummy-dev.XXXXXX)
-mount -t tmpfs tmpfs "$tmpdir"
-
 create_dev()
 {
   dev=$1
@@ -18,8 +15,8 @@ create_dev()
   mkdir -p "$(dirname "$dev")"
   if [ ! -w "$file" ]; then
     echo "The device $dev is not writable"
-    mknod /tmp/dummy-dev/"$(basename "$dev")" "$type" "$major" "$minor"
-    mount --bind /tmp/dummy-dev/"$(basename "$dev")" "$dev"
+    rm -f "$dev"
+    mknod "$dev" "$type" "$major" "$minor"
   fi
 }
 
