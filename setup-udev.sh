@@ -12,12 +12,15 @@ create_dev()
   major=$3
   minor=$4
 
-  if [ -e "$dev" ]; then
-    rm -f "$dev"
+  if [ ! -w "$file" ]; then
+    echo "The device $dev is not writable"
+    exit 1
   fi
 
-  mkdir -p "$(dirname "$dev")"
-  mknod "$dev" "$type" "$major" "$minor"
+  if [ ! -e "$dev" ]; then
+    mkdir -p "$(dirname "$dev")"
+    mknod "$dev" "$type" "$major" "$minor"
+  fi
 }
 
 create_dev /dev/snd/seq        c 116 1
