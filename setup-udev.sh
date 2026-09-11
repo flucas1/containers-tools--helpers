@@ -5,7 +5,7 @@ set -x
 
 HELPERSPATH="/helpers"
 
-mount -o remount,rw /dev
+mount -t tmpfs tmpfs /tmp/dummy-dev
 
 create_dev()
 {
@@ -14,15 +14,13 @@ create_dev()
   major=$3
   minor=$4
 
+  mkdir -p "$(dirname "$dev")"
   if [ ! -w "$file" ]; then
     echo "The device $dev is not writable"
-    exit 1
+    mknod /tmp/dummy-dev/"$(basename "$dev")" "$type" "$major" "$minor"
+    mount --bind /tmp/dummy-dev/"$(basename "$dev")" "$dev"
   fi
 
-  if [ ! -e "$dev" ]; then
-    mkdir -p "$(dirname "$dev")"
-    mknod "$dev" "$type" "$major" "$minor"
-  fi
 }
 
 create_dev /dev/snd/seq        c 116 1
