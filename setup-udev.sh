@@ -5,6 +5,8 @@ set -x
 
 HELPERSPATH="/helpers"
 
+mount -o remount,rw /dev
+
 create_dev()
 {
   dev=$1
