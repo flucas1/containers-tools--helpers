@@ -38,6 +38,7 @@ ${HELPERSPATH}/apt-retry-install.sh curl
 ${HELPERSPATH}/apt-retry-install.sh wget
 ${HELPERSPATH}/apt-retry-install.sh gpg
 ${HELPERSPATH}/apt-retry-install.sh gnupg
+${HELPERSPATH}/apt-retry-install.sh libcap2-bin
 
 ${HELPERSPATH}/apt-retry-install.sh force-ip-protocol
 sed -i "s|^LIB=/usr/lib/\*/\$LIBNAME|LIB=/usr/lib/\$(dpkg-architecture -qDEB_HOST_MULTIARCH)/\$LIBNAME|" /usr/bin/ipv4
