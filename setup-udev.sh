@@ -20,7 +20,6 @@ create_dev()
     mknod /tmp/dummy-dev/"$(basename "$dev")" "$type" "$major" "$minor"
     mount --bind /tmp/dummy-dev/"$(basename "$dev")" "$dev"
   fi
-
 }
 
 create_dev /dev/snd/seq        c 116 1
