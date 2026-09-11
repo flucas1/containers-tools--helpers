@@ -10,7 +10,6 @@ printf "APT::Acquire::Pipeline-Depth \"0\";" > /etc/apt/apt.conf.d/80-pipeline
 printf "APT::Acquire::http::timeout \"5\";" > /etc/apt/apt.conf.d/80-timeout
 printf "APT::Update::Error-Mode \"any\";" > /etc/apt/apt.conf.d/80-errormode
 printf "Dpkg::Use-Pty \"0\";" > /etc/apt/apt.conf.d/80-usepty
-sed -i "s/^Acquire::http::Proxy-Auto-Detect /#Acquire::http::Proxy-Auto-Detect /" /etc/apt/apt.conf.d/auto-apt-proxy.conf
 
 #rm -rf /var/cache/apt/archives/partial
 #mkdir -p /var/cache/apt/archives/partial
@@ -38,6 +37,7 @@ http_proxy="${APTCACHER}" ${HELPERSPATH}/apt-update.sh
 
 http_proxy="${APTCACHER}" ${HELPERSPATH}/apt-retry-install.sh iproute2
 http_proxy="${APTCACHER}" ${HELPERSPATH}/apt-retry-install.sh auto-apt-proxy
+sed -i "s/^Acquire::http::Proxy-Auto-Detect /#Acquire::http::Proxy-Auto-Detect /" /etc/apt/apt.conf.d/auto-apt-proxy.conf
 
 ${HELPERSPATH}/apt-retry-install.sh apt-transport-https
 ${HELPERSPATH}/apt-retry-install.sh ca-certificates
