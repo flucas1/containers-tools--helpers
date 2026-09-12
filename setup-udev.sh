@@ -46,9 +46,10 @@ mkdir "${UDEVEXPAND}"
 DOWNLOADED="$(ls ${UDEVDOWNLOAD}/udev_*.deb)"
 dpkg-deb -R "${DOWNLOADED}" "${UDEVEXPAND}"
 
-rm "${UDEVEXPAND}/DEBIAN/postinst"
+mv "${UDEVEXPAND}/DEBIAN/postinst" "${UDEVDOWNLOAD}/postinst"
 dpkg-deb -b "${UDEVEXPAND}" "${UDEVDOWNLOAD}/udev-no-postinst.deb"
 rm -rf "${UDEVEXPAND}"
 
 dpkg -i "${UDEVDOWNLOAD}/udev-no-postinst.deb"
+sh "${UDEVDOWNLOAD}/postinst" || true
 rm -rf "${UDEVDOWNLOAD}"
