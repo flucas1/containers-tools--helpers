@@ -5,6 +5,15 @@ set -x
 
 HELPERSPATH="/helpers"
 
+${HELPERSPATH}/apt-retry-install.sh libacl1
+${HELPERSPATH}/apt-retry-install.sh libblkid1
+${HELPERSPATH}/apt-retry-install.sh libcap2
+${HELPERSPATH}/apt-retry-install.sh libkmod2
+${HELPERSPATH}/apt-retry-install.sh libselinux1
+${HELPERSPATH}/apt-retry-install.sh libudev1
+${HELPERSPATH}/apt-retry-install.sh libsystemd-shared
+${HELPERSPATH}/apt-retry-install.sh systemd
+${HELPERSPATH}/apt-retry-install.sh systemd-dev
 #${HELPERSPATH}/apt-retry-install.sh udev
 
 UDEVDOWNLOAD="/tmp/udev-deb"
