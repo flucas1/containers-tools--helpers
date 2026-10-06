@@ -26,5 +26,10 @@ ${HELPERSPATH}/apt-retry-install.sh python3-setuptools
 ${HELPERSPATH}/apt-retry-install.sh python3-secretstorage
 ${HELPERSPATH}/apt-retry-install.sh python3-aiofiles
 ${HELPERSPATH}/apt-retry-install.sh python3-cysignals-bare
+${HELPERSPATH}/apt-retry-install.sh python3-aiohttp
+${HELPERSPATH}/apt-retry-install.sh python3-aiohttp-socks
+${HELPERSPATH}/apt-retry-install.sh python3-aiosmtplib
+${HELPERSPATH}/apt-retry-install.sh python3-aiofiles
+${HELPERSPATH}/apt-retry-install.sh python3-asyncssh
 
 /usr/bin/python3 --version
