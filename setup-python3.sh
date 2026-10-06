@@ -31,5 +31,6 @@ ${HELPERSPATH}/apt-retry-install.sh python3-aiohttp-socks
 ${HELPERSPATH}/apt-retry-install.sh python3-aiosmtplib
 ${HELPERSPATH}/apt-retry-install.sh python3-aiofiles
 ${HELPERSPATH}/apt-retry-install.sh python3-asyncssh
+${HELPERSPATH}/apt-retry-install.sh python3-aioimaplib
 
 /usr/bin/python3 --version
