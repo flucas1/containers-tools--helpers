@@ -18,5 +18,4 @@ $WINEATOMIC python.exe -m pip install --upgrade pillow
 $WINEATOMIC python.exe -m pip install --upgrade asyncssh
 $WINEATOMIC python.exe -m pip install --upgrade aiohttp
 $WINEATOMIC python.exe -m pip install --upgrade aiofiles
-#$WINEATOMIC python.exe -m pip install --upgrade netifaces
-
+$WINEATOMIC python.exe -m pip install --upgrade netifaces2

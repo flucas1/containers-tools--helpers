@@ -12,7 +12,7 @@ ${HELPERSPATH}/apt-retry-install.sh python3-paramiko
 ${HELPERSPATH}/apt-retry-install.sh python3-requests
 ${HELPERSPATH}/apt-retry-install.sh python3-cryptography
 ${HELPERSPATH}/apt-retry-install.sh python3-icmplib
-${HELPERSPATH}/apt-retry-install.sh python3-netifaces
+${HELPERSPATH}/apt-retry-install.sh python3-netifaces2
 ${HELPERSPATH}/apt-retry-install.sh python3-pycurl
 ${HELPERSPATH}/apt-retry-install.sh python3-dnspython
 ${HELPERSPATH}/apt-retry-install.sh python3-dateutil
