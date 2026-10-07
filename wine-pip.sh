@@ -16,3 +16,6 @@ $WINEATOMIC python.exe -m pip install --upgrade langdetect
 $WINEATOMIC python.exe -m pip install --upgrade language_tool_python
 $WINEATOMIC python.exe -m pip install --upgrade setuptools
 $WINEATOMIC python.exe -m pip install --upgrade pillow
+$WINEATOMIC python.exe -m pip install --upgrade aiohttp
+$WINEATOMIC python.exe -m pip install --upgrade aiofiles
+
