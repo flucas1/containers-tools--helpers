@@ -13,3 +13,4 @@ ${HELPERSPATH}/wget-with-retries.sh "https://raw.githubusercontent.com/dotnet/sd
 
 update-ca-certificates
 
+
