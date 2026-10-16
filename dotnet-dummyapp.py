@@ -3,9 +3,9 @@
 
 import os
 import sys
-import subprocess
 import tempfile
 import shutil
+import asyncio
 
 #-------------------------------------------------------------------------------
 
@@ -14,19 +14,33 @@ def infomsg(msg):
 
 #-------------------------------------------------------------------------------
 
-def execute_cmdline(cmdline,dotnetenv):
+async def execute_cmdline(cmdline, dotnetenv):
     #dotnetenv = {}
     #dotnetenv["DOTNET_CLI_UI_LANGUAGE"] = "en-us"
     myencoding = None
 
-    infomsg("executing cmdline -> "+" ".join(cmdline))
-    completed = subprocess.run(cmdline, capture_output=True, encoding=myencoding, env=dotnetenv, check=True)
-    infomsg(completed.stdout.decode().strip())
-    infomsg(completed.stderr.decode().strip())
+    infomsg("executing cmdline -> " + " ".join(cmdline))
+
+    process = await asyncio.create_subprocess_exec(
+        *cmdline,
+        stdout=asyncio.subprocess.PIPE,
+        stderr=asyncio.subprocess.PIPE,
+        env=dotnetenv
+    )
+
+    stdout, stderr = await process.communicate()
+
+    if process.returncode != 0:
+        raise RuntimeError(f"Command '{' '.join(cmdline)}' failed with exit status {process.returncode}")
+
+    if stdout:
+        infomsg(stdout.decode(myencoding or 'utf-8').strip())
+    if stderr:
+        infomsg(stderr.decode(myencoding or 'utf-8').strip())
 
 #-------------------------------------------------------------------------------
 
-def main():
+async def main():
     errors = 0
     
     tempdir = None
@@ -48,11 +62,11 @@ def main():
         
         infomsg("Creating skeleton console application")
         cmdline = ["dotnet","new","console","--use-program-main"]
-        execute_cmdline(cmdline,dotnetenv)
+        await execute_cmdline(cmdline,dotnetenv)
         
         infomsg("Running the application")
         cmdline = ["dotnet","run"]
-        execute_cmdline(cmdline,dotnetenv)
+        await execute_cmdline(cmdline,dotnetenv)
     except Exception as e:
         errors = errors+1
         infomsg(e)
@@ -72,6 +86,6 @@ def main():
 #-------------------------------------------------------------------------------
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())
 
 #-------------------------------------------------------------------------------
