@@ -33,4 +33,6 @@ ${HELPERSPATH}/apt-retry-install.sh python3-aiofiles
 ${HELPERSPATH}/apt-retry-install.sh python3-asyncssh
 ${HELPERSPATH}/apt-retry-install.sh python3-aioimaplib
 
+${HELPERSPATH}/pip-retry-install.sh nodriver
+
 /usr/bin/python3 --version
