@@ -142,9 +142,14 @@ Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
 DELIMITER_END_RAW_TEXT
 cat /etc/apt/sources.list.d/debian.sources
 
-echo "APT::Default-Release \"${DEBIANBASE}\";" > /etc/apt/apt.conf.d/20-tum.conf
+echo "#APT::Default-Release \"${DEBIANBASE}\";" > /etc/apt/apt.conf.d/20-tum.conf
 
 cat > /etc/apt/preferences << DELIMITER_END_RAW_TEXT
+################################################################################
+#
+# The "Default-Release" in APT has P=990
+# The "Default-Release" should be commented to this to work
+#
 # P >= 1000       --- causes a version to be installed even if this constitutes a downgrade of the package
 # 990 <= P < 1000 --- causes a version to be installed even if it does not come from the target release, unless the installed version is more recent
 # 500 <= P <  990 --- causes a version to be installed unless there is a version available belonging to the target release or the installed version is more recent
@@ -152,6 +157,15 @@ cat > /etc/apt/preferences << DELIMITER_END_RAW_TEXT
 # 0   <  P <  100 --- causes a version to be installed only if there is no installed version of the package
 # P < 0           --- prevents the version from being installed
 # P = 0           --- has undefined behaviour, do not use it
+#
+# The repository "testing-security" should have higher priority than "testing".
+# The repository "stable-security" should have higher priority than "stable".
+# The repository "stable-security" should have higher or equal priority than "stable", and equal to "testing".
+#
+# In many cases security updates are only published in "stable-security", leaving an insecure version in "testing".
+# This typically happens when stable or stable-backports and testing share the same version.
+#
+################################################################################
 
 
 
