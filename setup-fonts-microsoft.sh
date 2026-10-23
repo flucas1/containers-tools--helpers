@@ -5,7 +5,11 @@ set -x
 
 HELPERSPATH="/helpers"
 
+MSCOREFONTSCACHE="/root/mscorefonts"
+
 echo "ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true" | debconf-set-selections
-echo "ttf-mscorefonts-installer msttcorefonts/dldir string /root/mscorefonts" | debconf-set-selections
+if [ -d "${MSCOREFONTSCACHE}" ] && [ "$(ls -a ${MSCOREFONTSCACHE} 2>/dev/null)" ]; then
+    echo "ttf-mscorefonts-installer msttcorefonts/dldir string ${MSCOREFONTSCACHE}" | debconf-set-selections
+fi
 ${HELPERSPATH}/apt-retry-install.sh ttf-mscorefonts-installer
 echo "ttf-mscorefonts-installer msttcorefonts/dldir string" | debconf-set-selections
