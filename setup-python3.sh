@@ -32,6 +32,8 @@ ${HELPERSPATH}/apt-retry-install.sh python3-aiosmtplib
 ${HELPERSPATH}/apt-retry-install.sh python3-aiofiles
 ${HELPERSPATH}/apt-retry-install.sh python3-asyncssh
 ${HELPERSPATH}/apt-retry-install.sh python3-aioimaplib
+${HELPERSPATH}/apt-retry-install.sh python3-aiosqlite
+${HELPERSPATH}/apt-retry-install.sh python3-aiocsv
 
 ${HELPERSPATH}/pip-retry-install.sh nodriver
 
