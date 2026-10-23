@@ -8,7 +8,7 @@ HELPERSPATH="/helpers"
 MSCOREFONTSCACHE="/root/mscorefonts"
 
 echo "ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true" | debconf-set-selections
-if [ -d "${MSCOREFONTSCACHE}" ] && [ "$(ls -a ${MSCOREFONTSCACHE} 2>/dev/null)" ]; then
+if [ -d "${MSCOREFONTSCACHE}" ] && [ -f "${MSCOREFONTSCACHE}/andale32.exe" ]; then
     echo "ttf-mscorefonts-installer msttcorefonts/dldir string ${MSCOREFONTSCACHE}" | debconf-set-selections
 fi
 ${HELPERSPATH}/apt-retry-install.sh ttf-mscorefonts-installer
