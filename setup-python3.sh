@@ -34,6 +34,7 @@ ${HELPERSPATH}/apt-retry-install.sh python3-asyncssh
 ${HELPERSPATH}/apt-retry-install.sh python3-aioimaplib
 ${HELPERSPATH}/apt-retry-install.sh python3-aiosqlite
 ${HELPERSPATH}/apt-retry-install.sh python3-aiocsv
+${HELPERSPATH}/apt-retry-install.sh python3-kubernetes
 
 ${HELPERSPATH}/pip-retry-install.sh nodriver
 
