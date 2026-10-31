@@ -5,4 +5,4 @@ set -x
 
 HELPERSPATH="/helpers"
 
-${HELPERSPATH}/apt-retry-install.sh openjdk-17-jre
+${HELPERSPATH}/apt-retry-install.sh openjdk-25-jre
