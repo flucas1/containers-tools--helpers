@@ -17,12 +17,13 @@ checkLatestGithubVersion()
 {
   local PROJECT_OWNER="$1"
   local PROJECT_NAME="$2"
-  
+
   CHECKLATESTVERSION_REGEX="v\?[0-9][A-Za-z0-9\.-]*"
   CHECKLATESTVERSION_LATEST_URL="https://github.com/${PROJECT_OWNER}/${PROJECT_NAME}/releases/latest"
-  
-  CHECKLATESTVERSION_TAG="$(${HELPERSPATH}/wget-with-retries.sh "${CHECKLATESTVERSION_LATEST_URL}" - | grep -o "<title>Release $CHECKLATESTVERSION_REGEX" | grep -o "$CHECKLATESTVERSION_REGEX")"
-  
+
+  DOWNLOADEDRAWDATA="$(${HELPERSPATH}/wget-with-retries.sh "${CHECKLATESTVERSION_LATEST_URL}" -)"
+  CHECKLATESTVERSION_TAG="$(echo "${DOWNLOADEDRAWDATA}" | grep -o "<title>Release $CHECKLATESTVERSION_REGEX" | grep -o "$CHECKLATESTVERSION_REGEX")"
+
   echo "${CHECKLATESTVERSION_TAG}"
 }
 
