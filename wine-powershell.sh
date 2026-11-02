@@ -22,7 +22,9 @@ checkLatestGithubVersion()
   CHECKLATESTVERSION_LATEST_URL="https://github.com/${PROJECT_OWNER}/${PROJECT_NAME}/releases/latest"
 
   DOWNLOADEDRAWDATA="$(${HELPERSPATH}/wget-with-retries.sh "${CHECKLATESTVERSION_LATEST_URL}" -)"
+  [ "${DOWNLOADEDRAWDATA}" != "" ]
   CHECKLATESTVERSION_TAG="$(echo "${DOWNLOADEDRAWDATA}" | grep -o "<title>Release $CHECKLATESTVERSION_REGEX" | grep -o "$CHECKLATESTVERSION_REGEX")"
+  [ "${CHECKLATESTVERSION_TAG}" != "" ]
 
   echo "${CHECKLATESTVERSION_TAG}"
 }

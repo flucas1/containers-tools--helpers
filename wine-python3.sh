@@ -15,6 +15,7 @@ ARCHITECTURE="$(dpkg --print-architecture)" ; if [ "${ARCHITECTURE}" = "amd64" ]
 [ "${PARTARCH}" != "" ]
 LSBRELEASE="$(lsb_release -c | cut -f2)"
 DOWNLOADEDRAWDATA="$(${HELPERSPATH}/wget-with-retries.sh "https://qa.debian.org/madison.php?package=python3&table=debian&s=${LSBRELEASE}&text=on" -)"
+[ "${DOWNLOADEDRAWDATA}" != "" ]
 PYTHONVERSION="$(echo "${DOWNLOADEDRAWDATA}" | awk '{print $3}' | awk -F- '{print $1}' | head -n 1)"
 [ "${PYTHONVERSION}" != "" ]
 

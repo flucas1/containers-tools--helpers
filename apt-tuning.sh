@@ -50,6 +50,7 @@ if [ "${DEBIANBASE}" = "" ] ; then
   DEBIANBASE="$(lsb_release -c -s)"
 else
   DOWNLOADEDRAWDATA="$(${HELPERSPATH}/wget-with-retries.sh "https://deb.debian.org/debian/dists/${DEBIANBASE}/Release" -)"
+  [ "${DOWNLOADEDRAWDATA}" != "" ]
   DEBIANBASE="$(echo "${DOWNLOADEDRAWDATA}" | grep -i '^Codename:' | awk '{print $2}' | tr -d '\n')"
 fi
 echo "DEBIANBASE is ${DEBIANBASE}"
