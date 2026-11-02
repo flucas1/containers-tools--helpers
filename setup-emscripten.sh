@@ -37,7 +37,8 @@ fi
 done
 [ $SUCCESS -eq 1 ]
 
-EMSDKVERSION="$(${HELPERSPATH}/wget-with-retries.sh https://raw.githubusercontent.com/dotnet/runtimelab/refs/heads/feature/NativeAOT-LLVM/eng/pipelines/runtimelab/install-emscripten.ps1 - | grep '^./emsdk install' | awk '{print $3}')"
+DOWNLOADEDRAWDATA="$(${HELPERSPATH}/wget-with-retries.sh "https://raw.githubusercontent.com/dotnet/runtimelab/refs/heads/feature/NativeAOT-LLVM/eng/pipelines/runtimelab/install-emscripten.ps1" -)"
+EMSDKVERSION="$(echo "${DOWNLOADEDRAWDATA}" | grep '^./emsdk install' | awk '{print $3}')"
 [ "$EMSDKVERSION" != "" ]
 if [ "$EMSDKVERSION" = "3.1.56" ] ; then
   ARCHITECTURE="$(dpkg --print-architecture)"
