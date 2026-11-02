@@ -49,7 +49,9 @@ echo "DEBIANBASE is ${DEBIANBASE}"
 if [ "${DEBIANBASE}" = "" ] ; then
   DEBIANBASE="$(lsb_release -c -s)"
 else
+  DOWNLOADEDRAWFILE="$(mktemp)"
   DOWNLOADEDRAWDATA="$(${HELPERSPATH}/wget-with-retries.sh "https://deb.debian.org/debian/dists/${DEBIANBASE}/Release" -)"
+  rm -f "${DOWNLOADEDRAWFILE}"
   [ "${DOWNLOADEDRAWDATA}" != "" ]
   DEBIANBASE="$(echo "${DOWNLOADEDRAWDATA}" | grep -i '^Codename:' | awk '{print $2}' | tr -d '\n')"
 fi

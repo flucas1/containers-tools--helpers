@@ -174,10 +174,12 @@ if [ "${WINERC}" != "" ] ; then
 fi
 [ "${WINEBRANCH}" != "" ]
 
+DOWNLOADEDRAWFILE="$(mktemp)"
 #DOWNLOADEDRAWDATA="$(${HELPERSPATH}/wget-with-retries.sh "https://dl.winehq.org/wine/wine-mono/" -)"
 #[ "${DOWNLOADEDRAWDATA}" != "" ]
 #MONOVERSION="$(${HELPERSPATH}/wget-with-retries.sh "${DOWNLOADEDRAWDATA}" | xmlstarlet fo -R 2>/dev/null | xmlstarlet sel -t -v "//_:td[@class='indexcolname']/_:a" 2>/dev/null | tr -d "/" | grep -v - | tail -n +2 | sort -n | tail -n 1)"
 DOWNLOADEDRAWDATA="$(${HELPERSPATH}/wget-with-retries.sh "https://gitlab.winehq.org/wine/wine/-/raw/wine-${WINEBRANCH}/dlls/appwiz.cpl/addons.c" -)"
+rm -f "${DOWNLOADEDRAWFILE}"
 [ "${DOWNLOADEDRAWDATA}" != "" ]
 MONOVERSION="$(${HELPERSPATH}/wget-with-retries.sh "${DOWNLOADEDRAWDATA}" | grep "#define MONO_VERSION" | awk '{print $3}' | tr -d '"')"
 [ "${MONOVERSION}" != "" ]
@@ -192,10 +194,12 @@ if [ "${ARCHITECTURE}" = "arm64" ] ; then
   echo "dummy mono ${MONOVERSION}"
 fi
 
+DOWNLOADEDRAWFILE="$(mktemp)"
 #DOWNLOADEDRAWDATA="$(${HELPERSPATH}/wget-with-retries.sh "https://dl.winehq.org/wine/wine-gecko/" -)"
 #[ "${DOWNLOADEDRAWDATA}" != "" ]
 #GECKOVERSION="$(${HELPERSPATH}/wget-with-retries.sh "${DOWNLOADEDRAWDATA}" | xmlstarlet fo -R 2>/dev/null | xmlstarlet sel -t -v "//_:td[@class='indexcolname']/_:a" 2>/dev/null | tr -d "/" | grep -v - | tail -n +2 | sort -n | tail -n 1)"
 DOWNLOADEDRAWDATA="$(${HELPERSPATH}/wget-with-retries.sh "https://gitlab.winehq.org/wine/wine/-/raw/wine-${WINEBRANCH}/dlls/appwiz.cpl/addons.c" -)"
+rm -f "${DOWNLOADEDRAWFILE}"
 [ "${DOWNLOADEDRAWDATA}" != "" ]
 GECKOVERSION="$(${HELPERSPATH}/wget-with-retries.sh "${DOWNLOADEDRAWDATA}" | grep "#define GECKO_VERSION" | awk '{print $3}' | tr -d '"')"
 [ "${GECKOVERSION}" != "" ]
