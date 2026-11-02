@@ -38,7 +38,8 @@ done
 [ $SUCCESS -eq 1 ]
 
 DOWNLOADEDRAWFILE="$(mktemp)"
-DOWNLOADEDRAWDATA="$(${HELPERSPATH}/wget-with-retries.sh "https://raw.githubusercontent.com/dotnet/runtimelab/refs/heads/feature/NativeAOT-LLVM/eng/pipelines/runtimelab/install-emscripten.ps1" -)"
+"${HELPERSPATH}/wget-with-retries.sh" "https://raw.githubusercontent.com/dotnet/runtimelab/refs/heads/feature/NativeAOT-LLVM/eng/pipelines/runtimelab/install-emscripten.ps1" "${DOWNLOADEDRAWFILE}"
+DOWNLOADEDRAWDATA="$(cat "${DOWNLOADEDRAWFILE}")"
 rm -f "${DOWNLOADEDRAWFILE}"
 [ "${DOWNLOADEDRAWDATA}" != "" ]
 EMSDKVERSION="$(echo "${DOWNLOADEDRAWDATA}" | grep '^./emsdk install' | awk '{print $3}')"

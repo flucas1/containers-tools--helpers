@@ -16,7 +16,8 @@ ARCHITECTURE="$(dpkg --print-architecture)" ; if [ "${ARCHITECTURE}" = "amd64" ]
 LSBRELEASE="$(lsb_release -c | cut -f2)"
 
 DOWNLOADEDRAWFILE="$(mktemp)"
-DOWNLOADEDRAWDATA="$(${HELPERSPATH}/wget-with-retries.sh "https://qa.debian.org/madison.php?package=python3&table=debian&s=${LSBRELEASE}&text=on" -)"
+"${HELPERSPATH}/wget-with-retries.sh" "https://qa.debian.org/madison.php?package=python3&table=debian&s=${LSBRELEASE}&text=on" "${DOWNLOADEDRAWFILE}"
+DOWNLOADEDRAWDATA="$(cat "${DOWNLOADEDRAWFILE}")"
 rm -f "${DOWNLOADEDRAWFILE}"
 [ "${DOWNLOADEDRAWDATA}" != "" ]
 PYTHONVERSION="$(echo "${DOWNLOADEDRAWDATA}" | awk '{print $3}' | awk -F- '{print $1}' | head -n 1)"
@@ -33,7 +34,7 @@ LOCALCACHEFILENAME="${LOCALCACHEDIRECTORY}/${FILENAME}"
 if [ ! -f "${LOCALCACHEFILENAME}" ] ; then
   rm -f "${LOCALCACHEFILENAME}"
   mkdir -p "${LOCALCACHEDIRECTORY}"
-  ${HELPERSPATH}/wget-with-retries.sh "${DOWNLOADURL}" "${LOCALCACHEFILENAME}"
+  "${HELPERSPATH}/wget-with-retries.sh" "${DOWNLOADURL}" "${LOCALCACHEFILENAME}"
 fi
 [ -f "${LOCALCACHEFILENAME}" ]
 
