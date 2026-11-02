@@ -14,8 +14,8 @@ $WINEATOMIC reg add "HKCU\\SYSTEM\\CurrentControlSet\\Control\\FileSystem" /v Lo
 ARCHITECTURE="$(dpkg --print-architecture)" ; if [ "${ARCHITECTURE}" = "amd64" ] ; then PARTARCH="amd64" ; else if [ "${ARCHITECTURE}" = "arm64" ] ; then PARTARCH="arm64" ; fi ; fi
 [ "${PARTARCH}" != "" ]
 LSBRELEASE="$(lsb_release -c | cut -f2)"
-PYTHONRAWDATA="$(${HELPERSPATH}/wget-with-retries.sh "https://qa.debian.org/madison.php?package=python3&table=debian&s=${LSBRELEASE}&text=on" -)"
-PYTHONVERSION="$(echo "${PYTHONRAWDATA}" | awk '{print $3}' | awk -F- '{print $1}' | head -n 1)"
+DOWNLOADEDRAWDATA="$(${HELPERSPATH}/wget-with-retries.sh "https://qa.debian.org/madison.php?package=python3&table=debian&s=${LSBRELEASE}&text=on" -)"
+PYTHONVERSION="$(echo "${DOWNLOADEDRAWDATA}" | awk '{print $3}' | awk -F- '{print $1}' | head -n 1)"
 [ "${PYTHONVERSION}" != "" ]
 
 FILENAME="python-$PYTHONVERSION-${PARTARCH}.exe"
