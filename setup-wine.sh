@@ -181,7 +181,7 @@ DOWNLOADEDRAWDATA="$(cat "${DOWNLOADEDRAWFILE}")"
 rm -f "${DOWNLOADEDRAWFILE}"
 [ "${DOWNLOADEDRAWDATA}" != "" ]
 #MONOVERSION="$(${HELPERSPATH}/wget-with-retries.sh "${DOWNLOADEDRAWDATA}" | xmlstarlet fo -R 2>/dev/null | xmlstarlet sel -t -v "//_:td[@class='indexcolname']/_:a" 2>/dev/null | tr -d "/" | grep -v - | tail -n +2 | sort -n | tail -n 1)"
-MONOVERSION="$(${HELPERSPATH}/wget-with-retries.sh "${DOWNLOADEDRAWDATA}" | grep "#define MONO_VERSION" | awk '{print $3}' | tr -d '"')"
+MONOVERSION="$(echo "${DOWNLOADEDRAWDATA}" | grep "#define MONO_VERSION" | awk '{print $3}' | tr -d '"')"
 [ "${MONOVERSION}" != "" ]
 mkdir -p /usr/share/wine/mono/
 if [ "${ARCHITECTURE}" = "amd64" ] ; then
@@ -201,7 +201,7 @@ DOWNLOADEDRAWDATA="$(cat "${DOWNLOADEDRAWFILE}")"
 rm -f "${DOWNLOADEDRAWFILE}"
 [ "${DOWNLOADEDRAWDATA}" != "" ]
 #GECKOVERSION="$(${HELPERSPATH}/wget-with-retries.sh "${DOWNLOADEDRAWDATA}" | xmlstarlet fo -R 2>/dev/null | xmlstarlet sel -t -v "//_:td[@class='indexcolname']/_:a" 2>/dev/null | tr -d "/" | grep -v - | tail -n +2 | sort -n | tail -n 1)"
-GECKOVERSION="$(${HELPERSPATH}/wget-with-retries.sh "${DOWNLOADEDRAWDATA}" | grep "#define GECKO_VERSION" | awk '{print $3}' | tr -d '"')"
+GECKOVERSION="$(echo "${DOWNLOADEDRAWDATA}" | grep "#define GECKO_VERSION" | awk '{print $3}' | tr -d '"')"
 [ "${GECKOVERSION}" != "" ]
 mkdir -p /usr/share/wine/gecko/
 if [ "${ARCHITECTURE}" = "amd64" ] ; then
