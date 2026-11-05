@@ -15,6 +15,9 @@ else
   WINEBINARY="wine"
 fi
 
+export XDG_RUNTIME_DIR=/run/user/$(id -u)
+mkdir -p XDG_RUNTIME_DIR
+
 $WINEBOOTBINARY
 
 #echo "wineatomic -- pre"
