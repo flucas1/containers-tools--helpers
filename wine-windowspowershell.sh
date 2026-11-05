@@ -7,7 +7,7 @@ HELPERSPATH="/helpers"
 WINEATOMIC="/wine-atomic.sh"
 DIRECTINSTALL="$1"
 
-WINVER="$(${HELPERSPATH}/wine-getver.sh || true)"
+WINVER="$(${HELPERSPATH}/wine-getver.sh)"
 [ "${WINVER}" != "" ]
 
 ${HELPERSPATH}/wine-setver.sh winxp64

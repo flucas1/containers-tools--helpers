@@ -12,7 +12,7 @@ if [ "${DIRECTINSTALL}" = "yes" ] ; then
   #$WINEATOMIC reg delete "HKLM\\Software\\Wow6432Node\\Microsoft\\NET Framework Setup\\NDP" /f || true
   #$WINEATOMIC reg delete "HKLM\\Software\\Wow6432Node\\Microsoft\\.NETFramework" /f || true
 
-  WINVER="$(${HELPERSPATH}/wine-getver.sh || true)"
+  WINVER="$(${HELPERSPATH}/wine-getver.sh)"
   [ "${WINVER}" != "" ]
 
   ${HELPERSPATH}/wine-setver.sh winxp64

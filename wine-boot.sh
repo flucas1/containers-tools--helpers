@@ -40,12 +40,12 @@ $WINEATOMIC reg add "HKLM\\SYSTEM\\CurrentControlSet\\Control\\SecurityProviders
 
 $WINEATOMIC uninstaller --list
 
-WINVER="$(${HELPERSPATH}/wine-getver.sh || true)"
+WINVER="$(${HELPERSPATH}/wine-getver.sh)"
 [ "${WINVER}" != "" ]
 echo "the first saved WINVER is ${WINVER}"
 
 ${HELPERSPATH}/wine-setver.sh "${WINVER}"
 
-WINVER="$(${HELPERSPATH}/wine-getver.sh || true)"
+WINVER="$(${HELPERSPATH}/wine-getver.sh)"
 [ "${WINVER}" != "" ]
 echo "the second saved WINVER is ${WINVER}"
