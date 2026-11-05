@@ -29,7 +29,7 @@ if [ "${DIRECTINSTALL}" = "yes" ] ; then
   cp -r /tmp/vs_installer/Contents/. "$WINEPREFIX/drive_c/Program Files (x86)/Microsoft Visual Studio/Installer/"
   rm -rf "/tmp/vs_installer/"
 
-  #WINVER="$(${HELPERSPATH}/wine-getver.sh)"
+  #WINVER="$(${HELPERSPATH}/wine-getver.sh || true)"
   #[ "${WINVER}" != "" ]
   #${HELPERSPATH}/wine-setver.sh win11
   #${HELPERSPATH}/wget-with-retries.sh "https://aka.ms/vs/${VISUALSTUDIOVERSION}/${VISUALSTUDIOCHANNEL}/vs_BuildTools.exe" ./vs_buildtools.exe
