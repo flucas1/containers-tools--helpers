@@ -13,6 +13,7 @@ if [ "${DIRECTINSTALL}" = "yes" ] ; then
   #$WINEATOMIC reg delete "HKLM\\Software\\Wow6432Node\\Microsoft\\.NETFramework" /f || true
 
   WINVER="$(${HELPERSPATH}/wine-getver.sh)"
+  [ "${WINVER}" != "" ]
 
   ${HELPERSPATH}/wine-setver.sh winxp64
   $WINEATOMIC /home/wineuser/.cache/winetricks/dotnet20sp2/NetFx20SP2_x64.exe /q /norestart || true

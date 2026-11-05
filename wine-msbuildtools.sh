@@ -30,6 +30,7 @@ if [ "${DIRECTINSTALL}" = "yes" ] ; then
   rm -rf "/tmp/vs_installer/"
 
   #WINVER="$(${HELPERSPATH}/wine-getver.sh)"
+  #[ "${WINVER}" != "" ]
   #${HELPERSPATH}/wine-setver.sh win11
   #${HELPERSPATH}/wget-with-retries.sh "https://aka.ms/vs/${VISUALSTUDIOVERSION}/${VISUALSTUDIOCHANNEL}/vs_BuildTools.exe" ./vs_buildtools.exe
   #$WINEATOMIC ./vs_buildtools.exe --quiet --wait --noUpdateInstaller --layout C:\\VSLayout --lang en-US --add Microsoft.VisualStudio.Workload.VCTools || true

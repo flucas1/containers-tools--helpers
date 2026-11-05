@@ -8,6 +8,7 @@ WINEATOMIC="/wine-atomic.sh"
 DIRECTINSTALL="$1"
 
 WINVER="$(${HELPERSPATH}/wine-getver.sh)"
+[ "${WINVER}" != "" ]
 
 ${HELPERSPATH}/wine-setver.sh winxp64
 $WINEATOMIC /home/wineuser/.cache/winetricks/powershell10/WindowsServer2003.WindowsXP-KB926139-v2-x64-ENU.exe /quiet /passive /norestart
