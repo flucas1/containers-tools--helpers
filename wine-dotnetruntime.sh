@@ -18,7 +18,6 @@ install_dotnetruntime()
   PARTARCH="$1"
   DOTNETRUNTIMEVERSION="$2"
   
-  # follow "channel-version" and "releases.json" from previous json into https://builds.dotnet.microsoft.com/dotnet/release-metadata/8.0/releases.json and select right link
   mkdir -p "${HELPERSCACHE}"
   FILENAME="dotnet-runtime-${DOTNETRUNTIMEVERSION}-win-${PARTARCH}.exe"
   DOWNLOADURL="https://builds.dotnet.microsoft.com/dotnet/Runtime/${DOTNETRUNTIMEVERSION}/${FILENAME}"
