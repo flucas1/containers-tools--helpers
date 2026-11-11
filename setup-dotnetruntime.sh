@@ -22,7 +22,7 @@ install_dotnetruntime()
   #/usr/bin/dotnet-install.sh --channel ${DOTNETRUNTIMEVERSION} --install-dir "${TARGETPATH}" --verbose --runtime dotnet
 
   FILENAME="dotnet-runtime-${DOTNETRUNTIMEVERSION}-linux-${PARTARCH}.tar.gz"
-  DOWNLOADURL="https://dotnetcli.blob.core.windows.net/dotnet/Runtime/${DOTNETRUNTIMEVERSION}/${FILENAME}"
+  DOWNLOADURL="https://builds.dotnet.microsoft.com/dotnet/Runtime/${DOTNETRUNTIMEVERSION}/${FILENAME}"
   LOCALCACHEDIRECTORY="${DOTNETCACHEPATH}"
   if [ -z "${LOCALCACHEDIRECTORY}" ] ; then
     LOCALCACHEDIRECTORY="/tmp/dotnetcache"
@@ -54,7 +54,7 @@ fetch_dotnetruntime_version()
   SUPPORT="$1"
   LINENUMBER="$2"
 
-  ${HELPERSPATH}/wget-with-retries.sh https://dotnetcli.blob.core.windows.net/dotnet/release-metadata/releases-index.json - \
+  ${HELPERSPATH}/wget-with-retries.sh https://builds.dotnet.microsoft.com/dotnet/release-metadata/releases-index.json - \
     | jq -r '.["releases-index"][] | select(."support-phase"=="'"${SUPPORT}"'") | ."latest-runtime"' \
     | sort --version-sort --reverse \
     | awk -v n=$LINENUMBER 'NR==n'

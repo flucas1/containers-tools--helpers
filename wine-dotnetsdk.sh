@@ -19,9 +19,9 @@ install_dotnetsdk()
   DOTNETSDKVERSION="$2"
   DOTNETCACHEPATH="$3"
   
-  # follow "channel-version" and "releases.json" from previous json into https://dotnetcli.blob.core.windows.net/dotnet/release-metadata/8.0/releases.json and select right link
+  # follow "channel-version" and "releases.json" from previous json into https://builds.dotnet.microsoft.com/dotnet/release-metadata/8.0/releases.json and select right link
   FILENAME="dotnet-sdk-${DOTNETSDKVERSION}-win-${PARTARCH}.exe"
-  DOWNLOADURL="https://dotnetcli.blob.core.windows.net/dotnet/Sdk/${DOTNETSDKVERSION}/${FILENAME}"
+  DOWNLOADURL="https://builds.dotnet.microsoft.com/dotnet/Sdk/${DOTNETSDKVERSION}/${FILENAME}"
   LOCALCACHEDIRECTORY="${DOTNETCACHEPATH}"
   if [ -z "${LOCALCACHEDIRECTORY}" ] ; then
     LOCALCACHEDIRECTORY="/tmp/dotnetcache"
@@ -46,7 +46,7 @@ fetch_dotnetsdk_version()
   SUPPORT="$1"
   LINENUMBER="$2"
 
-  ${HELPERSPATH}/wget-with-retries.sh https://dotnetcli.blob.core.windows.net/dotnet/release-metadata/releases-index.json - \
+  ${HELPERSPATH}/wget-with-retries.sh https://builds.dotnet.microsoft.com/dotnet/release-metadata/releases-index.json - \
     | jq -r '.["releases-index"][] | select(."support-phase"=="'"${SUPPORT}"'") | ."latest-sdk"' \
     | sort --version-sort --reverse \
     | awk -v n=$LINENUMBER 'NR==n'

@@ -22,7 +22,7 @@ install_dotnetsdk()
   #/usr/bin/dotnet-install.sh --channel ${DOTNETSDKVERSION} --install-dir /opt/dotnet --verbose
 
   FILENAME="dotnet-sdk-${DOTNETSDKVERSION}-linux-${PARTARCH}.tar.gz"
-  DOWNLOADURL="https://dotnetcli.blob.core.windows.net/dotnet/Sdk/${DOTNETSDKVERSION}/${FILENAME}"
+  DOWNLOADURL="https://builds.dotnet.microsoft.com/dotnet/Sdk/${DOTNETSDKVERSION}/${FILENAME}"
   LOCALCACHEDIRECTORY="${DOTNETCACHEPATH}"
   if [ -z "${LOCALCACHEDIRECTORY}" ] ; then
     LOCALCACHEDIRECTORY="/tmp/dotnetcache"
@@ -58,7 +58,7 @@ fetch_dotnetsdk_version()
   SUPPORT="$1"
   LINENUMBER="$2"
 
-  ${HELPERSPATH}/wget-with-retries.sh https://dotnetcli.blob.core.windows.net/dotnet/release-metadata/releases-index.json - \
+  ${HELPERSPATH}/wget-with-retries.sh https://builds.dotnet.microsoft.com/dotnet/release-metadata/releases-index.json - \
     | jq -r '.["releases-index"][] | select(."support-phase"=="'"${SUPPORT}"'") | ."latest-sdk"' \
     | sort --version-sort --reverse \
     | awk -v n=$LINENUMBER 'NR==n'

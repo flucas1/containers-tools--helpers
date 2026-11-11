@@ -18,10 +18,10 @@ install_dotnetasp()
   PARTARCH="$1"
   DOTNETRUNTIMEVERSION="$2"
   
-  # follow "channel-version" and "releases.json" from previous json into https://dotnetcli.blob.core.windows.net/dotnet/release-metadata/8.0/releases.json and select right link
+  # follow "channel-version" and "releases.json" from previous json into https://builds.dotnet.microsoft.com/dotnet/release-metadata/8.0/releases.json and select right link
   mkdir -p "${HELPERSCACHE}"
   FILENAME="aspnetcore-runtime-${DOTNETRUNTIMEVERSION}-win-${PARTARCH}.exe"
-  DOWNLOADURL="https://dotnetcli.blob.core.windows.net/dotnet/aspnetcore/Runtime/${DOTNETRUNTIMEVERSION}/${FILENAME}"
+  DOWNLOADURL="https://builds.dotnet.microsoft.com/dotnet/aspnetcore/Runtime/${DOTNETRUNTIMEVERSION}/${FILENAME}"
   LOCALCACHEFILENAME="${HELPERSCACHE}/${FILENAME}"
   if [ ! -f "${LOCALCACHEFILENAME}" ] ; then
     ${HELPERSPATH}/wget-with-retries.sh "${DOWNLOADURL}" "${LOCALCACHEFILENAME}"
@@ -38,7 +38,7 @@ fetch_dotnetasp_version()
   SUPPORT="$1"
   LINENUMBER="$2"
 
-  ${HELPERSPATH}/wget-with-retries.sh https://dotnetcli.blob.core.windows.net/dotnet/release-metadata/releases-index.json - \
+  ${HELPERSPATH}/wget-with-retries.sh https://builds.dotnet.microsoft.com/dotnet/release-metadata/releases-index.json - \
     | jq -r '.["releases-index"][] | select(."support-phase"=="'"${SUPPORT}"'") | ."latest-runtime"' \
     | sort --version-sort --reverse \
     | awk -v n=$LINENUMBER 'NR==n'
