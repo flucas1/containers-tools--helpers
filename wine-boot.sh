@@ -21,7 +21,7 @@ else
   WINEBOOTBINARY="wineboot"
 fi
 
-timeout 60s $WINEBOOTBINARY --init
+timeout 60s xvfb-run -a $WINEBOOTBINARY --init
 
 $WINEATOMIC reg delete "HKLM\\System\\CurrentControlSet\\Services\\winebth" /f
 
