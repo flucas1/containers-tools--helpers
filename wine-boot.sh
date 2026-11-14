@@ -25,7 +25,7 @@ timeout 60s xvfb-run -a $WINEBOOTBINARY --init
 
 $WINEATOMIC reg delete "HKLM\\System\\CurrentControlSet\\Services\\winebth" /f
 
-$WINEATOMIC reg add "HKCU\\Software\\Wine\\Drivers" /v Graphics /t REG_SZ /d "" /f
+#$WINEATOMIC reg add "HKCU\\Software\\Wine\\Drivers" /v Graphics /t REG_SZ /d "" /f
 $WINEATOMIC reg add "HKCU\\Software\\Wine\\X11 Driver" /v UseXRandR /t REG_SZ /d Y /f
 $WINEATOMIC reg add "HKCU\\Software\\Wine\\X11 Driver" /v UseXVidMode /t REG_SZ /d N /f
 $WINEATOMIC reg add "HKLM\\Software\\Microsoft\\Windows NT\\CurrentVersion\\AeDebug" /v Auto /t REG_DWORD /d 1 /f
