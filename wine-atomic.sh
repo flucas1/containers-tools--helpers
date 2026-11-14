@@ -16,7 +16,7 @@ else
 fi
 
 export XDG_RUNTIME_DIR=/run/user/$(id -u)
-mkdir -p XDG_RUNTIME_DIR >&2
+mkdir -p "${XDG_RUNTIME_DIR}" >&2
 
 xvfb-run -a $WINEBOOTBINARY >&2
 
