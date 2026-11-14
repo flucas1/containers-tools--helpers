@@ -16,16 +16,16 @@ else
 fi
 
 export XDG_RUNTIME_DIR=/run/user/$(id -u)
-mkdir -p XDG_RUNTIME_DIR
+mkdir -p XDG_RUNTIME_DIR >&2
 
-xvfb-run -a $WINEBOOTBINARY
+xvfb-run -a $WINEBOOTBINARY >&2
 
 #echo "wineatomic -- pre" >&2
 xvfb-run -a $WINEBINARY "$@" | dos2unix --force
 #echo "wineatomic -- post" >&2
 
-timeout --kill-after=5s 30s $WINEBOOTBINARY -e || true
-timeout --kill-after=5s 30s $WINEBOOTBINARY -f || true
-timeout --kill-after=5s 30s $WINEBOOTBINARY -k || true
+timeout --kill-after=5s 30s $WINEBOOTBINARY -e >&2 || true
+timeout --kill-after=5s 30s $WINEBOOTBINARY -f >&2 || true
+timeout --kill-after=5s 30s $WINEBOOTBINARY -k >&2 || true
 
 #echo "wineatomic -- exitpoint" >&2
