@@ -25,6 +25,7 @@ xvfb-run -a $WINEBINARY "$@" | dos2unix --force
 #echo "wineatomic -- post" >&2
 
 timeout --kill-after=5s 30s $WINEBOOTBINARY -e >&2 || true
+timeout --kill-after=5s 30s wineserver -w >&2 || true
 timeout --kill-after=5s 30s $WINEBOOTBINARY -f >&2 || true
 timeout --kill-after=5s 30s $WINEBOOTBINARY -k >&2 || true
 
