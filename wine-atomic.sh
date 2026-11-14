@@ -21,7 +21,7 @@ mkdir -p XDG_RUNTIME_DIR
 $WINEBOOTBINARY
 
 #echo "wineatomic -- pre"
-$WINEBINARY "$@" | dos2unix --force
+xvfb-run -a $WINEBINARY "$@" | dos2unix --force
 #echo "wineatomic -- post"
 
 timeout --kill-after=5s 30s $WINEBOOTBINARY -e || true
