@@ -1,7 +1,7 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
 set -e
-set -o pipefail
+set -x
 
 # DO NOT ADD EXTRA STDOUT MESSAGES
 
@@ -17,16 +17,22 @@ fi
 
 export XDG_RUNTIME_DIR=/run/user/$(id -u)
 mkdir -p "${XDG_RUNTIME_DIR}" >&2
+chmod 700 "${XDG_RUNTIME_DIR}" >&2
 
-xvfb-run -a $WINEBOOTBINARY >&2
+xvfb-run -a bash -c '
+  set -e
+  set -o pipefail
 
-#echo "wineatomic -- pre" >&2
-xvfb-run -a $WINEBINARY "$@" | dos2unix --force
-#echo "wineatomic -- post" >&2
+  "$1" >&2
 
-timeout --kill-after=5s 30s $WINEBOOTBINARY -e >&2 || true
-timeout --kill-after=5s 30s wineserver -w >&2 || true
-timeout --kill-after=5s 30s $WINEBOOTBINARY -f >&2 || true
-timeout --kill-after=5s 30s $WINEBOOTBINARY -k >&2 || true
+  #echo "wineatomic -- pre" >&2
+  "$2" "${@:3}" | dos2unix --force
+  #echo "wineatomic -- post" >&2
+
+  timeout --kill-after=5s 30s "$1" -e >&2 || true
+  timeout --kill-after=5s 30s wineserver -w >&2 || true
+  timeout --kill-after=5s 30s "$1" -f >&2 || true
+  timeout --kill-after=5s 30s "$1" -k >&2 || true
+' _ "$WINEBOOTBINARY" "$WINEBINARY" "$@"
 
 #echo "wineatomic -- exitpoint" >&2
