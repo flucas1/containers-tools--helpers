@@ -35,7 +35,7 @@ checkLatestGithubVersion()
 PWSHVERSION="$(checkLatestGithubVersion PowerShell PowerShell | cut -c 2-)"
 [ "${PWSHVERSION}" != "" ]
 
-FILENAME="PowerShell-${PWSHVERSION}-win-${PARTARCH}.msi"
+FILENAME="PowerShell-${PWSHVERSION}.msixbundle"
 DOWNLOADURL="https://github.com/PowerShell/PowerShell/releases/download/v${PWSHVERSION}/${FILENAME}"
 LOCALCACHEFILENAME="${HELPERSCACHE}/${FILENAME}"
 if [ ! -f "${LOCALCACHEFILENAME}" ] ; then
