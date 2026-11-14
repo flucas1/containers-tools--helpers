@@ -1,7 +1,6 @@
 #!/usr/bin/env sh
 
 set -e
-set -x
 
 # DO NOT ADD EXTRA STDOUT MESSAGES
 
