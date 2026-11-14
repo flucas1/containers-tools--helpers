@@ -5,7 +5,7 @@ set -o pipefail
 
 # DO NOT ADD EXTRA STDOUT MESSAGES
 
-#echo "wineatomic -- entrypoint"
+#echo "wineatomic -- entrypoint" >&2
 
 if dpkg -s wine > /dev/null 2>&1 ; then
   WINEBOOTBINARY="wineboot-stable"
@@ -20,12 +20,12 @@ mkdir -p XDG_RUNTIME_DIR
 
 xvfb-run -a $WINEBOOTBINARY
 
-#echo "wineatomic -- pre"
+#echo "wineatomic -- pre" >&2
 xvfb-run -a $WINEBINARY "$@" | dos2unix --force
-#echo "wineatomic -- post"
+#echo "wineatomic -- post" >&2
 
 timeout --kill-after=5s 30s $WINEBOOTBINARY -e || true
 timeout --kill-after=5s 30s $WINEBOOTBINARY -f || true
 timeout --kill-after=5s 30s $WINEBOOTBINARY -k || true
 
-#echo "wineatomic -- exitpoint"
+#echo "wineatomic -- exitpoint" >&2
