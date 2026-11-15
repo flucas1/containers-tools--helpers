@@ -5,5 +5,5 @@ set -x
 
 WINEATOMIC="/wine-atomic.sh"
 
-WINEDEBUG="-all" timeout 30s unbuffer $WINEATOMIC winecfg /v 2>/dev/null || true
+WINEDEBUG="-all" timeout 30s unbuffer $WINEATOMIC winecfg /v 2>/dev/null | head -n 1 || true
 
