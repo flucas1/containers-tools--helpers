@@ -18,7 +18,7 @@ export XDG_RUNTIME_DIR=/run/user/$(id -u)
 mkdir -p "${XDG_RUNTIME_DIR}" >&2
 #chmod 700 "${XDG_RUNTIME_DIR}" >&2
 
-xvfb-run -a bash -c '
+LIBGL_ALWAYS_SOFTWARE=1 xvfb-run -a bash -c '
   set -e
   set -o pipefail
 
