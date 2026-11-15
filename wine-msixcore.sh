@@ -46,3 +46,5 @@ fi
 [ -f "${LOCALCACHEFILENAME}" ]
 
 $WINEATOMIC msiexec.exe /i "$(winepath ${LOCALCACHEFILENAME})" /quiet
+
+msixmgr.exe -?
