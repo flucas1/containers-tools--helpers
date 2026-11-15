@@ -9,3 +9,4 @@ DIRECTINSTALL="$1"
 $WINEATOMIC winget install Rustlang.Rustup
 
 rustc --version
+cargo --version
