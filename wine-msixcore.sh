@@ -37,8 +37,12 @@ MSIXCOREVERSION="$(checkLatestGithubVersion Microsoft msix-packaging)"
 
 FILENAME="msixmgrSetup-${MSIXCOREVERSION}.0.0-x64.msi"
 DOWNLOADURL="https://github.com/microsoft/msix-packaging/releases/download/MSIX-Core-1.2-release/${FILENAME}"
-mkdir -p "${HELPERSCACHE}"
-LOCALCACHEFILENAME="${HELPERSCACHE}/${FILENAME}"
+LOCALCACHEDIRECTORY="${ARG_CACHEPATH}"
+if [ -z "${LOCALCACHEDIRECTORY}" ] ; then
+  LOCALCACHEDIRECTORY="/tmp/dotnetcache"
+fi
+mkdir -p "${LOCALCACHEDIRECTORY}"
+LOCALCACHEFILENAME="${LOCALCACHEDIRECTORY}/${FILENAME}"
 if [ ! -f "${LOCALCACHEFILENAME}" ] ; then
   ${HELPERSPATH}/wget-with-retries.sh "${DOWNLOADURL}" "${LOCALCACHEFILENAME}"
 fi

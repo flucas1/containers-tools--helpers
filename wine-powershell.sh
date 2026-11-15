@@ -37,8 +37,12 @@ PWSHVERSION="$(checkLatestGithubVersion PowerShell PowerShell | cut -c 2-)"
 
 FILENAME="PowerShell-${PWSHVERSION}.msixbundle"
 DOWNLOADURL="https://github.com/PowerShell/PowerShell/releases/download/v${PWSHVERSION}/${FILENAME}"
-mkdir -p "${HELPERSCACHE}"
-LOCALCACHEFILENAME="${HELPERSCACHE}/${FILENAME}"
+LOCALCACHEDIRECTORY="${ARG_CACHEPATH}"
+if [ -z "${LOCALCACHEDIRECTORY}" ] ; then
+  LOCALCACHEDIRECTORY="/tmp/dotnetcache"
+fi
+mkdir -p "${LOCALCACHEDIRECTORY}"
+LOCALCACHEFILENAME="${LOCALCACHEDIRECTORY}/${FILENAME}"
 if [ ! -f "${LOCALCACHEFILENAME}" ] ; then
   ${HELPERSPATH}/wget-with-retries.sh "${DOWNLOADURL}" "${LOCALCACHEFILENAME}"
 fi
