@@ -17,11 +17,16 @@ install_dotnetruntime()
 {
   PARTARCH="$1"
   DOTNETRUNTIMEVERSION="$2"
-  
-  mkdir -p "${HELPERSCACHE}"
+  DOTNETCACHEPATH="$3"
+
   FILENAME="dotnet-runtime-${DOTNETRUNTIMEVERSION}-win-${PARTARCH}.exe"
   DOWNLOADURL="https://builds.dotnet.microsoft.com/dotnet/Runtime/${DOTNETRUNTIMEVERSION}/${FILENAME}"
-  LOCALCACHEFILENAME="${HELPERSCACHE}/${FILENAME}"
+  LOCALCACHEDIRECTORY="${DOTNETCACHEPATH}"
+  if [ -z "${LOCALCACHEDIRECTORY}" ] ; then
+    LOCALCACHEDIRECTORY="/tmp/dotnetcache"
+  fi
+  mkdir -p "${LOCALCACHEDIRECTORY}"
+  LOCALCACHEFILENAME="${LOCALCACHEDIRECTORY}/${FILENAME}"
   if [ ! -f "${LOCALCACHEFILENAME}" ] ; then
     ${HELPERSPATH}/wget-with-retries.sh "${DOWNLOADURL}" "${LOCALCACHEFILENAME}"
   fi
@@ -90,13 +95,13 @@ if [ "${ARCHITECTURE}" = "amd64" ] ; then PARTARCH="x64" ; else if [ "${ARCHITEC
 
 if [ "${DESIREDVERSION}" = "preview" ] ; then
   DOTNETRUNTIMEVERSION="$(getversion_dotnetruntime ${PARTARCH} preview 1)"
-  install_dotnetruntime "${PARTARCH}" "${DOTNETRUNTIMEVERSION}"
+  install_dotnetruntime "${PARTARCH}" "${DOTNETRUNTIMEVERSION}" "${ARG_CACHEPATH}"
 elif [ "${DESIREDVERSION}" = "newest" ] || [ "${DESIREDVERSION}" = "" ] ; then
   DOTNETRUNTIMEVERSION="$(getversion_dotnetruntime ${PARTARCH} active 1)"
-  install_dotnetruntime "${PARTARCH}" "${DOTNETRUNTIMEVERSION}"
+  install_dotnetruntime "${PARTARCH}" "${DOTNETRUNTIMEVERSION}" "${ARG_CACHEPATH}"
 elif [ "${DESIREDVERSION}" = "previous" ] ; then
   DOTNETRUNTIMEVERSION="$(getversion_dotnetruntime ${PARTARCH} active 2)"
-  install_dotnetruntime "${PARTARCH}" "${DOTNETRUNTIMEVERSION}"
+  install_dotnetruntime "${PARTARCH}" "${DOTNETRUNTIMEVERSION}" "${ARG_CACHEPATH}"
 else
   install_dotnetsdk "${PARTARCH}" "${DESIREDVERSION}"
 fi

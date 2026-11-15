@@ -17,11 +17,16 @@ install_dotnetasp()
 {
   PARTARCH="$1"
   DOTNETRUNTIMEVERSION="$2"
-  
-  mkdir -p "${HELPERSCACHE}"
+  DOTNETCACHEPATH="$3"
+
   FILENAME="aspnetcore-runtime-${DOTNETRUNTIMEVERSION}-win-${PARTARCH}.exe"
   DOWNLOADURL="https://builds.dotnet.microsoft.com/dotnet/aspnetcore/Runtime/${DOTNETRUNTIMEVERSION}/${FILENAME}"
-  LOCALCACHEFILENAME="${HELPERSCACHE}/${FILENAME}"
+  LOCALCACHEDIRECTORY="${DOTNETCACHEPATH}"
+  if [ -z "${LOCALCACHEDIRECTORY}" ] ; then
+    LOCALCACHEDIRECTORY="/tmp/dotnetcache"
+  fi
+  mkdir -p "${LOCALCACHEDIRECTORY}"
+  LOCALCACHEFILENAME="${LOCALCACHEDIRECTORY}/${FILENAME}"
   if [ ! -f "${LOCALCACHEFILENAME}" ] ; then
     ${HELPERSPATH}/wget-with-retries.sh "${DOWNLOADURL}" "${LOCALCACHEFILENAME}"
   fi
@@ -93,13 +98,13 @@ if [ "${ARCHITECTURE}" = "amd64" ] ; then PARTARCH="x64" ; else if [ "${ARCHITEC
 
 if [ "${DESIREDVERSION}" = "preview" ] ; then
   DOTNETASPVERSION="$(getversion_dotnetasp ${PARTARCH} preview 1)"
-  install_dotnetasp "${PARTARCH}" "${DOTNETASPVERSION}"
+  install_dotnetasp "${PARTARCH}" "${DOTNETASPVERSION}" "${ARG_CACHEPATH}"
 elif [ "${DESIREDVERSION}" = "newest" ] || [ "${DESIREDVERSION}" = "" ] ; then
   DOTNETASPVERSION="$(getversion_dotnetasp ${PARTARCH} active 1)"
-  install_dotnetasp "${PARTARCH}" "${DOTNETASPVERSION}"
+  install_dotnetasp "${PARTARCH}" "${DOTNETASPVERSION}" "${ARG_CACHEPATH}"
 elif [ "${DESIREDVERSION}" = "previous" ] ; then
   DOTNETASPVERSION="$(getversion_dotnetasp ${PARTARCH} active 2)"
-  install_dotnetasp "${PARTARCH}" "${DOTNETASPVERSION}"
+  install_dotnetasp "${PARTARCH}" "${DOTNETASPVERSION}" "${ARG_CACHEPATH}"
 else
   install_dotnetsdk "${PARTARCH}" "${DESIREDVERSION}"
 fi
