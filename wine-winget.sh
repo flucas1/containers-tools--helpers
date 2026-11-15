@@ -7,6 +7,7 @@ HELPERSPATH="/helpers"
 HELPERSCACHE="/helperscache"
 WINEATOMIC="/wine-atomic.sh"
 DIRECTINSTALL="$1"
+ARG_CACHEPATH="${2}"
 
 #$WINEATOMIC "C:\\Program Files\\dotnet\\dotnet.exe" tool install --global PowerShell
 

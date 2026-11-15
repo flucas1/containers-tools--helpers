@@ -6,12 +6,12 @@ set -x
 HELPERSPATH="/helpers"
 HELPERSCACHE="/helperscache"
 WINEATOMIC="/wine-atomic.sh"
-DIRECTINSTALL="$1"
-
-DESIREDVERSION="$2"
+DIRECTINSTALL="${1}"
+DESIREDVERSION="${2}"
 if [ "${DESIREDVERSION}" = "" ] ; then
   DESIREDVERSION="newest"
 fi
+ARG_CACHEPATH="${3}"
 
 install_dotnetasp()
 {
