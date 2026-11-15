@@ -51,4 +51,5 @@ fi
 $WINEATOMIC msixmgr.exe -AddPackage "$(winepath ${LOCALCACHEFILENAME})"
 
 #msixmgr.exe installs at user level
+$WINEATOMIC where pwsh.exe
 #$WINEATOMIC pwsh -version
