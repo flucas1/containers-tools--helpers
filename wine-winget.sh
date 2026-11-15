@@ -19,7 +19,6 @@ checkLatestGithubVersion()
   local PROJECT_OWNER="$1"
   local PROJECT_NAME="$2"
 
-  CHECKLATESTVERSION_REGEX="v\?[0-9][A-Za-z0-9\.-]*"
   CHECKLATESTVERSION_LATEST_URL="https://github.com/${PROJECT_OWNER}/${PROJECT_NAME}/releases/latest"
 
   DOWNLOADEDRAWFILE="$(mktemp)"
