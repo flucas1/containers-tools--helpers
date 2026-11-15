@@ -47,4 +47,4 @@ fi
 
 $WINEATOMIC msixmgr.exe -AddPackage "$(winepath ${LOCALCACHEFILENAME})"
 
-winget --version
+$WINEATOMIC winget --version

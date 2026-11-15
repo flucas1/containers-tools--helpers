@@ -47,5 +47,4 @@ fi
 
 $WINEATOMIC msixmgr.exe -AddPackage "$(winepath ${LOCALCACHEFILENAME})"
 
-pwsh -version
-#pwsh -Command "$PSVersionTable.PSVersion"
+$WINEATOMIC pwsh -version
