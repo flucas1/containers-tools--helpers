@@ -26,13 +26,13 @@ checkLatestGithubVersion()
   DOWNLOADEDRAWDATA="$(cat "${DOWNLOADEDRAWFILE}")"
   rm -f "${DOWNLOADEDRAWFILE}"
   [ "${DOWNLOADEDRAWDATA}" != "" ]
-  CHECKLATESTVERSION_TAG="$(echo "${DOWNLOADEDRAWDATA}" | grep -o "<title>Release $CHECKLATESTVERSION_REGEX" | grep -o "$CHECKLATESTVERSION_REGEX")"
+  CHECKLATESTVERSION_TAG="$(echo "${DOWNLOADEDRAWDATA}" | grep "<title>Release " | awk '{print $5}')"
   [ "${CHECKLATESTVERSION_TAG}" != "" ]
 
   echo "${CHECKLATESTVERSION_TAG}"
 }
 
-WINGETVERSION="$(checkLatestGithubVersion microsoft winget-cli | cut -c 2-)"
+WINGETVERSION="$(checkLatestGithubVersion microsoft winget-cli)"
 [ "${WINGETVERSION}" != "" ]
 
 FILENAME="Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle"
