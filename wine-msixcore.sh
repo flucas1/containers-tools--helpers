@@ -46,4 +46,4 @@ if [ ! -f "${LOCALCACHEFILENAME}" ] ; then
 fi
 [ -f "${LOCALCACHEFILENAME}" ]
 
-$WINEATOMIC msixmgr.exe -AddPackage "$(winepath ${LOCALCACHEFILENAME})"
+$WINEATOMIC msiexec.exe /i "$(winepath ${LOCALCACHEFILENAME})" /quiet
