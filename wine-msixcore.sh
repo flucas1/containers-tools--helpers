@@ -39,7 +39,7 @@ FILENAME="msixmgrSetup-${MSIXCOREVERSION}.0.0-x64.msi"
 DOWNLOADURL="https://github.com/microsoft/msix-packaging/releases/download/MSIX-Core-1.2-release/${FILENAME}"
 LOCALCACHEDIRECTORY="${ARG_CACHEPATH}"
 if [ -z "${LOCALCACHEDIRECTORY}" ] ; then
-  LOCALCACHEDIRECTORY="/tmp/dotnetcache"
+  LOCALCACHEDIRECTORY="/tmp/msixcache"
 fi
 mkdir -p "${LOCALCACHEDIRECTORY}"
 LOCALCACHEFILENAME="${LOCALCACHEDIRECTORY}/${FILENAME}"

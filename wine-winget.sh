@@ -39,7 +39,7 @@ FILENAME="Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle"
 DOWNLOADURL="https://github.com/microsoft/winget-cli/releases/download/v${WINGETVERSION}/${FILENAME}"
 LOCALCACHEDIRECTORY="${ARG_CACHEPATH}"
 if [ -z "${LOCALCACHEDIRECTORY}" ] ; then
-  LOCALCACHEDIRECTORY="/tmp/dotnetcache"
+  LOCALCACHEDIRECTORY="/tmp/wingetcache"
 fi
 mkdir -p "${LOCALCACHEDIRECTORY}"
 LOCALCACHEFILENAME="${LOCALCACHEDIRECTORY}/${FILENAME}"

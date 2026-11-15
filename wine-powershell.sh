@@ -39,7 +39,7 @@ FILENAME="PowerShell-${PWSHVERSION}.msixbundle"
 DOWNLOADURL="https://github.com/PowerShell/PowerShell/releases/download/v${PWSHVERSION}/${FILENAME}"
 LOCALCACHEDIRECTORY="${ARG_CACHEPATH}"
 if [ -z "${LOCALCACHEDIRECTORY}" ] ; then
-  LOCALCACHEDIRECTORY="/tmp/dotnetcache"
+  LOCALCACHEDIRECTORY="/tmp/powershellcache"
 fi
 mkdir -p "${LOCALCACHEDIRECTORY}"
 LOCALCACHEFILENAME="${LOCALCACHEDIRECTORY}/${FILENAME}"
