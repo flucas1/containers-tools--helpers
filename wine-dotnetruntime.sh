@@ -31,6 +31,7 @@ install_dotnetruntime()
     ${HELPERSPATH}/wget-with-retries.sh "${DOWNLOADURL}" "${LOCALCACHEFILENAME}"
   fi
   [ -f "${LOCALCACHEFILENAME}" ]
+
   $WINEATOMIC "$(winepath ${LOCALCACHEFILENAME})" /install /quiet /norestart
 }
 

@@ -33,8 +33,6 @@ install_dotnetasp()
   [ -f "${LOCALCACHEFILENAME}" ]
 
   $WINEATOMIC "$(winepath ${LOCALCACHEFILENAME})" /install /quiet /norestart
-
-  #$WINEATOMIC "C:\\Program Files\\dotnet\\dotnet.exe" --info
 }
 
 fetch_dotnetasp_version()

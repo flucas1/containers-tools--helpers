@@ -31,10 +31,10 @@ install_dotnetsdk()
     ${HELPERSPATH}/wget-with-retries.sh "${DOWNLOADURL}" "${LOCALCACHEFILENAME}"
   fi
   [ -f "${LOCALCACHEFILENAME}" ]
+
   $WINEATOMIC "$(winepath ${LOCALCACHEFILENAME})" /install /quiet /norestart
 
   #$WINEATOMIC "C:\\Program Files\\dotnet\\dotnet.exe" --info
-
   LISTSDK=$($WINEATOMIC "C:\\Program Files\\dotnet\\dotnet.exe" --list-sdks)
   echo "${LISTSDK}"
   [ "${LISTSDK}" != "" ]
