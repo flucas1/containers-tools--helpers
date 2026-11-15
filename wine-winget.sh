@@ -51,5 +51,6 @@ fi
 $WINEATOMIC msixmgr.exe -AddPackage "$(winepath ${LOCALCACHEFILENAME})"
 
 #msixmgr.exe installs at user level
-$WINEATOMIC where winget.exe
-#$WINEATOMIC winget --version
+WINGETPATH="$($WINEATOMIC where winget.exe | head -n 1)"
+[ "${WINGETPATH}" != "" ]
+$WINEATOMIC"${WINGETPATH}" --version
