@@ -45,6 +45,6 @@ if [ ! -f "${LOCALCACHEFILENAME}" ] ; then
 fi
 [ -f "${LOCALCACHEFILENAME}" ]
 
-$WINEATOMIC msiexec.exe /i "$(winepath ${LOCALCACHEFILENAME})" /quiet
+$WINEATOMIC msixmgr.exe -AddPackage "$(winepath ${LOCALCACHEFILENAME})"
 
 #pwsh -Command "$PSVersionTable.PSVersion"
