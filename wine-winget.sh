@@ -38,10 +38,9 @@ WINGETVERSION="$(checkLatestGithubVersion microsoft winget-cli)"
 
 FILENAME="Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle"
 DOWNLOADURL="https://github.com/microsoft/winget-cli/releases/download/v${WINGETVERSION}/${FILENAME}"
+mkdir -p "${HELPERSCACHE}"
 LOCALCACHEFILENAME="${HELPERSCACHE}/${FILENAME}"
 if [ ! -f "${LOCALCACHEFILENAME}" ] ; then
-  rm -f "${LOCALCACHEFILENAME}"
-  mkdir -p "${HELPERSCACHE}"
   ${HELPERSPATH}/wget-with-retries.sh "${DOWNLOADURL}" "${LOCALCACHEFILENAME}"
 fi
 [ -f "${LOCALCACHEFILENAME}" ]
