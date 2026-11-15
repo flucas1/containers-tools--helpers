@@ -35,7 +35,7 @@ checkLatestGithubVersion()
 WINGETVERSION="$(checkLatestGithubVersion microsoft winget-cli)"
 [ "${WINGETVERSION}" != "" ]
 
-FILENAME="Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle"
+FILENAME="Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.${WINGETVERSION}.msixbundle"
 DOWNLOADURL="https://github.com/microsoft/winget-cli/releases/download/v${WINGETVERSION}/${FILENAME}"
 LOCALCACHEDIRECTORY="${ARG_CACHEPATH}"
 if [ -z "${LOCALCACHEDIRECTORY}" ] ; then
