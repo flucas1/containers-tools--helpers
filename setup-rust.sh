@@ -5,5 +5,6 @@ set -x
 
 HELPERSPATH="/helpers"
 
-${HELPERSPATH}/apt-retry-install.sh rust
+${HELPERSPATH}/apt-retry-install.sh rustc
+${HELPERSPATH}/apt-retry-install.sh cargo
 
